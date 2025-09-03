@@ -136,9 +136,7 @@ def summarize_and_tabulate(scenario, df):
 
 **Key Internal vs External Metrics:**  
 - Internal Adoption (avg): {df['usage'].mean():.1f}  
-- External Adoption (avg): {df['External Adoption'].mean():.1f}  
 - Internal Reliability (sentiment proxy): {df['sentiment'].mean():.2f}  
-- External Reliability (simulated): {df['External Reliability'].mean():.2f}  
 
 **Divergence Analysis:**  
 - Clustering detected 3 risk clusters; top-risk features mostly in cluster 0.  
