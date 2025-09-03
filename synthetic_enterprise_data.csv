@@ -1,0 +1,1441 @@
+date,product,feature,region,team,role,usage,sentiment,support_tickets,anomaly_flag,missing_data_flag,time_lag_flag,conflicting_signal_flag,subtle_pattern_flag
+2025-09-03,Azure AI,Copilot Chat,North America,Engineering,PM,96,0.83,2,0,0,0,0,0
+2025-09-03,Azure AI,Copilot Chat,Europe,Support,GPM,111,1.0,3,0,0,0,0,0
+2025-09-03,Azure AI,Copilot Chat,Asia,PM,GPM,87,0.56,4,0,0,0,0,0
+2025-09-03,Azure AI,Copilot Chat,LATAM,Engineering,PM,110,0.27,3,0,0,1,0,0
+2025-09-03,Azure AI,Auto Insights,North America,Sales,PM,92,0.74,8,0,0,0,0,0
+2025-09-03,Azure AI,Auto Insights,Europe,Engineering,PM,97,0.31,4,0,0,1,0,0
+2025-09-03,Azure AI,Auto Insights,Asia,PM,GPM,108,0.91,3,0,0,0,0,0
+2025-09-03,Azure AI,Auto Insights,LATAM,Engineering,GPM,80,0.89,6,0,0,0,0,0
+2025-09-03,Azure AI,Predictive Alerts,North America,Sales,GPM,100,0.62,1,0,0,0,0,0
+2025-09-03,Azure AI,Predictive Alerts,Europe,Sales,Director,116,0.69,3,0,0,1,0,0
+2025-09-03,Azure AI,Predictive Alerts,Asia,Engineering,GPM,110,0.75,6,0,0,0,0,0
+2025-09-03,Azure AI,Predictive Alerts,LATAM,Sales,Director,112,0.76,3,0,0,0,0,0
+2025-09-03,Azure AI,Workflow Automation,North America,Support,GPM,100,0.75,5,0,0,0,0,0
+2025-09-03,Azure AI,Workflow Automation,Europe,PM,Director,93,0.69,4,0,0,0,0,0
+2025-09-03,Azure AI,Workflow Automation,Asia,Engineering,PM,107,0.98,4,0,0,0,0,0
+2025-09-03,Azure AI,Workflow Automation,LATAM,Sales,PM,91,0.98,4,0,0,1,0,0
+2025-09-03,Power Platform,Copilot Chat,North America,Support,Director,113,0.91,3,0,0,0,0,0
+2025-09-03,Power Platform,Copilot Chat,Europe,Support,PM,95,0.81,6,0,0,0,0,0
+2025-09-03,Power Platform,Copilot Chat,Asia,Sales,PM,85,1.07,5,0,0,0,0,0
+2025-09-03,Power Platform,Copilot Chat,LATAM,Sales,PM,102,0.79,6,0,0,0,0,0
+2025-09-03,Power Platform,Auto Insights,North America,Support,Director,100,0.51,2,0,0,1,0,0
+2025-09-03,Power Platform,Auto Insights,Europe,PM,PM,96,0.9,9,0,0,0,0,0
+2025-09-03,Power Platform,Auto Insights,Asia,Engineering,GPM,102,0.71,11,0,0,0,0,1
+2025-09-03,Power Platform,Auto Insights,LATAM,Support,PM,95,0.47,2,0,0,0,0,0
+2025-09-03,Power Platform,Predictive Alerts,North America,PM,PM,103,0.52,4,0,0,0,0,0
+2025-09-03,Power Platform,Predictive Alerts,Europe,Sales,Director,104,0.63,6,0,0,0,0,0
+2025-09-03,Power Platform,Predictive Alerts,Asia,Sales,Director,106,0.63,8,0,0,0,0,0
+2025-09-03,Power Platform,Predictive Alerts,LATAM,PM,Director,108,0.64,1,0,0,0,0,0
+2025-09-03,Power Platform,Workflow Automation,North America,Support,GPM,99,0.05,5,0,0,0,0,0
+2025-09-03,Power Platform,Workflow Automation,Europe,Support,PM,112,0.5,3,0,0,0,0,0
+2025-09-03,Power Platform,Workflow Automation,Asia,PM,GPM,97,1.13,5,0,0,0,0,0
+2025-09-03,Power Platform,Workflow Automation,LATAM,PM,CVP,105,0.31,2,0,0,0,0,0
+2025-09-03,Dynamics 365,Copilot Chat,North America,Sales,Director,106,0.77,7,0,0,1,0,0
+2025-09-03,Dynamics 365,Copilot Chat,Europe,PM,Director,112,0.82,7,0,0,1,0,0
+2025-09-03,Dynamics 365,Copilot Chat,Asia,Engineering,GPM,84,1.08,7,0,0,0,0,0
+2025-09-03,Dynamics 365,Copilot Chat,LATAM,Engineering,Director,98,0.91,2,0,0,0,0,0
+2025-09-03,Dynamics 365,Auto Insights,North America,Sales,Director,83,0.61,7,0,0,0,0,0
+2025-09-03,Dynamics 365,Auto Insights,Europe,Engineering,GPM,102,0.75,3,0,0,0,0,0
+2025-09-03,Dynamics 365,Auto Insights,Asia,Support,GPM,86,0.8,6,1,0,0,0,0
+2025-09-03,Dynamics 365,Auto Insights,LATAM,Sales,CVP,82,1.01,8,0,0,0,0,0
+2025-09-03,Dynamics 365,Predictive Alerts,North America,Sales,GPM,99,0.53,6,0,0,0,0,0
+2025-09-03,Dynamics 365,Predictive Alerts,Europe,Support,GPM,105,0.58,8,0,0,0,0,0
+2025-09-03,Dynamics 365,Predictive Alerts,Asia,PM,Director,103,0.68,2,0,0,1,0,0
+2025-09-03,Dynamics 365,Predictive Alerts,LATAM,Sales,CVP,112,0.95,5,0,0,0,0,0
+2025-09-03,Dynamics 365,Workflow Automation,North America,Support,GPM,105,0.72,6,0,0,0,0,0
+2025-09-03,Dynamics 365,Workflow Automation,Europe,PM,CVP,91,1.01,1,0,0,0,0,0
+2025-09-03,Dynamics 365,Workflow Automation,Asia,Engineering,PM,116,1.0,7,0,1,0,0,0
+2025-09-03,Dynamics 365,Workflow Automation,LATAM,Engineering,GPM,95,0.71,2,0,0,0,0,0
+2025-09-02,Azure AI,Copilot Chat,North America,PM,CVP,104,0.85,4,0,0,0,0,0
+2025-09-02,Azure AI,Copilot Chat,Europe,Engineering,CVP,84,0.64,5,0,0,0,0,0
+2025-09-02,Azure AI,Copilot Chat,Asia,Sales,CVP,80,0.82,4,0,0,0,0,0
+2025-09-02,Azure AI,Copilot Chat,LATAM,Support,PM,73,0.85,6,0,0,0,0,0
+2025-09-02,Azure AI,Auto Insights,North America,Engineering,Director,91,1.04,6,0,0,0,0,0
+2025-09-02,Azure AI,Auto Insights,Europe,Support,PM,104,0.88,4,0,0,0,0,0
+2025-09-02,Azure AI,Auto Insights,Asia,Support,CVP,90,0.71,7,0,0,1,0,0
+2025-09-02,Azure AI,Auto Insights,LATAM,PM,CVP,102,0.53,4,0,0,0,0,0
+2025-09-02,Azure AI,Predictive Alerts,North America,Engineering,Director,103,0.47,3,0,0,1,0,0
+2025-09-02,Azure AI,Predictive Alerts,Europe,PM,PM,95,0.75,6,0,0,1,0,0
+2025-09-02,Azure AI,Predictive Alerts,Asia,Support,GPM,86,0.72,5,0,0,0,0,0
+2025-09-02,Azure AI,Predictive Alerts,LATAM,PM,Director,101,0.67,6,0,0,0,0,0
+2025-09-02,Azure AI,Workflow Automation,North America,PM,PM,115,0.88,5,0,0,0,0,0
+2025-09-02,Azure AI,Workflow Automation,Europe,Support,CVP,115,0.72,4,0,0,0,0,0
+2025-09-02,Azure AI,Workflow Automation,Asia,Engineering,PM,95,0.65,6,0,0,0,0,0
+2025-09-02,Azure AI,Workflow Automation,LATAM,Support,Director,90,0.5,6,0,0,0,0,0
+2025-09-02,Power Platform,Copilot Chat,North America,PM,PM,119,0.8,8,0,1,0,0,0
+2025-09-02,Power Platform,Copilot Chat,Europe,PM,PM,87,0.74,4,0,0,0,0,0
+2025-09-02,Power Platform,Copilot Chat,Asia,Engineering,CVP,95,0.86,5,0,0,0,0,0
+2025-09-02,Power Platform,Copilot Chat,LATAM,Engineering,GPM,98,0.71,3,0,0,1,0,0
+2025-09-02,Power Platform,Auto Insights,North America,PM,CVP,88,1.21,4,0,0,0,0,0
+2025-09-02,Power Platform,Auto Insights,Europe,PM,Director,102,0.71,6,0,0,1,0,0
+2025-09-02,Power Platform,Auto Insights,Asia,Sales,GPM,96,0.48,1,0,0,0,0,0
+2025-09-02,Power Platform,Auto Insights,LATAM,PM,Director,91,1.05,2,0,0,0,0,0
+2025-09-02,Power Platform,Predictive Alerts,North America,Sales,Director,92,0.86,7,0,0,0,0,0
+2025-09-02,Power Platform,Predictive Alerts,Europe,Sales,CVP,89,0.51,6,0,0,0,0,0
+2025-09-02,Power Platform,Predictive Alerts,Asia,Engineering,GPM,101,0.74,7,0,0,0,0,0
+2025-09-02,Power Platform,Predictive Alerts,LATAM,PM,PM,92,0.68,5,0,0,0,0,0
+2025-09-02,Power Platform,Workflow Automation,North America,Support,PM,93,0.91,1,0,0,0,0,0
+2025-09-02,Power Platform,Workflow Automation,Europe,PM,GPM,103,0.79,6,0,0,0,0,0
+2025-09-02,Power Platform,Workflow Automation,Asia,Engineering,PM,103,0.4,8,0,0,0,0,0
+2025-09-02,Power Platform,Workflow Automation,LATAM,Engineering,GPM,78,0.54,4,0,0,0,0,0
+2025-09-02,Dynamics 365,Copilot Chat,North America,Engineering,PM,98,0.8,4,0,0,1,0,0
+2025-09-02,Dynamics 365,Copilot Chat,Europe,Support,PM,98,0.81,9,1,0,0,0,0
+2025-09-02,Dynamics 365,Copilot Chat,Asia,PM,Director,89,0.48,8,0,0,0,0,0
+2025-09-02,Dynamics 365,Copilot Chat,LATAM,Sales,GPM,82,0.91,3,0,0,0,0,0
+2025-09-02,Dynamics 365,Auto Insights,North America,PM,CVP,104,0.43,2,0,0,1,0,0
+2025-09-02,Dynamics 365,Auto Insights,Europe,PM,CVP,96,0.82,9,0,0,0,0,0
+2025-09-02,Dynamics 365,Auto Insights,Asia,Sales,GPM,94,0.69,5,0,0,1,0,0
+2025-09-02,Dynamics 365,Auto Insights,LATAM,Engineering,PM,99,0.75,7,0,0,0,0,0
+2025-09-02,Dynamics 365,Predictive Alerts,North America,Sales,Director,109,0.98,4,0,0,0,0,0
+2025-09-02,Dynamics 365,Predictive Alerts,Europe,Sales,CVP,84,0.59,8,0,0,0,0,0
+2025-09-02,Dynamics 365,Predictive Alerts,Asia,Sales,PM,107,0.6,8,0,0,0,0,0
+2025-09-02,Dynamics 365,Predictive Alerts,LATAM,Engineering,PM,106,0.74,7,0,0,0,0,0
+2025-09-02,Dynamics 365,Workflow Automation,North America,Sales,Director,107,0.78,1,0,0,1,0,0
+2025-09-02,Dynamics 365,Workflow Automation,Europe,Engineering,GPM,104,0.78,7,0,0,0,0,0
+2025-09-02,Dynamics 365,Workflow Automation,Asia,PM,GPM,120,0.66,4,0,0,1,0,0
+2025-09-02,Dynamics 365,Workflow Automation,LATAM,Sales,GPM,87,0.62,1,0,0,0,0,0
+2025-09-01,Azure AI,Copilot Chat,North America,Sales,GPM,105,0.41,4,0,0,0,0,0
+2025-09-01,Azure AI,Copilot Chat,Europe,Support,CVP,123,0.26,7,0,0,0,1,0
+2025-09-01,Azure AI,Copilot Chat,Asia,PM,PM,96,0.8,7,0,0,0,0,0
+2025-09-01,Azure AI,Copilot Chat,LATAM,Sales,PM,109,0.69,3,0,0,0,0,0
+2025-09-01,Azure AI,Auto Insights,North America,Engineering,PM,102,0.57,1,0,0,0,0,0
+2025-09-01,Azure AI,Auto Insights,Europe,Engineering,GPM,103,0.9,5,0,1,0,0,0
+2025-09-01,Azure AI,Auto Insights,Asia,PM,CVP,100,0.8,1,0,0,0,0,0
+2025-09-01,Azure AI,Auto Insights,LATAM,Sales,CVP,71,1.06,5,0,0,0,0,0
+2025-09-01,Azure AI,Predictive Alerts,North America,PM,CVP,106,1.06,7,0,0,0,0,0
+2025-09-01,Azure AI,Predictive Alerts,Europe,Engineering,GPM,101,0.77,1,0,0,0,0,0
+2025-09-01,Azure AI,Predictive Alerts,Asia,Sales,PM,95,0.82,7,0,0,0,0,0
+2025-09-01,Azure AI,Predictive Alerts,LATAM,Sales,Director,92,0.93,7,0,0,0,0,0
+2025-09-01,Azure AI,Workflow Automation,North America,Sales,Director,107,0.37,6,0,0,0,0,0
+2025-09-01,Azure AI,Workflow Automation,Europe,Sales,CVP,100,0.59,6,1,0,0,0,0
+2025-09-01,Azure AI,Workflow Automation,Asia,PM,GPM,95,0.39,2,0,0,0,0,0
+2025-09-01,Azure AI,Workflow Automation,LATAM,Support,GPM,92,0.65,3,0,0,0,0,0
+2025-09-01,Power Platform,Copilot Chat,North America,Engineering,PM,112,0.91,2,0,0,1,0,0
+2025-09-01,Power Platform,Copilot Chat,Europe,Support,PM,74,0.75,4,0,1,1,0,0
+2025-09-01,Power Platform,Copilot Chat,Asia,Engineering,CVP,104,0.9,3,0,0,0,0,0
+2025-09-01,Power Platform,Copilot Chat,LATAM,PM,PM,84,0.12,10,0,0,0,0,0
+2025-09-01,Power Platform,Auto Insights,North America,Engineering,GPM,105,0.48,4,1,0,0,0,0
+2025-09-01,Power Platform,Auto Insights,Europe,Engineering,PM,109,1.03,10,0,0,0,0,0
+2025-09-01,Power Platform,Auto Insights,Asia,PM,CVP,96,0.52,4,0,0,0,0,0
+2025-09-01,Power Platform,Auto Insights,LATAM,Engineering,GPM,99,1.01,3,0,0,0,0,0
+2025-09-01,Power Platform,Predictive Alerts,North America,Engineering,PM,102,0.98,4,0,0,0,0,0
+2025-09-01,Power Platform,Predictive Alerts,Europe,Sales,Director,96,0.81,5,0,0,0,0,0
+2025-09-01,Power Platform,Predictive Alerts,Asia,Support,GPM,93,0.67,4,0,0,1,0,0
+2025-09-01,Power Platform,Predictive Alerts,LATAM,Support,GPM,99,0.67,6,0,0,0,0,0
+2025-09-01,Power Platform,Workflow Automation,North America,Support,CVP,97,0.64,6,0,0,0,0,0
+2025-09-01,Power Platform,Workflow Automation,Europe,PM,Director,89,0.85,3,0,0,0,0,0
+2025-09-01,Power Platform,Workflow Automation,Asia,Sales,Director,92,0.68,8,0,0,0,0,0
+2025-09-01,Power Platform,Workflow Automation,LATAM,Engineering,PM,93,1.22,3,0,0,0,0,0
+2025-09-01,Dynamics 365,Copilot Chat,North America,Sales,PM,100,0.58,9,0,0,0,0,0
+2025-09-01,Dynamics 365,Copilot Chat,Europe,Engineering,GPM,102,0.84,4,0,0,0,0,0
+2025-09-01,Dynamics 365,Copilot Chat,Asia,Support,GPM,105,0.48,8,0,0,0,0,0
+2025-09-01,Dynamics 365,Copilot Chat,LATAM,Support,PM,73,0.64,4,0,0,0,0,0
+2025-09-01,Dynamics 365,Auto Insights,North America,PM,Director,103,0.7,6,0,0,0,0,0
+2025-09-01,Dynamics 365,Auto Insights,Europe,Support,GPM,109,0.87,2,0,0,1,0,0
+2025-09-01,Dynamics 365,Auto Insights,Asia,Sales,Director,104,0.69,5,0,0,0,0,0
+2025-09-01,Dynamics 365,Auto Insights,LATAM,Engineering,Director,101,0.86,4,0,0,0,0,0
+2025-09-01,Dynamics 365,Predictive Alerts,North America,Engineering,GPM,104,0.56,5,0,0,0,0,0
+2025-09-01,Dynamics 365,Predictive Alerts,Europe,Support,PM,106,0.69,8,0,0,0,0,0
+2025-09-01,Dynamics 365,Predictive Alerts,Asia,Engineering,GPM,96,0.81,2,0,0,0,0,0
+2025-09-01,Dynamics 365,Predictive Alerts,LATAM,Support,Director,108,0.85,2,0,0,0,0,0
+2025-09-01,Dynamics 365,Workflow Automation,North America,PM,Director,125,0.72,4,0,0,0,0,0
+2025-09-01,Dynamics 365,Workflow Automation,Europe,PM,Director,96,0.51,8,0,0,1,0,0
+2025-09-01,Dynamics 365,Workflow Automation,Asia,Sales,Director,99,0.85,4,0,0,0,0,0
+2025-09-01,Dynamics 365,Workflow Automation,LATAM,Engineering,PM,75,0.76,2,0,0,0,0,0
+2025-08-31,Azure AI,Copilot Chat,North America,Sales,Director,96,0.94,3,0,0,0,0,0
+2025-08-31,Azure AI,Copilot Chat,Europe,Engineering,PM,129,0.57,4,0,0,0,0,0
+2025-08-31,Azure AI,Copilot Chat,Asia,Support,GPM,101,0.99,6,0,0,0,0,0
+2025-08-31,Azure AI,Copilot Chat,LATAM,Support,GPM,103,1.06,2,0,0,0,0,0
+2025-08-31,Azure AI,Auto Insights,North America,Sales,CVP,110,0.87,9,0,0,0,0,0
+2025-08-31,Azure AI,Auto Insights,Europe,Engineering,PM,110,0.54,8,0,0,0,0,0
+2025-08-31,Azure AI,Auto Insights,Asia,Engineering,GPM,88,0.66,6,0,0,0,0,0
+2025-08-31,Azure AI,Auto Insights,LATAM,Engineering,Director,108,0.53,5,0,0,1,0,0
+2025-08-31,Azure AI,Predictive Alerts,North America,PM,CVP,96,0.82,4,0,0,0,0,0
+2025-08-31,Azure AI,Predictive Alerts,Europe,PM,PM,84,0.77,4,0,0,0,0,0
+2025-08-31,Azure AI,Predictive Alerts,Asia,Support,Director,110,0.7,1,0,0,0,0,0
+2025-08-31,Azure AI,Predictive Alerts,LATAM,Engineering,Director,109,0.96,4,0,0,0,0,0
+2025-08-31,Azure AI,Workflow Automation,North America,PM,GPM,104,0.94,5,0,0,0,0,0
+2025-08-31,Azure AI,Workflow Automation,Europe,Engineering,Director,66,0.82,6,0,0,0,0,0
+2025-08-31,Azure AI,Workflow Automation,Asia,Sales,GPM,110,0.48,6,0,0,0,0,0
+2025-08-31,Azure AI,Workflow Automation,LATAM,PM,GPM,81,0.69,4,0,0,0,0,0
+2025-08-31,Power Platform,Copilot Chat,North America,PM,CVP,109,0.59,3,0,0,0,0,0
+2025-08-31,Power Platform,Copilot Chat,Europe,Engineering,GPM,120,0.7,6,0,0,1,0,0
+2025-08-31,Power Platform,Copilot Chat,Asia,Support,CVP,103,0.55,6,0,0,0,0,0
+2025-08-31,Power Platform,Copilot Chat,LATAM,PM,Director,99,0.54,7,0,0,0,0,0
+2025-08-31,Power Platform,Auto Insights,North America,PM,PM,99,0.57,4,0,0,0,0,0
+2025-08-31,Power Platform,Auto Insights,Europe,Sales,PM,113,0.82,4,0,0,0,0,0
+2025-08-31,Power Platform,Auto Insights,Asia,Sales,GPM,100,0.91,7,0,0,0,0,0
+2025-08-31,Power Platform,Auto Insights,LATAM,PM,CVP,117,0.8,6,1,0,0,0,0
+2025-08-31,Power Platform,Predictive Alerts,North America,Support,Director,90,0.51,7,1,0,0,0,0
+2025-08-31,Power Platform,Predictive Alerts,Europe,PM,GPM,89,0.78,2,0,0,0,0,0
+2025-08-31,Power Platform,Predictive Alerts,Asia,Engineering,GPM,114,0.54,8,0,0,0,0,0
+2025-08-31,Power Platform,Predictive Alerts,LATAM,Sales,Director,89,0.82,3,0,0,0,0,0
+2025-08-31,Power Platform,Workflow Automation,North America,Support,PM,104,0.9,6,0,0,0,0,0
+2025-08-31,Power Platform,Workflow Automation,Europe,Support,Director,91,0.61,5,0,0,0,0,0
+2025-08-31,Power Platform,Workflow Automation,Asia,Sales,Director,108,0.46,6,0,0,1,0,0
+2025-08-31,Power Platform,Workflow Automation,LATAM,Engineering,PM,86,0.87,5,0,0,0,0,0
+2025-08-31,Dynamics 365,Copilot Chat,North America,Support,GPM,107,0.59,4,0,0,0,0,0
+2025-08-31,Dynamics 365,Copilot Chat,Europe,Support,PM,94,0.86,3,0,0,0,0,0
+2025-08-31,Dynamics 365,Copilot Chat,Asia,Engineering,CVP,103,0.85,5,0,0,0,0,0
+2025-08-31,Dynamics 365,Copilot Chat,LATAM,Support,Director,105,0.57,8,0,0,0,0,0
+2025-08-31,Dynamics 365,Auto Insights,North America,Sales,PM,103,0.72,6,0,0,0,0,0
+2025-08-31,Dynamics 365,Auto Insights,Europe,Sales,GPM,92,0.38,2,0,0,0,0,0
+2025-08-31,Dynamics 365,Auto Insights,Asia,Support,PM,99,0.4,2,0,0,0,0,0
+2025-08-31,Dynamics 365,Auto Insights,LATAM,Sales,PM,85,0.85,6,0,0,0,0,0
+2025-08-31,Dynamics 365,Predictive Alerts,North America,PM,Director,100,1.08,4,0,0,0,0,0
+2025-08-31,Dynamics 365,Predictive Alerts,Europe,Sales,PM,103,0.69,3,0,0,0,0,0
+2025-08-31,Dynamics 365,Predictive Alerts,Asia,Support,Director,80,0.56,4,0,0,0,0,0
+2025-08-31,Dynamics 365,Predictive Alerts,LATAM,Engineering,Director,96,0.77,4,0,0,0,0,0
+2025-08-31,Dynamics 365,Workflow Automation,North America,Support,CVP,113,0.71,1,0,0,0,0,0
+2025-08-31,Dynamics 365,Workflow Automation,Europe,Support,CVP,102,0.55,6,0,0,0,0,0
+2025-08-31,Dynamics 365,Workflow Automation,Asia,Support,GPM,94,0.98,9,0,0,0,0,0
+2025-08-31,Dynamics 365,Workflow Automation,LATAM,PM,CVP,88,0.65,2,0,0,0,0,0
+2025-08-30,Azure AI,Copilot Chat,North America,Sales,GPM,82,0.92,6,0,0,0,0,0
+2025-08-30,Azure AI,Copilot Chat,Europe,Support,CVP,127,0.46,1,0,0,0,1,0
+2025-08-30,Azure AI,Copilot Chat,Asia,Engineering,Director,108,0.81,7,1,0,0,0,0
+2025-08-30,Azure AI,Copilot Chat,LATAM,Support,GPM,95,0.64,6,0,0,0,0,0
+2025-08-30,Azure AI,Auto Insights,North America,Sales,Director,95,0.71,5,0,1,0,0,0
+2025-08-30,Azure AI,Auto Insights,Europe,Sales,CVP,104,0.8,3,0,0,0,0,0
+2025-08-30,Azure AI,Auto Insights,Asia,Sales,GPM,107,0.63,7,0,0,0,0,0
+2025-08-30,Azure AI,Auto Insights,LATAM,Sales,GPM,93,0.76,10,1,0,0,0,0
+2025-08-30,Azure AI,Predictive Alerts,North America,Engineering,Director,112,0.82,3,0,0,0,0,0
+2025-08-30,Azure AI,Predictive Alerts,Europe,Support,PM,87,0.11,5,1,0,0,0,0
+2025-08-30,Azure AI,Predictive Alerts,Asia,PM,Director,94,0.85,8,0,0,0,0,0
+2025-08-30,Azure AI,Predictive Alerts,LATAM,PM,GPM,97,0.8,4,1,0,0,0,0
+2025-08-30,Azure AI,Workflow Automation,North America,PM,PM,82,0.83,1,0,0,0,0,0
+2025-08-30,Azure AI,Workflow Automation,Europe,Engineering,GPM,93,0.89,8,0,0,0,0,0
+2025-08-30,Azure AI,Workflow Automation,Asia,Sales,PM,114,1.14,4,0,0,0,0,0
+2025-08-30,Azure AI,Workflow Automation,LATAM,Sales,CVP,101,0.44,4,0,0,0,0,0
+2025-08-30,Power Platform,Copilot Chat,North America,PM,CVP,94,0.57,4,0,0,0,0,0
+2025-08-30,Power Platform,Copilot Chat,Europe,Sales,CVP,85,0.7,9,0,0,0,0,0
+2025-08-30,Power Platform,Copilot Chat,Asia,PM,GPM,104,0.89,8,0,0,0,0,0
+2025-08-30,Power Platform,Copilot Chat,LATAM,Engineering,PM,98,0.95,3,0,0,0,0,0
+2025-08-30,Power Platform,Auto Insights,North America,Sales,GPM,112,0.63,5,0,0,0,0,0
+2025-08-30,Power Platform,Auto Insights,Europe,PM,CVP,104,1.12,5,0,0,0,0,0
+2025-08-30,Power Platform,Auto Insights,Asia,Engineering,GPM,111,0.39,1,0,0,0,0,0
+2025-08-30,Power Platform,Auto Insights,LATAM,Engineering,CVP,101,0.47,1,1,0,0,0,0
+2025-08-30,Power Platform,Predictive Alerts,North America,PM,CVP,94,0.72,2,0,0,0,0,0
+2025-08-30,Power Platform,Predictive Alerts,Europe,Support,CVP,93,1.01,5,0,0,1,0,0
+2025-08-30,Power Platform,Predictive Alerts,Asia,Sales,CVP,112,0.73,4,0,0,0,0,0
+2025-08-30,Power Platform,Predictive Alerts,LATAM,PM,CVP,108,0.75,7,0,0,0,0,0
+2025-08-30,Power Platform,Workflow Automation,North America,Sales,Director,87,0.78,5,0,0,0,0,0
+2025-08-30,Power Platform,Workflow Automation,Europe,PM,Director,99,0.98,2,0,0,0,0,0
+2025-08-30,Power Platform,Workflow Automation,Asia,Sales,GPM,101,1.1,4,0,0,0,0,0
+2025-08-30,Power Platform,Workflow Automation,LATAM,Support,CVP,98,0.7,6,0,0,1,0,0
+2025-08-30,Dynamics 365,Copilot Chat,North America,Engineering,Director,102,1.1,4,0,0,1,0,0
+2025-08-30,Dynamics 365,Copilot Chat,Europe,PM,Director,108,0.43,5,0,0,0,0,0
+2025-08-30,Dynamics 365,Copilot Chat,Asia,Support,Director,96,0.83,4,0,0,0,0,0
+2025-08-30,Dynamics 365,Copilot Chat,LATAM,Engineering,GPM,105,0.45,4,0,0,0,0,0
+2025-08-30,Dynamics 365,Auto Insights,North America,PM,GPM,123,0.94,5,0,0,0,0,0
+2025-08-30,Dynamics 365,Auto Insights,Europe,Sales,GPM,91,0.58,1,0,0,1,0,0
+2025-08-30,Dynamics 365,Auto Insights,Asia,PM,PM,102,0.81,9,0,0,0,0,0
+2025-08-30,Dynamics 365,Auto Insights,LATAM,Sales,CVP,95,1.23,2,0,0,0,0,0
+2025-08-30,Dynamics 365,Predictive Alerts,North America,Support,CVP,110,0.95,6,0,0,0,0,0
+2025-08-30,Dynamics 365,Predictive Alerts,Europe,Sales,PM,101,0.49,4,0,0,1,0,0
+2025-08-30,Dynamics 365,Predictive Alerts,Asia,PM,CVP,91,0.83,5,0,0,0,0,0
+2025-08-30,Dynamics 365,Predictive Alerts,LATAM,Sales,PM,97,0.79,4,0,0,1,0,0
+2025-08-30,Dynamics 365,Workflow Automation,North America,Sales,CVP,75,0.38,5,0,0,0,0,0
+2025-08-30,Dynamics 365,Workflow Automation,Europe,Engineering,Director,106,0.86,7,0,0,0,0,0
+2025-08-30,Dynamics 365,Workflow Automation,Asia,Support,CVP,106,0.83,6,0,0,0,0,0
+2025-08-30,Dynamics 365,Workflow Automation,LATAM,Sales,GPM,92,0.72,7,0,0,0,0,0
+2025-08-29,Azure AI,Copilot Chat,North America,Sales,GPM,87,0.6,9,0,0,0,0,0
+2025-08-29,Azure AI,Copilot Chat,Europe,Support,CVP,93,0.53,5,0,0,0,0,0
+2025-08-29,Azure AI,Copilot Chat,Asia,Sales,PM,105,0.67,7,0,0,0,0,0
+2025-08-29,Azure AI,Copilot Chat,LATAM,Sales,Director,100,0.59,6,0,0,0,0,0
+2025-08-29,Azure AI,Auto Insights,North America,Sales,GPM,99,0.89,3,1,0,0,0,0
+2025-08-29,Azure AI,Auto Insights,Europe,Sales,GPM,103,0.44,2,1,0,0,0,0
+2025-08-29,Azure AI,Auto Insights,Asia,Engineering,CVP,106,0.48,6,0,0,0,0,0
+2025-08-29,Azure AI,Auto Insights,LATAM,Engineering,PM,106,0.52,1,0,0,0,0,0
+2025-08-29,Azure AI,Predictive Alerts,North America,Sales,GPM,125,0.62,3,0,0,0,0,0
+2025-08-29,Azure AI,Predictive Alerts,Europe,Sales,GPM,117,0.78,3,0,0,0,0,0
+2025-08-29,Azure AI,Predictive Alerts,Asia,Engineering,Director,92,0.77,1,0,0,0,0,0
+2025-08-29,Azure AI,Predictive Alerts,LATAM,Sales,Director,80,0.81,9,0,0,0,0,0
+2025-08-29,Azure AI,Workflow Automation,North America,PM,CVP,107,0.66,8,0,0,0,0,0
+2025-08-29,Azure AI,Workflow Automation,Europe,Support,Director,98,0.58,5,0,0,0,0,0
+2025-08-29,Azure AI,Workflow Automation,Asia,Sales,Director,79,0.6,3,0,0,0,0,0
+2025-08-29,Azure AI,Workflow Automation,LATAM,Sales,Director,114,0.99,4,0,0,0,0,0
+2025-08-29,Power Platform,Copilot Chat,North America,Engineering,CVP,96,0.57,7,0,0,0,0,0
+2025-08-29,Power Platform,Copilot Chat,Europe,Engineering,PM,90,0.9,8,0,0,0,0,0
+2025-08-29,Power Platform,Copilot Chat,Asia,Support,GPM,89,0.9,3,0,0,0,0,0
+2025-08-29,Power Platform,Copilot Chat,LATAM,Engineering,PM,96,0.88,4,0,0,0,0,0
+2025-08-29,Power Platform,Auto Insights,North America,Engineering,GPM,102,0.97,7,0,0,0,0,0
+2025-08-29,Power Platform,Auto Insights,Europe,PM,PM,95,0.23,5,0,0,0,0,0
+2025-08-29,Power Platform,Auto Insights,Asia,PM,GPM,81,1.11,2,0,0,0,0,0
+2025-08-29,Power Platform,Auto Insights,LATAM,PM,CVP,110,0.89,7,0,0,0,0,0
+2025-08-29,Power Platform,Predictive Alerts,North America,Engineering,GPM,115,0.87,3,0,0,0,0,0
+2025-08-29,Power Platform,Predictive Alerts,Europe,Sales,Director,95,0.25,3,0,0,0,0,0
+2025-08-29,Power Platform,Predictive Alerts,Asia,Support,GPM,106,0.83,1,0,0,0,0,0
+2025-08-29,Power Platform,Predictive Alerts,LATAM,Engineering,GPM,81,0.47,8,0,0,0,0,0
+2025-08-29,Power Platform,Workflow Automation,North America,Support,PM,108,0.86,5,0,0,0,0,0
+2025-08-29,Power Platform,Workflow Automation,Europe,Engineering,Director,91,0.76,3,0,0,0,0,0
+2025-08-29,Power Platform,Workflow Automation,Asia,Sales,CVP,105,0.89,5,0,0,0,0,0
+2025-08-29,Power Platform,Workflow Automation,LATAM,PM,PM,93,0.48,5,0,0,0,0,0
+2025-08-29,Dynamics 365,Copilot Chat,North America,PM,PM,93,0.63,3,0,0,0,0,0
+2025-08-29,Dynamics 365,Copilot Chat,Europe,Support,PM,92,0.8,1,1,0,0,0,0
+2025-08-29,Dynamics 365,Copilot Chat,Asia,Engineering,Director,87,0.94,4,0,0,0,0,0
+2025-08-29,Dynamics 365,Copilot Chat,LATAM,Sales,Director,103,0.58,9,0,0,1,0,0
+2025-08-29,Dynamics 365,Auto Insights,North America,Engineering,Director,95,0.83,4,0,0,0,0,0
+2025-08-29,Dynamics 365,Auto Insights,Europe,Engineering,CVP,100,0.88,6,0,0,0,0,0
+2025-08-29,Dynamics 365,Auto Insights,Asia,Sales,PM,111,1.01,7,0,0,0,0,0
+2025-08-29,Dynamics 365,Auto Insights,LATAM,Sales,Director,103,0.87,1,0,0,0,0,0
+2025-08-29,Dynamics 365,Predictive Alerts,North America,Sales,GPM,105,0.83,4,0,0,0,0,0
+2025-08-29,Dynamics 365,Predictive Alerts,Europe,Sales,GPM,112,0.54,6,0,0,0,0,0
+2025-08-29,Dynamics 365,Predictive Alerts,Asia,Support,CVP,91,0.6,6,0,0,0,0,0
+2025-08-29,Dynamics 365,Predictive Alerts,LATAM,Sales,CVP,92,0.64,3,0,0,0,0,0
+2025-08-29,Dynamics 365,Workflow Automation,North America,Support,Director,95,0.32,5,0,0,0,0,0
+2025-08-29,Dynamics 365,Workflow Automation,Europe,PM,PM,83,0.67,3,0,0,0,0,0
+2025-08-29,Dynamics 365,Workflow Automation,Asia,Support,CVP,105,0.62,8,0,0,0,0,0
+2025-08-29,Dynamics 365,Workflow Automation,LATAM,PM,CVP,112,0.86,4,1,0,0,0,0
+2025-08-28,Azure AI,Copilot Chat,North America,Sales,Director,102,0.45,5,0,0,0,0,0
+2025-08-28,Azure AI,Copilot Chat,Europe,Engineering,CVP,111,0.83,7,0,0,0,0,0
+2025-08-28,Azure AI,Copilot Chat,Asia,Support,GPM,89,0.56,3,0,0,0,0,0
+2025-08-28,Azure AI,Copilot Chat,LATAM,Sales,GPM,108,0.56,5,0,0,0,0,0
+2025-08-28,Azure AI,Auto Insights,North America,Support,Director,116,1.02,6,0,0,0,0,0
+2025-08-28,Azure AI,Auto Insights,Europe,Support,Director,90,0.66,5,0,0,0,0,0
+2025-08-28,Azure AI,Auto Insights,Asia,Support,PM,111,0.69,3,0,0,0,0,0
+2025-08-28,Azure AI,Auto Insights,LATAM,PM,PM,96,0.62,5,0,0,0,0,0
+2025-08-28,Azure AI,Predictive Alerts,North America,PM,CVP,81,0.72,3,1,0,1,0,0
+2025-08-28,Azure AI,Predictive Alerts,Europe,Sales,GPM,93,0.96,9,0,0,0,0,0
+2025-08-28,Azure AI,Predictive Alerts,Asia,Sales,CVP,95,0.37,6,0,0,0,0,0
+2025-08-28,Azure AI,Predictive Alerts,LATAM,Sales,PM,98,0.62,9,0,0,0,0,0
+2025-08-28,Azure AI,Workflow Automation,North America,Engineering,Director,97,0.65,3,0,0,0,0,0
+2025-08-28,Azure AI,Workflow Automation,Europe,PM,CVP,86,0.82,5,0,0,0,0,0
+2025-08-28,Azure AI,Workflow Automation,Asia,PM,Director,115,0.87,7,0,0,0,0,0
+2025-08-28,Azure AI,Workflow Automation,LATAM,Support,CVP,102,0.95,3,0,0,0,0,0
+2025-08-28,Power Platform,Copilot Chat,North America,Support,CVP,105,0.35,7,0,0,0,0,0
+2025-08-28,Power Platform,Copilot Chat,Europe,Support,Director,91,0.82,6,0,0,0,0,0
+2025-08-28,Power Platform,Copilot Chat,Asia,Sales,Director,91,0.4,7,0,0,1,0,0
+2025-08-28,Power Platform,Copilot Chat,LATAM,Support,Director,105,0.13,2,0,0,1,0,0
+2025-08-28,Power Platform,Auto Insights,North America,PM,PM,102,0.67,4,0,0,0,0,0
+2025-08-28,Power Platform,Auto Insights,Europe,PM,Director,111,0.56,3,0,0,0,0,0
+2025-08-28,Power Platform,Auto Insights,Asia,Engineering,GPM,105,0.46,2,0,0,0,0,0
+2025-08-28,Power Platform,Auto Insights,LATAM,PM,GPM,102,0.62,11,0,0,0,0,1
+2025-08-28,Power Platform,Predictive Alerts,North America,Sales,Director,111,0.73,7,0,0,0,0,0
+2025-08-28,Power Platform,Predictive Alerts,Europe,Support,PM,74,0.95,0,1,0,0,0,0
+2025-08-28,Power Platform,Predictive Alerts,Asia,PM,Director,107,0.91,5,0,0,0,0,0
+2025-08-28,Power Platform,Predictive Alerts,LATAM,PM,Director,89,0.82,4,0,0,0,0,0
+2025-08-28,Power Platform,Workflow Automation,North America,PM,Director,115,0.53,2,0,0,0,0,0
+2025-08-28,Power Platform,Workflow Automation,Europe,Engineering,GPM,87,0.66,4,0,0,0,0,0
+2025-08-28,Power Platform,Workflow Automation,Asia,Support,PM,102,0.56,4,0,0,0,0,0
+2025-08-28,Power Platform,Workflow Automation,LATAM,Engineering,Director,116,0.9,5,0,0,1,0,0
+2025-08-28,Dynamics 365,Copilot Chat,North America,PM,CVP,84,0.87,3,0,0,0,0,0
+2025-08-28,Dynamics 365,Copilot Chat,Europe,Engineering,PM,97,0.63,5,0,0,0,0,0
+2025-08-28,Dynamics 365,Copilot Chat,Asia,Support,CVP,105,0.68,6,0,0,0,0,0
+2025-08-28,Dynamics 365,Copilot Chat,LATAM,Sales,CVP,105,0.62,6,0,0,1,0,0
+2025-08-28,Dynamics 365,Auto Insights,North America,Support,GPM,105,0.62,7,0,0,0,0,0
+2025-08-28,Dynamics 365,Auto Insights,Europe,Engineering,Director,102,0.84,2,0,1,0,0,0
+2025-08-28,Dynamics 365,Auto Insights,Asia,Sales,PM,91,0.82,5,0,0,0,0,0
+2025-08-28,Dynamics 365,Auto Insights,LATAM,Engineering,CVP,105,0.62,5,0,0,0,0,0
+2025-08-28,Dynamics 365,Predictive Alerts,North America,Sales,PM,80,0.91,3,0,0,0,0,0
+2025-08-28,Dynamics 365,Predictive Alerts,Europe,Engineering,GPM,92,0.77,5,1,0,0,0,0
+2025-08-28,Dynamics 365,Predictive Alerts,Asia,PM,Director,102,0.55,5,0,0,0,0,0
+2025-08-28,Dynamics 365,Predictive Alerts,LATAM,Engineering,GPM,106,0.7,5,0,0,0,0,0
+2025-08-28,Dynamics 365,Workflow Automation,North America,Engineering,CVP,104,0.93,3,0,0,0,0,0
+2025-08-28,Dynamics 365,Workflow Automation,Europe,PM,CVP,85,0.45,3,0,0,0,0,0
+2025-08-28,Dynamics 365,Workflow Automation,Asia,Sales,CVP,102,0.72,4,0,0,0,0,0
+2025-08-28,Dynamics 365,Workflow Automation,LATAM,Support,CVP,101,0.53,8,0,0,0,0,0
+2025-08-27,Azure AI,Copilot Chat,North America,Support,PM,102,0.91,5,0,0,0,0,0
+2025-08-27,Azure AI,Copilot Chat,Europe,Engineering,GPM,112,0.86,3,0,0,0,0,0
+2025-08-27,Azure AI,Copilot Chat,Asia,PM,Director,79,0.94,3,0,0,0,0,0
+2025-08-27,Azure AI,Copilot Chat,LATAM,Engineering,GPM,94,1.16,7,0,0,0,0,0
+2025-08-27,Azure AI,Auto Insights,North America,PM,GPM,116,0.63,8,0,0,0,0,0
+2025-08-27,Azure AI,Auto Insights,Europe,Engineering,GPM,80,0.67,6,0,0,0,0,0
+2025-08-27,Azure AI,Auto Insights,Asia,Engineering,CVP,97,1.1,5,0,0,0,0,0
+2025-08-27,Azure AI,Auto Insights,LATAM,Sales,CVP,97,0.54,3,0,0,0,0,0
+2025-08-27,Azure AI,Predictive Alerts,North America,Support,PM,103,0.33,6,0,0,0,0,0
+2025-08-27,Azure AI,Predictive Alerts,Europe,PM,Director,103,0.88,8,0,0,0,0,0
+2025-08-27,Azure AI,Predictive Alerts,Asia,Support,CVP,89,0.68,7,1,0,0,0,0
+2025-08-27,Azure AI,Predictive Alerts,LATAM,Engineering,GPM,93,0.6,3,0,0,0,0,0
+2025-08-27,Azure AI,Workflow Automation,North America,Support,GPM,91,0.77,10,0,0,0,0,0
+2025-08-27,Azure AI,Workflow Automation,Europe,Sales,PM,90,0.94,5,0,0,0,0,0
+2025-08-27,Azure AI,Workflow Automation,Asia,PM,GPM,90,0.67,5,0,0,0,0,0
+2025-08-27,Azure AI,Workflow Automation,LATAM,Support,GPM,102,0.59,3,0,0,0,0,0
+2025-08-27,Power Platform,Copilot Chat,North America,Engineering,PM,104,0.61,2,0,0,0,0,0
+2025-08-27,Power Platform,Copilot Chat,Europe,PM,Director,122,0.66,3,0,0,0,0,0
+2025-08-27,Power Platform,Copilot Chat,Asia,Support,CVP,100,0.72,4,0,0,0,0,0
+2025-08-27,Power Platform,Copilot Chat,LATAM,Engineering,CVP,101,0.8,3,0,1,0,0,0
+2025-08-27,Power Platform,Auto Insights,North America,Support,CVP,113,0.6,6,0,0,0,0,0
+2025-08-27,Power Platform,Auto Insights,Europe,Support,CVP,113,0.43,5,1,0,0,0,0
+2025-08-27,Power Platform,Auto Insights,Asia,Sales,PM,97,0.97,5,0,0,0,0,0
+2025-08-27,Power Platform,Auto Insights,LATAM,Engineering,CVP,91,0.47,3,0,0,0,0,0
+2025-08-27,Power Platform,Predictive Alerts,North America,Support,Director,109,0.65,4,0,0,0,0,0
+2025-08-27,Power Platform,Predictive Alerts,Europe,Engineering,PM,93,1.19,3,0,0,0,0,0
+2025-08-27,Power Platform,Predictive Alerts,Asia,PM,PM,101,0.89,1,0,0,0,0,0
+2025-08-27,Power Platform,Predictive Alerts,LATAM,Support,PM,103,0.71,6,0,0,0,0,0
+2025-08-27,Power Platform,Workflow Automation,North America,PM,CVP,102,0.55,3,0,0,0,0,0
+2025-08-27,Power Platform,Workflow Automation,Europe,Sales,Director,105,0.74,2,0,0,0,0,0
+2025-08-27,Power Platform,Workflow Automation,Asia,PM,CVP,105,0.51,4,0,0,0,0,0
+2025-08-27,Power Platform,Workflow Automation,LATAM,Sales,PM,100,0.9,5,1,0,1,0,0
+2025-08-27,Dynamics 365,Copilot Chat,North America,Sales,Director,94,0.85,6,0,0,0,0,0
+2025-08-27,Dynamics 365,Copilot Chat,Europe,Sales,Director,104,0.91,3,0,0,0,0,0
+2025-08-27,Dynamics 365,Copilot Chat,Asia,Support,PM,112,0.68,3,0,0,0,0,0
+2025-08-27,Dynamics 365,Copilot Chat,LATAM,PM,Director,113,0.79,8,0,0,0,0,0
+2025-08-27,Dynamics 365,Auto Insights,North America,Sales,CVP,94,0.67,9,0,0,0,0,0
+2025-08-27,Dynamics 365,Auto Insights,Europe,Support,CVP,99,0.77,4,0,0,0,0,0
+2025-08-27,Dynamics 365,Auto Insights,Asia,Engineering,CVP,99,0.81,7,0,0,0,0,0
+2025-08-27,Dynamics 365,Auto Insights,LATAM,Engineering,Director,104,0.87,5,0,0,1,0,0
+2025-08-27,Dynamics 365,Predictive Alerts,North America,Support,Director,96,0.76,6,0,0,0,0,0
+2025-08-27,Dynamics 365,Predictive Alerts,Europe,Engineering,CVP,97,0.27,6,0,0,0,0,0
+2025-08-27,Dynamics 365,Predictive Alerts,Asia,Engineering,CVP,98,0.61,3,0,0,0,0,0
+2025-08-27,Dynamics 365,Predictive Alerts,LATAM,Sales,PM,89,0.67,4,0,0,0,0,0
+2025-08-27,Dynamics 365,Workflow Automation,North America,PM,Director,103,0.68,7,0,0,1,0,0
+2025-08-27,Dynamics 365,Workflow Automation,Europe,Sales,CVP,108,0.61,6,0,0,0,0,0
+2025-08-27,Dynamics 365,Workflow Automation,Asia,Engineering,GPM,95,0.54,3,0,0,0,0,0
+2025-08-27,Dynamics 365,Workflow Automation,LATAM,Support,GPM,116,0.55,3,0,0,0,0,0
+2025-08-26,Azure AI,Copilot Chat,North America,Support,CVP,89,0.76,3,0,0,0,0,0
+2025-08-26,Azure AI,Copilot Chat,Europe,Sales,PM,124,0.52,3,0,0,1,0,0
+2025-08-26,Azure AI,Copilot Chat,Asia,Engineering,GPM,116,0.67,4,0,0,0,0,0
+2025-08-26,Azure AI,Copilot Chat,LATAM,PM,Director,94,0.74,5,0,0,0,0,0
+2025-08-26,Azure AI,Auto Insights,North America,Engineering,CVP,123,0.81,4,0,0,0,0,0
+2025-08-26,Azure AI,Auto Insights,Europe,Engineering,GPM,90,0.67,7,0,0,0,0,0
+2025-08-26,Azure AI,Auto Insights,Asia,Engineering,CVP,103,0.51,4,0,0,0,0,0
+2025-08-26,Azure AI,Auto Insights,LATAM,Engineering,GPM,90,0.64,4,0,0,0,0,0
+2025-08-26,Azure AI,Predictive Alerts,North America,Sales,Director,94,0.42,2,0,0,1,0,0
+2025-08-26,Azure AI,Predictive Alerts,Europe,Support,CVP,86,0.82,7,0,0,0,0,0
+2025-08-26,Azure AI,Predictive Alerts,Asia,Sales,CVP,117,0.97,5,0,0,0,0,0
+2025-08-26,Azure AI,Predictive Alerts,LATAM,PM,CVP,98,0.57,9,0,0,0,0,0
+2025-08-26,Azure AI,Workflow Automation,North America,PM,CVP,120,0.86,4,0,0,0,0,0
+2025-08-26,Azure AI,Workflow Automation,Europe,PM,GPM,104,0.82,6,1,0,1,0,0
+2025-08-26,Azure AI,Workflow Automation,Asia,Engineering,Director,98,0.71,4,0,0,1,0,0
+2025-08-26,Azure AI,Workflow Automation,LATAM,Sales,Director,92,0.89,9,0,0,0,0,0
+2025-08-26,Power Platform,Copilot Chat,North America,Support,PM,86,0.78,5,0,0,0,0,0
+2025-08-26,Power Platform,Copilot Chat,Europe,Support,Director,98,0.95,5,0,0,0,0,0
+2025-08-26,Power Platform,Copilot Chat,Asia,Sales,GPM,105,0.71,3,0,0,0,0,0
+2025-08-26,Power Platform,Copilot Chat,LATAM,Sales,CVP,103,0.85,9,0,0,0,0,0
+2025-08-26,Power Platform,Auto Insights,North America,Support,Director,95,0.81,3,0,0,0,0,0
+2025-08-26,Power Platform,Auto Insights,Europe,Sales,CVP,95,0.59,4,0,0,1,0,0
+2025-08-26,Power Platform,Auto Insights,Asia,Support,GPM,107,1.18,3,0,0,0,0,0
+2025-08-26,Power Platform,Auto Insights,LATAM,PM,CVP,90,0.78,3,0,0,0,0,0
+2025-08-26,Power Platform,Predictive Alerts,North America,PM,CVP,86,0.94,2,0,0,0,0,0
+2025-08-26,Power Platform,Predictive Alerts,Europe,Engineering,Director,95,0.66,2,0,0,1,0,0
+2025-08-26,Power Platform,Predictive Alerts,Asia,Sales,CVP,113,0.49,7,0,0,0,0,0
+2025-08-26,Power Platform,Predictive Alerts,LATAM,Sales,GPM,101,0.9,5,1,0,0,0,0
+2025-08-26,Power Platform,Workflow Automation,North America,Sales,PM,83,0.72,8,0,0,1,0,0
+2025-08-26,Power Platform,Workflow Automation,Europe,PM,Director,108,0.84,4,0,0,0,0,0
+2025-08-26,Power Platform,Workflow Automation,Asia,Engineering,CVP,99,0.64,3,0,0,0,0,0
+2025-08-26,Power Platform,Workflow Automation,LATAM,Engineering,CVP,114,0.63,9,0,0,0,0,0
+2025-08-26,Dynamics 365,Copilot Chat,North America,Engineering,GPM,106,0.83,3,1,0,0,0,0
+2025-08-26,Dynamics 365,Copilot Chat,Europe,Sales,GPM,110,0.86,6,0,0,0,0,0
+2025-08-26,Dynamics 365,Copilot Chat,Asia,Engineering,CVP,91,0.65,3,0,0,0,0,0
+2025-08-26,Dynamics 365,Copilot Chat,LATAM,Support,Director,103,0.32,4,0,0,0,0,0
+2025-08-26,Dynamics 365,Auto Insights,North America,Sales,PM,98,0.75,8,0,0,0,0,0
+2025-08-26,Dynamics 365,Auto Insights,Europe,Support,CVP,101,0.8,4,1,0,0,0,0
+2025-08-26,Dynamics 365,Auto Insights,Asia,Support,CVP,99,0.51,4,0,0,1,0,0
+2025-08-26,Dynamics 365,Auto Insights,LATAM,Engineering,PM,100,0.58,5,0,0,0,0,0
+2025-08-26,Dynamics 365,Predictive Alerts,North America,PM,Director,74,0.6,3,0,0,0,0,0
+2025-08-26,Dynamics 365,Predictive Alerts,Europe,PM,PM,115,0.77,10,0,0,0,0,0
+2025-08-26,Dynamics 365,Predictive Alerts,Asia,Sales,PM,102,0.56,3,0,0,0,0,0
+2025-08-26,Dynamics 365,Predictive Alerts,LATAM,Engineering,CVP,92,0.39,5,0,0,0,0,0
+2025-08-26,Dynamics 365,Workflow Automation,North America,PM,Director,122,0.64,7,0,0,1,0,0
+2025-08-26,Dynamics 365,Workflow Automation,Europe,Engineering,PM,112,0.7,7,0,0,0,0,0
+2025-08-26,Dynamics 365,Workflow Automation,Asia,Support,PM,95,0.68,6,0,0,0,0,0
+2025-08-26,Dynamics 365,Workflow Automation,LATAM,Support,Director,100,1.0,8,0,0,0,0,0
+2025-08-25,Azure AI,Copilot Chat,North America,Support,CVP,113,0.55,8,0,0,0,0,0
+2025-08-25,Azure AI,Copilot Chat,Europe,PM,GPM,94,0.45,5,0,1,0,0,0
+2025-08-25,Azure AI,Copilot Chat,Asia,Sales,GPM,105,0.54,4,0,0,0,0,0
+2025-08-25,Azure AI,Copilot Chat,LATAM,PM,GPM,99,0.74,3,0,0,0,0,0
+2025-08-25,Azure AI,Auto Insights,North America,Engineering,CVP,87,0.55,7,0,0,0,0,0
+2025-08-25,Azure AI,Auto Insights,Europe,PM,CVP,93,0.56,6,0,0,0,0,0
+2025-08-25,Azure AI,Auto Insights,Asia,PM,GPM,95,0.55,8,0,0,0,0,0
+2025-08-25,Azure AI,Auto Insights,LATAM,Sales,Director,102,0.91,7,0,0,0,0,0
+2025-08-25,Azure AI,Predictive Alerts,North America,Sales,Director,90,0.47,5,0,0,0,0,0
+2025-08-25,Azure AI,Predictive Alerts,Europe,Engineering,CVP,86,0.53,5,0,0,0,0,0
+2025-08-25,Azure AI,Predictive Alerts,Asia,Support,GPM,94,0.78,3,0,0,0,0,0
+2025-08-25,Azure AI,Predictive Alerts,LATAM,Engineering,CVP,85,0.55,4,0,0,0,0,0
+2025-08-25,Azure AI,Workflow Automation,North America,Support,Director,93,0.73,6,1,0,0,0,0
+2025-08-25,Azure AI,Workflow Automation,Europe,Sales,Director,119,0.82,9,0,1,1,0,0
+2025-08-25,Azure AI,Workflow Automation,Asia,Sales,Director,98,0.92,4,0,0,0,0,0
+2025-08-25,Azure AI,Workflow Automation,LATAM,PM,CVP,101,0.61,7,0,0,0,0,0
+2025-08-25,Power Platform,Copilot Chat,North America,Sales,PM,98,0.75,7,0,0,0,0,0
+2025-08-25,Power Platform,Copilot Chat,Europe,PM,CVP,108,0.59,4,0,0,0,0,0
+2025-08-25,Power Platform,Copilot Chat,Asia,Support,Director,90,0.72,2,0,0,0,0,0
+2025-08-25,Power Platform,Copilot Chat,LATAM,Support,PM,95,0.57,2,0,0,0,0,0
+2025-08-25,Power Platform,Auto Insights,North America,Sales,Director,105,0.53,6,0,0,0,0,0
+2025-08-25,Power Platform,Auto Insights,Europe,Engineering,PM,109,0.63,5,0,0,0,0,0
+2025-08-25,Power Platform,Auto Insights,Asia,Sales,Director,102,0.53,4,0,0,1,0,0
+2025-08-25,Power Platform,Auto Insights,LATAM,PM,Director,88,0.81,5,0,0,1,0,0
+2025-08-25,Power Platform,Predictive Alerts,North America,PM,GPM,94,0.87,4,0,0,0,0,0
+2025-08-25,Power Platform,Predictive Alerts,Europe,Support,GPM,121,0.31,3,0,0,0,1,0
+2025-08-25,Power Platform,Predictive Alerts,Asia,Engineering,PM,109,0.77,2,0,0,0,0,0
+2025-08-25,Power Platform,Predictive Alerts,LATAM,Support,CVP,105,0.52,4,0,0,0,0,0
+2025-08-25,Power Platform,Workflow Automation,North America,Engineering,Director,89,0.85,6,0,0,1,0,0
+2025-08-25,Power Platform,Workflow Automation,Europe,PM,PM,120,0.57,4,0,0,0,0,0
+2025-08-25,Power Platform,Workflow Automation,Asia,Support,Director,92,0.68,5,0,0,0,0,0
+2025-08-25,Power Platform,Workflow Automation,LATAM,Sales,GPM,116,0.64,9,1,0,0,0,0
+2025-08-25,Dynamics 365,Copilot Chat,North America,PM,GPM,94,0.86,5,0,1,0,0,0
+2025-08-25,Dynamics 365,Copilot Chat,Europe,Support,Director,93,0.58,2,0,0,0,0,0
+2025-08-25,Dynamics 365,Copilot Chat,Asia,PM,Director,98,0.55,3,0,1,0,0,0
+2025-08-25,Dynamics 365,Copilot Chat,LATAM,Sales,Director,110,0.81,7,0,0,0,0,0
+2025-08-25,Dynamics 365,Auto Insights,North America,Support,PM,92,0.52,7,0,0,0,0,0
+2025-08-25,Dynamics 365,Auto Insights,Europe,Sales,PM,99,0.93,1,0,0,0,0,0
+2025-08-25,Dynamics 365,Auto Insights,Asia,PM,GPM,92,0.43,7,0,0,0,0,0
+2025-08-25,Dynamics 365,Auto Insights,LATAM,Sales,Director,99,0.78,8,0,0,0,0,0
+2025-08-25,Dynamics 365,Predictive Alerts,North America,Engineering,CVP,123,0.84,2,0,0,0,0,0
+2025-08-25,Dynamics 365,Predictive Alerts,Europe,Engineering,Director,91,1.13,5,1,0,0,0,0
+2025-08-25,Dynamics 365,Predictive Alerts,Asia,Engineering,CVP,102,0.45,6,0,1,0,0,0
+2025-08-25,Dynamics 365,Predictive Alerts,LATAM,Support,Director,107,0.85,3,0,0,0,0,0
+2025-08-25,Dynamics 365,Workflow Automation,North America,Sales,Director,128,0.89,4,0,0,0,0,0
+2025-08-25,Dynamics 365,Workflow Automation,Europe,Engineering,GPM,108,0.81,7,0,0,0,0,0
+2025-08-25,Dynamics 365,Workflow Automation,Asia,Sales,PM,90,0.61,3,0,0,0,0,0
+2025-08-25,Dynamics 365,Workflow Automation,LATAM,Support,GPM,126,0.85,1,0,0,0,0,0
+2025-08-24,Azure AI,Copilot Chat,North America,Engineering,CVP,111,0.29,5,0,0,0,0,0
+2025-08-24,Azure AI,Copilot Chat,Europe,Support,CVP,113,1.12,3,0,0,0,0,0
+2025-08-24,Azure AI,Copilot Chat,Asia,Engineering,GPM,100,0.59,6,0,0,0,0,0
+2025-08-24,Azure AI,Copilot Chat,LATAM,Engineering,PM,87,0.78,4,0,0,0,0,0
+2025-08-24,Azure AI,Auto Insights,North America,Support,CVP,113,0.75,3,0,0,0,0,0
+2025-08-24,Azure AI,Auto Insights,Europe,Engineering,PM,100,0.9,8,0,0,0,0,0
+2025-08-24,Azure AI,Auto Insights,Asia,PM,GPM,92,0.28,4,0,0,0,0,0
+2025-08-24,Azure AI,Auto Insights,LATAM,Sales,CVP,95,0.67,6,0,0,0,0,0
+2025-08-24,Azure AI,Predictive Alerts,North America,Support,CVP,106,0.99,4,0,0,0,0,0
+2025-08-24,Azure AI,Predictive Alerts,Europe,PM,CVP,96,0.62,3,0,0,0,0,0
+2025-08-24,Azure AI,Predictive Alerts,Asia,Engineering,CVP,96,0.36,5,0,0,1,0,0
+2025-08-24,Azure AI,Predictive Alerts,LATAM,Sales,Director,110,0.77,3,0,0,0,0,0
+2025-08-24,Azure AI,Workflow Automation,North America,Engineering,Director,82,0.66,7,0,0,0,0,0
+2025-08-24,Azure AI,Workflow Automation,Europe,PM,CVP,102,0.52,1,0,0,0,0,0
+2025-08-24,Azure AI,Workflow Automation,Asia,Sales,GPM,107,0.64,4,0,1,0,0,0
+2025-08-24,Azure AI,Workflow Automation,LATAM,Support,PM,88,0.75,5,0,0,0,0,0
+2025-08-24,Power Platform,Copilot Chat,North America,Support,Director,103,0.56,5,0,0,0,0,0
+2025-08-24,Power Platform,Copilot Chat,Europe,Engineering,CVP,111,0.89,5,0,0,0,0,0
+2025-08-24,Power Platform,Copilot Chat,Asia,Support,GPM,97,0.49,5,0,0,0,0,0
+2025-08-24,Power Platform,Copilot Chat,LATAM,Engineering,CVP,106,0.7,3,1,0,0,0,0
+2025-08-24,Power Platform,Auto Insights,North America,Engineering,GPM,102,0.45,8,0,0,0,0,0
+2025-08-24,Power Platform,Auto Insights,Europe,Engineering,PM,89,0.74,3,0,0,0,0,0
+2025-08-24,Power Platform,Auto Insights,Asia,Support,GPM,101,0.89,3,1,0,0,0,0
+2025-08-24,Power Platform,Auto Insights,LATAM,PM,GPM,94,0.79,5,0,0,0,0,0
+2025-08-24,Power Platform,Predictive Alerts,North America,Engineering,GPM,90,1.01,7,0,0,0,0,0
+2025-08-24,Power Platform,Predictive Alerts,Europe,PM,GPM,95,0.77,7,0,0,0,0,0
+2025-08-24,Power Platform,Predictive Alerts,Asia,Support,GPM,110,1.11,6,0,0,0,0,0
+2025-08-24,Power Platform,Predictive Alerts,LATAM,Engineering,Director,96,0.76,4,0,0,0,0,0
+2025-08-24,Power Platform,Workflow Automation,North America,PM,GPM,100,0.56,3,0,0,0,0,0
+2025-08-24,Power Platform,Workflow Automation,Europe,Support,GPM,98,0.8,4,0,0,0,0,0
+2025-08-24,Power Platform,Workflow Automation,Asia,Engineering,PM,101,0.73,3,0,0,0,0,0
+2025-08-24,Power Platform,Workflow Automation,LATAM,PM,PM,89,0.78,6,0,0,1,0,0
+2025-08-24,Dynamics 365,Copilot Chat,North America,Support,GPM,114,0.61,6,0,0,0,0,0
+2025-08-24,Dynamics 365,Copilot Chat,Europe,Support,PM,93,0.71,7,0,0,0,0,0
+2025-08-24,Dynamics 365,Copilot Chat,Asia,PM,Director,100,0.67,7,1,0,0,0,0
+2025-08-24,Dynamics 365,Copilot Chat,LATAM,Engineering,GPM,93,0.62,8,0,0,0,0,0
+2025-08-24,Dynamics 365,Auto Insights,North America,Sales,PM,86,0.35,2,0,0,1,0,0
+2025-08-24,Dynamics 365,Auto Insights,Europe,Engineering,CVP,99,0.74,8,0,0,0,0,0
+2025-08-24,Dynamics 365,Auto Insights,Asia,Sales,Director,93,0.71,9,0,0,0,0,0
+2025-08-24,Dynamics 365,Auto Insights,LATAM,Engineering,CVP,103,0.57,1,0,0,1,0,0
+2025-08-24,Dynamics 365,Predictive Alerts,North America,PM,PM,97,0.85,4,0,0,0,0,0
+2025-08-24,Dynamics 365,Predictive Alerts,Europe,Support,CVP,109,1.01,2,0,0,0,0,0
+2025-08-24,Dynamics 365,Predictive Alerts,Asia,Engineering,PM,117,0.63,8,0,0,0,0,0
+2025-08-24,Dynamics 365,Predictive Alerts,LATAM,Sales,CVP,90,0.73,4,0,0,1,0,0
+2025-08-24,Dynamics 365,Workflow Automation,North America,Sales,PM,92,0.68,6,0,0,0,0,0
+2025-08-24,Dynamics 365,Workflow Automation,Europe,Sales,CVP,98,0.9,2,0,0,0,0,0
+2025-08-24,Dynamics 365,Workflow Automation,Asia,Engineering,PM,124,0.5,5,0,0,0,0,0
+2025-08-24,Dynamics 365,Workflow Automation,LATAM,Support,GPM,83,0.59,4,0,0,1,0,0
+2025-08-23,Azure AI,Copilot Chat,North America,Engineering,GPM,107,0.52,2,0,0,0,0,0
+2025-08-23,Azure AI,Copilot Chat,Europe,Support,Director,97,1.05,3,0,0,0,0,0
+2025-08-23,Azure AI,Copilot Chat,Asia,Sales,Director,103,0.72,4,0,0,0,0,0
+2025-08-23,Azure AI,Copilot Chat,LATAM,Sales,CVP,73,0.98,5,0,0,0,0,0
+2025-08-23,Azure AI,Auto Insights,North America,Engineering,PM,110,0.82,6,0,0,0,0,0
+2025-08-23,Azure AI,Auto Insights,Europe,PM,CVP,83,0.89,10,0,0,0,0,0
+2025-08-23,Azure AI,Auto Insights,Asia,Sales,GPM,92,0.54,4,0,0,0,0,0
+2025-08-23,Azure AI,Auto Insights,LATAM,Sales,Director,95,0.47,3,0,0,0,0,0
+2025-08-23,Azure AI,Predictive Alerts,North America,Sales,CVP,112,0.77,6,0,0,0,0,0
+2025-08-23,Azure AI,Predictive Alerts,Europe,Sales,PM,82,0.38,8,0,0,0,0,0
+2025-08-23,Azure AI,Predictive Alerts,Asia,Support,CVP,94,1.1,6,0,0,0,0,0
+2025-08-23,Azure AI,Predictive Alerts,LATAM,Support,Director,94,0.81,4,0,0,1,0,0
+2025-08-23,Azure AI,Workflow Automation,North America,Support,GPM,110,0.5,2,0,0,0,0,0
+2025-08-23,Azure AI,Workflow Automation,Europe,Sales,PM,86,0.61,7,0,0,0,0,0
+2025-08-23,Azure AI,Workflow Automation,Asia,Engineering,PM,111,0.55,6,0,0,0,0,0
+2025-08-23,Azure AI,Workflow Automation,LATAM,Engineering,CVP,104,0.6,5,0,0,0,0,0
+2025-08-23,Power Platform,Copilot Chat,North America,Engineering,Director,94,0.78,6,1,0,0,0,0
+2025-08-23,Power Platform,Copilot Chat,Europe,PM,PM,101,0.77,3,0,0,0,0,0
+2025-08-23,Power Platform,Copilot Chat,Asia,Support,PM,95,0.48,9,0,0,0,0,0
+2025-08-23,Power Platform,Copilot Chat,LATAM,Sales,Director,97,0.69,4,0,0,0,0,0
+2025-08-23,Power Platform,Auto Insights,North America,Sales,PM,89,0.63,3,0,0,0,0,0
+2025-08-23,Power Platform,Auto Insights,Europe,Support,Director,104,0.44,5,0,0,0,0,0
+2025-08-23,Power Platform,Auto Insights,Asia,Support,PM,89,0.7,4,0,0,0,0,0
+2025-08-23,Power Platform,Auto Insights,LATAM,PM,GPM,93,0.82,5,0,0,0,0,0
+2025-08-23,Power Platform,Predictive Alerts,North America,Sales,GPM,99,0.66,3,0,0,0,0,0
+2025-08-23,Power Platform,Predictive Alerts,Europe,Engineering,Director,90,0.83,3,0,0,0,0,0
+2025-08-23,Power Platform,Predictive Alerts,Asia,Support,PM,90,0.53,5,0,0,0,0,0
+2025-08-23,Power Platform,Predictive Alerts,LATAM,Support,GPM,104,0.59,4,0,0,0,0,0
+2025-08-23,Power Platform,Workflow Automation,North America,Sales,PM,108,0.89,5,0,0,0,0,0
+2025-08-23,Power Platform,Workflow Automation,Europe,Support,PM,108,0.58,1,0,0,0,0,0
+2025-08-23,Power Platform,Workflow Automation,Asia,PM,Director,105,0.71,6,0,0,0,0,0
+2025-08-23,Power Platform,Workflow Automation,LATAM,Support,Director,103,0.82,6,0,0,1,0,0
+2025-08-23,Dynamics 365,Copilot Chat,North America,Support,PM,111,0.57,2,0,0,0,0,0
+2025-08-23,Dynamics 365,Copilot Chat,Europe,PM,GPM,102,0.35,4,0,0,0,0,0
+2025-08-23,Dynamics 365,Copilot Chat,Asia,Sales,PM,96,0.57,5,0,0,0,0,0
+2025-08-23,Dynamics 365,Copilot Chat,LATAM,PM,PM,101,0.54,6,0,0,0,0,0
+2025-08-23,Dynamics 365,Auto Insights,North America,Engineering,GPM,102,0.94,7,0,0,0,0,0
+2025-08-23,Dynamics 365,Auto Insights,Europe,Sales,CVP,100,0.66,6,0,0,1,0,0
+2025-08-23,Dynamics 365,Auto Insights,Asia,Sales,Director,101,0.61,3,0,0,0,0,0
+2025-08-23,Dynamics 365,Auto Insights,LATAM,PM,Director,104,0.77,6,0,0,0,0,0
+2025-08-23,Dynamics 365,Predictive Alerts,North America,Support,Director,104,0.94,2,0,0,0,0,0
+2025-08-23,Dynamics 365,Predictive Alerts,Europe,Engineering,PM,96,1.01,4,0,0,0,0,0
+2025-08-23,Dynamics 365,Predictive Alerts,Asia,PM,GPM,93,0.66,7,0,0,1,0,0
+2025-08-23,Dynamics 365,Predictive Alerts,LATAM,Engineering,PM,86,0.89,4,0,0,0,0,0
+2025-08-23,Dynamics 365,Workflow Automation,North America,Support,CVP,99,0.69,6,0,0,1,0,0
+2025-08-23,Dynamics 365,Workflow Automation,Europe,Sales,CVP,107,0.45,4,1,0,0,0,0
+2025-08-23,Dynamics 365,Workflow Automation,Asia,Sales,CVP,111,0.31,6,0,0,0,0,0
+2025-08-23,Dynamics 365,Workflow Automation,LATAM,Support,GPM,92,0.62,7,0,0,0,0,0
+2025-08-22,Azure AI,Copilot Chat,North America,Engineering,Director,109,0.35,6,0,0,0,0,0
+2025-08-22,Azure AI,Copilot Chat,Europe,Sales,PM,96,0.97,4,0,0,0,0,0
+2025-08-22,Azure AI,Copilot Chat,Asia,Support,CVP,99,0.71,8,0,0,1,0,0
+2025-08-22,Azure AI,Copilot Chat,LATAM,Support,PM,112,0.35,2,0,0,0,0,0
+2025-08-22,Azure AI,Auto Insights,North America,PM,CVP,95,0.89,6,0,0,0,0,0
+2025-08-22,Azure AI,Auto Insights,Europe,Engineering,PM,89,0.76,6,0,0,0,0,0
+2025-08-22,Azure AI,Auto Insights,Asia,PM,Director,92,0.61,5,0,0,0,0,0
+2025-08-22,Azure AI,Auto Insights,LATAM,PM,GPM,84,0.46,3,0,0,0,0,0
+2025-08-22,Azure AI,Predictive Alerts,North America,Support,Director,101,0.62,4,0,0,0,0,0
+2025-08-22,Azure AI,Predictive Alerts,Europe,Support,PM,87,0.74,5,0,0,1,0,0
+2025-08-22,Azure AI,Predictive Alerts,Asia,Engineering,CVP,101,0.58,5,0,0,0,0,0
+2025-08-22,Azure AI,Predictive Alerts,LATAM,Sales,GPM,81,0.66,4,0,0,0,0,0
+2025-08-22,Azure AI,Workflow Automation,North America,PM,CVP,96,0.79,7,0,0,0,0,0
+2025-08-22,Azure AI,Workflow Automation,Europe,PM,Director,101,1.12,10,0,0,0,0,0
+2025-08-22,Azure AI,Workflow Automation,Asia,Engineering,CVP,115,0.54,2,0,0,0,0,0
+2025-08-22,Azure AI,Workflow Automation,LATAM,Engineering,CVP,84,0.75,5,1,0,0,0,0
+2025-08-22,Power Platform,Copilot Chat,North America,Engineering,CVP,104,0.73,2,0,0,0,0,0
+2025-08-22,Power Platform,Copilot Chat,Europe,Engineering,Director,81,0.97,6,0,0,0,0,0
+2025-08-22,Power Platform,Copilot Chat,Asia,Sales,CVP,92,1.29,2,0,0,0,0,0
+2025-08-22,Power Platform,Copilot Chat,LATAM,Sales,Director,97,0.5,3,0,0,0,0,0
+2025-08-22,Power Platform,Auto Insights,North America,Engineering,CVP,99,0.67,3,0,0,0,0,0
+2025-08-22,Power Platform,Auto Insights,Europe,Engineering,Director,95,0.74,4,0,0,0,0,0
+2025-08-22,Power Platform,Auto Insights,Asia,PM,CVP,103,0.55,7,0,0,0,0,0
+2025-08-22,Power Platform,Auto Insights,LATAM,Support,PM,100,0.53,2,0,0,0,0,0
+2025-08-22,Power Platform,Predictive Alerts,North America,Sales,PM,87,0.19,6,0,0,0,0,0
+2025-08-22,Power Platform,Predictive Alerts,Europe,PM,CVP,82,0.68,6,0,0,0,0,0
+2025-08-22,Power Platform,Predictive Alerts,Asia,Sales,PM,95,0.75,4,0,0,0,0,0
+2025-08-22,Power Platform,Predictive Alerts,LATAM,Sales,Director,107,0.52,5,0,0,0,0,0
+2025-08-22,Power Platform,Workflow Automation,North America,Support,GPM,111,0.58,3,0,1,0,0,0
+2025-08-22,Power Platform,Workflow Automation,Europe,Support,GPM,92,0.93,7,0,0,0,0,0
+2025-08-22,Power Platform,Workflow Automation,Asia,Engineering,PM,107,0.77,5,0,0,0,0,0
+2025-08-22,Power Platform,Workflow Automation,LATAM,PM,Director,108,0.58,7,0,0,0,0,0
+2025-08-22,Dynamics 365,Copilot Chat,North America,Support,GPM,98,0.54,6,0,1,0,0,0
+2025-08-22,Dynamics 365,Copilot Chat,Europe,PM,PM,105,0.71,6,0,0,0,0,0
+2025-08-22,Dynamics 365,Copilot Chat,Asia,PM,Director,115,0.64,7,0,0,0,0,0
+2025-08-22,Dynamics 365,Copilot Chat,LATAM,PM,GPM,98,0.38,6,0,0,0,0,0
+2025-08-22,Dynamics 365,Auto Insights,North America,PM,PM,95,0.56,5,0,0,0,0,0
+2025-08-22,Dynamics 365,Auto Insights,Europe,PM,CVP,108,0.6,4,0,0,0,0,0
+2025-08-22,Dynamics 365,Auto Insights,Asia,Sales,CVP,96,0.98,10,0,0,0,0,0
+2025-08-22,Dynamics 365,Auto Insights,LATAM,Support,Director,103,0.9,4,0,0,0,0,0
+2025-08-22,Dynamics 365,Predictive Alerts,North America,PM,CVP,92,0.74,7,0,0,0,0,0
+2025-08-22,Dynamics 365,Predictive Alerts,Europe,Engineering,CVP,108,0.79,3,0,0,1,0,0
+2025-08-22,Dynamics 365,Predictive Alerts,Asia,Sales,Director,98,0.85,0,0,0,0,0,0
+2025-08-22,Dynamics 365,Predictive Alerts,LATAM,Support,PM,84,0.72,4,0,0,0,0,0
+2025-08-22,Dynamics 365,Workflow Automation,North America,Support,PM,117,0.58,5,0,0,0,0,0
+2025-08-22,Dynamics 365,Workflow Automation,Europe,Support,CVP,105,0.75,5,0,0,0,0,0
+2025-08-22,Dynamics 365,Workflow Automation,Asia,Sales,PM,103,1.01,4,0,0,0,0,0
+2025-08-22,Dynamics 365,Workflow Automation,LATAM,Engineering,Director,92,0.54,2,0,0,0,0,0
+2025-08-21,Azure AI,Copilot Chat,North America,Support,PM,99,0.7,3,0,0,0,0,0
+2025-08-21,Azure AI,Copilot Chat,Europe,Engineering,CVP,104,0.84,0,0,0,0,0,0
+2025-08-21,Azure AI,Copilot Chat,Asia,Sales,PM,93,0.56,4,0,0,0,0,0
+2025-08-21,Azure AI,Copilot Chat,LATAM,Sales,GPM,98,0.63,7,0,0,0,0,0
+2025-08-21,Azure AI,Auto Insights,North America,Support,CVP,121,0.52,4,0,0,0,0,0
+2025-08-21,Azure AI,Auto Insights,Europe,PM,PM,97,0.73,4,0,0,0,0,0
+2025-08-21,Azure AI,Auto Insights,Asia,Sales,PM,86,0.92,5,0,0,0,0,0
+2025-08-21,Azure AI,Auto Insights,LATAM,Support,PM,90,0.48,5,0,0,0,0,0
+2025-08-21,Azure AI,Predictive Alerts,North America,PM,PM,120,1.16,4,0,0,0,0,0
+2025-08-21,Azure AI,Predictive Alerts,Europe,PM,CVP,85,1.07,4,0,0,0,0,0
+2025-08-21,Azure AI,Predictive Alerts,Asia,Sales,GPM,100,0.68,5,0,1,0,0,0
+2025-08-21,Azure AI,Predictive Alerts,LATAM,Support,Director,109,1.08,4,0,0,0,0,0
+2025-08-21,Azure AI,Workflow Automation,North America,Support,CVP,86,1.05,4,0,0,0,0,0
+2025-08-21,Azure AI,Workflow Automation,Europe,Sales,Director,89,0.49,4,0,0,0,0,0
+2025-08-21,Azure AI,Workflow Automation,Asia,Engineering,Director,99,0.85,3,0,0,0,0,0
+2025-08-21,Azure AI,Workflow Automation,LATAM,Engineering,Director,122,0.75,6,0,0,0,0,0
+2025-08-21,Power Platform,Copilot Chat,North America,Engineering,CVP,87,0.62,2,0,1,0,0,0
+2025-08-21,Power Platform,Copilot Chat,Europe,Support,Director,89,0.72,6,0,0,0,0,0
+2025-08-21,Power Platform,Copilot Chat,Asia,PM,Director,98,0.65,6,0,0,0,0,0
+2025-08-21,Power Platform,Copilot Chat,LATAM,Engineering,GPM,116,0.99,7,0,0,0,0,0
+2025-08-21,Power Platform,Auto Insights,North America,Support,Director,98,0.84,9,0,0,0,0,0
+2025-08-21,Power Platform,Auto Insights,Europe,Sales,GPM,101,0.48,3,0,0,0,0,0
+2025-08-21,Power Platform,Auto Insights,Asia,Engineering,Director,112,0.61,2,0,0,0,0,0
+2025-08-21,Power Platform,Auto Insights,LATAM,Sales,Director,106,1.06,5,0,0,0,0,0
+2025-08-21,Power Platform,Predictive Alerts,North America,PM,PM,128,0.28,7,0,0,0,1,0
+2025-08-21,Power Platform,Predictive Alerts,Europe,Sales,Director,100,0.65,2,0,0,1,0,0
+2025-08-21,Power Platform,Predictive Alerts,Asia,Engineering,Director,107,1.12,5,0,0,1,0,0
+2025-08-21,Power Platform,Predictive Alerts,LATAM,Support,GPM,97,0.42,7,1,0,0,0,0
+2025-08-21,Power Platform,Workflow Automation,North America,PM,Director,93,0.57,5,0,0,1,0,0
+2025-08-21,Power Platform,Workflow Automation,Europe,Sales,GPM,113,0.6,6,1,0,0,0,0
+2025-08-21,Power Platform,Workflow Automation,Asia,PM,GPM,86,0.44,2,0,0,0,0,0
+2025-08-21,Power Platform,Workflow Automation,LATAM,PM,PM,101,1.0,5,0,0,1,0,0
+2025-08-21,Dynamics 365,Copilot Chat,North America,Support,PM,87,0.23,3,0,0,0,0,0
+2025-08-21,Dynamics 365,Copilot Chat,Europe,Engineering,Director,100,0.63,4,0,0,0,0,0
+2025-08-21,Dynamics 365,Copilot Chat,Asia,PM,CVP,94,0.25,5,0,0,0,0,0
+2025-08-21,Dynamics 365,Copilot Chat,LATAM,PM,GPM,81,0.77,5,0,0,0,0,0
+2025-08-21,Dynamics 365,Auto Insights,North America,PM,GPM,89,0.71,6,0,0,0,0,0
+2025-08-21,Dynamics 365,Auto Insights,Europe,Sales,PM,95,0.64,4,0,0,0,0,0
+2025-08-21,Dynamics 365,Auto Insights,Asia,Sales,Director,84,0.89,4,0,0,0,0,0
+2025-08-21,Dynamics 365,Auto Insights,LATAM,PM,CVP,91,0.83,5,0,0,0,0,0
+2025-08-21,Dynamics 365,Predictive Alerts,North America,Support,CVP,109,0.81,2,0,0,0,0,0
+2025-08-21,Dynamics 365,Predictive Alerts,Europe,PM,GPM,106,0.56,2,0,0,0,0,0
+2025-08-21,Dynamics 365,Predictive Alerts,Asia,Support,CVP,98,0.88,2,0,0,1,0,0
+2025-08-21,Dynamics 365,Predictive Alerts,LATAM,PM,Director,106,0.35,5,0,0,0,0,0
+2025-08-21,Dynamics 365,Workflow Automation,North America,Sales,CVP,106,0.6,4,0,0,0,0,0
+2025-08-21,Dynamics 365,Workflow Automation,Europe,Support,CVP,113,0.5,5,0,0,0,0,0
+2025-08-21,Dynamics 365,Workflow Automation,Asia,Sales,GPM,115,1.03,10,0,0,1,0,0
+2025-08-21,Dynamics 365,Workflow Automation,LATAM,PM,GPM,108,0.65,4,0,0,0,0,0
+2025-08-20,Azure AI,Copilot Chat,North America,Support,PM,94,0.57,3,0,0,0,0,0
+2025-08-20,Azure AI,Copilot Chat,Europe,Sales,Director,98,0.71,3,0,0,0,0,0
+2025-08-20,Azure AI,Copilot Chat,Asia,Engineering,PM,97,0.78,5,0,0,0,0,0
+2025-08-20,Azure AI,Copilot Chat,LATAM,Support,PM,103,0.41,7,0,0,0,0,0
+2025-08-20,Azure AI,Auto Insights,North America,PM,Director,119,0.25,1,0,0,0,0,0
+2025-08-20,Azure AI,Auto Insights,Europe,Sales,GPM,98,1.08,3,0,0,0,0,0
+2025-08-20,Azure AI,Auto Insights,Asia,Sales,PM,88,0.54,1,0,0,1,0,0
+2025-08-20,Azure AI,Auto Insights,LATAM,PM,CVP,94,0.55,3,1,0,0,0,0
+2025-08-20,Azure AI,Predictive Alerts,North America,Support,PM,97,0.82,5,0,0,0,0,0
+2025-08-20,Azure AI,Predictive Alerts,Europe,Sales,PM,106,0.47,8,0,1,0,0,0
+2025-08-20,Azure AI,Predictive Alerts,Asia,Sales,Director,98,0.56,4,0,0,1,0,0
+2025-08-20,Azure AI,Predictive Alerts,LATAM,PM,CVP,118,0.52,4,0,0,0,0,0
+2025-08-20,Azure AI,Workflow Automation,North America,Engineering,Director,99,0.7,4,1,0,0,0,0
+2025-08-20,Azure AI,Workflow Automation,Europe,PM,PM,117,0.73,5,1,0,0,0,0
+2025-08-20,Azure AI,Workflow Automation,Asia,Support,PM,112,0.47,2,0,0,0,0,0
+2025-08-20,Azure AI,Workflow Automation,LATAM,Support,GPM,104,0.65,3,0,0,0,0,0
+2025-08-20,Power Platform,Copilot Chat,North America,PM,PM,99,1.05,7,0,0,0,0,0
+2025-08-20,Power Platform,Copilot Chat,Europe,Support,CVP,97,0.87,5,0,0,0,0,0
+2025-08-20,Power Platform,Copilot Chat,Asia,PM,CVP,100,0.36,5,0,0,0,0,0
+2025-08-20,Power Platform,Copilot Chat,LATAM,Sales,PM,80,0.62,9,0,0,1,0,0
+2025-08-20,Power Platform,Auto Insights,North America,Engineering,PM,107,0.28,6,0,0,0,0,0
+2025-08-20,Power Platform,Auto Insights,Europe,Support,GPM,104,0.78,7,0,0,1,0,0
+2025-08-20,Power Platform,Auto Insights,Asia,PM,CVP,89,0.4,5,0,0,0,0,0
+2025-08-20,Power Platform,Auto Insights,LATAM,Engineering,Director,110,0.84,6,0,0,0,0,0
+2025-08-20,Power Platform,Predictive Alerts,North America,PM,Director,107,0.62,5,0,0,0,0,0
+2025-08-20,Power Platform,Predictive Alerts,Europe,Engineering,PM,97,0.44,5,0,0,0,0,0
+2025-08-20,Power Platform,Predictive Alerts,Asia,PM,CVP,100,0.67,4,0,0,0,0,0
+2025-08-20,Power Platform,Predictive Alerts,LATAM,Sales,PM,95,0.61,2,0,0,0,0,0
+2025-08-20,Power Platform,Workflow Automation,North America,Engineering,CVP,93,1.19,8,0,0,0,0,0
+2025-08-20,Power Platform,Workflow Automation,Europe,Engineering,GPM,81,0.79,10,0,0,0,0,0
+2025-08-20,Power Platform,Workflow Automation,Asia,PM,Director,113,0.43,4,0,0,1,0,0
+2025-08-20,Power Platform,Workflow Automation,LATAM,Sales,PM,97,0.61,4,0,0,0,0,0
+2025-08-20,Dynamics 365,Copilot Chat,North America,Support,GPM,88,0.45,5,0,0,0,0,0
+2025-08-20,Dynamics 365,Copilot Chat,Europe,Sales,GPM,105,0.79,5,0,0,0,0,0
+2025-08-20,Dynamics 365,Copilot Chat,Asia,Engineering,Director,102,0.56,5,0,0,0,0,0
+2025-08-20,Dynamics 365,Copilot Chat,LATAM,Engineering,PM,105,0.93,2,0,0,0,0,0
+2025-08-20,Dynamics 365,Auto Insights,North America,Sales,CVP,100,1.02,7,0,0,0,0,0
+2025-08-20,Dynamics 365,Auto Insights,Europe,Engineering,CVP,112,0.67,6,1,0,0,0,0
+2025-08-20,Dynamics 365,Auto Insights,Asia,Support,Director,114,0.43,5,0,0,0,0,0
+2025-08-20,Dynamics 365,Auto Insights,LATAM,Engineering,Director,102,0.93,3,0,0,0,0,0
+2025-08-20,Dynamics 365,Predictive Alerts,North America,Engineering,Director,119,0.58,4,0,0,0,0,0
+2025-08-20,Dynamics 365,Predictive Alerts,Europe,PM,PM,102,0.68,4,0,0,0,0,0
+2025-08-20,Dynamics 365,Predictive Alerts,Asia,Support,GPM,104,0.64,4,0,0,0,0,0
+2025-08-20,Dynamics 365,Predictive Alerts,LATAM,Engineering,Director,107,0.57,5,0,0,0,0,0
+2025-08-20,Dynamics 365,Workflow Automation,North America,Support,GPM,102,0.67,12,0,0,0,0,1
+2025-08-20,Dynamics 365,Workflow Automation,Europe,Sales,CVP,111,0.81,4,0,0,0,0,0
+2025-08-20,Dynamics 365,Workflow Automation,Asia,PM,GPM,89,0.69,5,0,0,0,0,0
+2025-08-20,Dynamics 365,Workflow Automation,LATAM,Engineering,CVP,99,0.75,8,0,0,0,0,0
+2025-08-19,Azure AI,Copilot Chat,North America,Engineering,Director,95,0.89,5,0,0,0,0,0
+2025-08-19,Azure AI,Copilot Chat,Europe,PM,PM,107,0.78,2,0,0,0,0,0
+2025-08-19,Azure AI,Copilot Chat,Asia,PM,PM,101,0.88,5,0,0,1,0,0
+2025-08-19,Azure AI,Copilot Chat,LATAM,Support,Director,110,0.97,4,0,0,1,0,0
+2025-08-19,Azure AI,Auto Insights,North America,Sales,CVP,116,0.6,6,0,0,0,0,0
+2025-08-19,Azure AI,Auto Insights,Europe,Support,PM,92,1.04,2,0,0,0,0,0
+2025-08-19,Azure AI,Auto Insights,Asia,PM,Director,99,0.23,6,0,0,0,0,0
+2025-08-19,Azure AI,Auto Insights,LATAM,Support,PM,85,0.77,5,0,0,0,0,0
+2025-08-19,Azure AI,Predictive Alerts,North America,Support,Director,102,0.97,3,1,0,0,0,0
+2025-08-19,Azure AI,Predictive Alerts,Europe,Engineering,Director,91,0.71,8,0,0,0,0,0
+2025-08-19,Azure AI,Predictive Alerts,Asia,Sales,CVP,98,0.97,6,0,0,0,0,0
+2025-08-19,Azure AI,Predictive Alerts,LATAM,Sales,CVP,97,0.55,3,0,0,0,0,0
+2025-08-19,Azure AI,Workflow Automation,North America,Support,GPM,113,0.94,5,0,0,0,0,0
+2025-08-19,Azure AI,Workflow Automation,Europe,Sales,CVP,121,0.32,10,0,0,1,1,0
+2025-08-19,Azure AI,Workflow Automation,Asia,Support,Director,97,0.73,7,0,0,0,0,0
+2025-08-19,Azure AI,Workflow Automation,LATAM,Engineering,CVP,100,0.71,6,0,0,0,0,0
+2025-08-19,Power Platform,Copilot Chat,North America,Engineering,CVP,87,1.03,9,0,0,0,0,0
+2025-08-19,Power Platform,Copilot Chat,Europe,PM,Director,70,0.92,4,0,0,0,0,0
+2025-08-19,Power Platform,Copilot Chat,Asia,Support,PM,86,0.91,1,1,0,1,0,0
+2025-08-19,Power Platform,Copilot Chat,LATAM,Engineering,Director,110,0.89,7,0,0,0,0,0
+2025-08-19,Power Platform,Auto Insights,North America,Support,Director,100,0.78,4,0,0,1,0,0
+2025-08-19,Power Platform,Auto Insights,Europe,Sales,CVP,112,0.97,5,0,0,0,0,0
+2025-08-19,Power Platform,Auto Insights,Asia,PM,CVP,107,1.04,2,0,0,0,0,0
+2025-08-19,Power Platform,Auto Insights,LATAM,Support,CVP,106,0.63,6,0,0,0,0,0
+2025-08-19,Power Platform,Predictive Alerts,North America,Engineering,Director,94,0.47,4,0,0,0,0,0
+2025-08-19,Power Platform,Predictive Alerts,Europe,Sales,Director,76,0.55,3,0,0,0,0,0
+2025-08-19,Power Platform,Predictive Alerts,Asia,Engineering,PM,107,0.77,1,0,0,0,0,0
+2025-08-19,Power Platform,Predictive Alerts,LATAM,Sales,Director,84,0.34,7,0,0,1,0,0
+2025-08-19,Power Platform,Workflow Automation,North America,PM,PM,113,0.69,6,0,0,0,0,0
+2025-08-19,Power Platform,Workflow Automation,Europe,PM,CVP,106,0.35,6,0,0,0,0,0
+2025-08-19,Power Platform,Workflow Automation,Asia,Engineering,GPM,108,0.91,8,0,0,0,0,0
+2025-08-19,Power Platform,Workflow Automation,LATAM,Engineering,GPM,112,0.59,6,0,0,0,0,0
+2025-08-19,Dynamics 365,Copilot Chat,North America,Support,Director,82,0.64,6,0,0,0,0,0
+2025-08-19,Dynamics 365,Copilot Chat,Europe,Sales,PM,109,0.76,3,0,0,0,0,0
+2025-08-19,Dynamics 365,Copilot Chat,Asia,PM,CVP,97,0.83,9,0,0,0,0,0
+2025-08-19,Dynamics 365,Copilot Chat,LATAM,Support,Director,100,0.36,4,0,0,0,0,0
+2025-08-19,Dynamics 365,Auto Insights,North America,Sales,PM,90,0.79,3,0,0,0,0,0
+2025-08-19,Dynamics 365,Auto Insights,Europe,PM,Director,100,0.52,9,0,0,0,0,0
+2025-08-19,Dynamics 365,Auto Insights,Asia,Sales,Director,94,0.52,0,0,0,0,0,0
+2025-08-19,Dynamics 365,Auto Insights,LATAM,Support,GPM,92,0.85,4,0,0,0,0,0
+2025-08-19,Dynamics 365,Predictive Alerts,North America,Engineering,PM,88,0.62,5,0,0,0,0,0
+2025-08-19,Dynamics 365,Predictive Alerts,Europe,PM,CVP,116,0.82,9,0,0,0,0,0
+2025-08-19,Dynamics 365,Predictive Alerts,Asia,Sales,PM,103,0.75,0,0,0,0,0,0
+2025-08-19,Dynamics 365,Predictive Alerts,LATAM,Support,Director,100,0.86,5,1,0,0,0,0
+2025-08-19,Dynamics 365,Workflow Automation,North America,Sales,GPM,107,0.66,4,0,0,0,0,0
+2025-08-19,Dynamics 365,Workflow Automation,Europe,Support,CVP,106,0.83,5,0,0,0,0,0
+2025-08-19,Dynamics 365,Workflow Automation,Asia,PM,PM,82,0.9,4,0,0,0,0,0
+2025-08-19,Dynamics 365,Workflow Automation,LATAM,PM,PM,95,0.62,2,0,0,1,0,0
+2025-08-18,Azure AI,Copilot Chat,North America,Sales,GPM,107,0.91,5,0,0,0,0,0
+2025-08-18,Azure AI,Copilot Chat,Europe,Sales,PM,95,0.79,5,0,0,0,0,0
+2025-08-18,Azure AI,Copilot Chat,Asia,Support,Director,107,0.77,4,0,0,0,0,0
+2025-08-18,Azure AI,Copilot Chat,LATAM,Engineering,Director,100,0.36,5,0,0,0,0,0
+2025-08-18,Azure AI,Auto Insights,North America,Support,GPM,108,0.72,8,1,0,0,0,0
+2025-08-18,Azure AI,Auto Insights,Europe,PM,Director,120,0.63,2,0,0,0,0,0
+2025-08-18,Azure AI,Auto Insights,Asia,PM,PM,95,0.48,4,0,0,0,0,0
+2025-08-18,Azure AI,Auto Insights,LATAM,PM,GPM,100,0.63,6,0,0,0,0,0
+2025-08-18,Azure AI,Predictive Alerts,North America,PM,CVP,91,0.83,5,0,0,0,0,0
+2025-08-18,Azure AI,Predictive Alerts,Europe,Engineering,Director,77,0.72,6,0,0,0,0,0
+2025-08-18,Azure AI,Predictive Alerts,Asia,Support,CVP,100,0.61,5,0,0,1,0,0
+2025-08-18,Azure AI,Predictive Alerts,LATAM,PM,PM,98,0.7,8,0,0,0,0,0
+2025-08-18,Azure AI,Workflow Automation,North America,Engineering,Director,89,0.29,4,0,0,0,0,0
+2025-08-18,Azure AI,Workflow Automation,Europe,Sales,CVP,93,0.56,8,0,0,0,0,0
+2025-08-18,Azure AI,Workflow Automation,Asia,Sales,CVP,108,0.84,3,0,0,0,0,0
+2025-08-18,Azure AI,Workflow Automation,LATAM,Engineering,GPM,112,0.86,4,0,0,0,0,0
+2025-08-18,Power Platform,Copilot Chat,North America,Support,PM,100,0.55,5,1,0,0,0,0
+2025-08-18,Power Platform,Copilot Chat,Europe,Sales,CVP,91,0.52,5,0,0,0,0,0
+2025-08-18,Power Platform,Copilot Chat,Asia,Support,GPM,97,0.44,5,0,0,0,0,0
+2025-08-18,Power Platform,Copilot Chat,LATAM,PM,GPM,100,0.38,8,0,0,0,0,0
+2025-08-18,Power Platform,Auto Insights,North America,Sales,PM,109,0.5,8,0,0,0,0,0
+2025-08-18,Power Platform,Auto Insights,Europe,Engineering,GPM,90,0.72,7,1,0,0,0,0
+2025-08-18,Power Platform,Auto Insights,Asia,Support,GPM,114,0.86,7,0,0,0,0,0
+2025-08-18,Power Platform,Auto Insights,LATAM,PM,Director,133,0.82,5,0,0,0,0,0
+2025-08-18,Power Platform,Predictive Alerts,North America,PM,Director,119,0.43,4,0,0,0,0,0
+2025-08-18,Power Platform,Predictive Alerts,Europe,Support,PM,79,0.64,6,0,0,0,0,0
+2025-08-18,Power Platform,Predictive Alerts,Asia,Support,GPM,90,0.61,7,0,0,0,0,0
+2025-08-18,Power Platform,Predictive Alerts,LATAM,Support,GPM,102,0.75,2,0,0,0,0,0
+2025-08-18,Power Platform,Workflow Automation,North America,Support,PM,116,0.5,3,0,0,0,0,0
+2025-08-18,Power Platform,Workflow Automation,Europe,PM,GPM,103,1.14,7,0,0,0,0,0
+2025-08-18,Power Platform,Workflow Automation,Asia,PM,Director,85,0.86,3,0,0,0,0,0
+2025-08-18,Power Platform,Workflow Automation,LATAM,Engineering,PM,95,0.77,6,0,0,0,0,0
+2025-08-18,Dynamics 365,Copilot Chat,North America,Engineering,PM,105,1.01,5,0,0,0,0,0
+2025-08-18,Dynamics 365,Copilot Chat,Europe,Support,GPM,80,1.08,7,0,0,0,0,0
+2025-08-18,Dynamics 365,Copilot Chat,Asia,Sales,PM,95,0.31,7,0,0,0,0,0
+2025-08-18,Dynamics 365,Copilot Chat,LATAM,Sales,Director,103,0.59,6,0,0,0,0,0
+2025-08-18,Dynamics 365,Auto Insights,North America,Support,CVP,92,0.55,2,0,0,1,0,0
+2025-08-18,Dynamics 365,Auto Insights,Europe,PM,CVP,115,0.59,1,1,0,0,0,0
+2025-08-18,Dynamics 365,Auto Insights,Asia,Support,CVP,105,0.64,4,0,0,0,0,0
+2025-08-18,Dynamics 365,Auto Insights,LATAM,Engineering,PM,92,0.82,10,0,0,0,0,0
+2025-08-18,Dynamics 365,Predictive Alerts,North America,PM,CVP,102,0.78,10,0,0,1,0,0
+2025-08-18,Dynamics 365,Predictive Alerts,Europe,Sales,CVP,103,0.51,3,0,0,0,0,0
+2025-08-18,Dynamics 365,Predictive Alerts,Asia,Sales,GPM,91,0.62,6,1,0,1,0,0
+2025-08-18,Dynamics 365,Predictive Alerts,LATAM,Support,GPM,95,0.49,4,0,0,0,0,0
+2025-08-18,Dynamics 365,Workflow Automation,North America,Support,Director,100,0.54,2,0,0,0,0,0
+2025-08-18,Dynamics 365,Workflow Automation,Europe,Support,CVP,110,0.74,7,0,0,0,0,0
+2025-08-18,Dynamics 365,Workflow Automation,Asia,PM,Director,102,0.69,9,0,0,0,0,0
+2025-08-18,Dynamics 365,Workflow Automation,LATAM,Engineering,Director,98,0.6,8,0,0,0,0,0
+2025-08-17,Azure AI,Copilot Chat,North America,PM,CVP,99,0.71,2,0,0,0,0,0
+2025-08-17,Azure AI,Copilot Chat,Europe,Engineering,Director,107,0.47,7,0,0,0,0,0
+2025-08-17,Azure AI,Copilot Chat,Asia,Sales,GPM,107,0.57,4,0,0,0,0,0
+2025-08-17,Azure AI,Copilot Chat,LATAM,PM,PM,86,0.56,6,0,0,0,0,0
+2025-08-17,Azure AI,Auto Insights,North America,Engineering,Director,106,0.58,9,0,0,0,0,0
+2025-08-17,Azure AI,Auto Insights,Europe,Sales,CVP,94,0.54,4,0,0,0,0,0
+2025-08-17,Azure AI,Auto Insights,Asia,PM,GPM,97,0.71,8,0,0,0,0,0
+2025-08-17,Azure AI,Auto Insights,LATAM,Support,Director,99,0.67,7,0,0,0,0,0
+2025-08-17,Azure AI,Predictive Alerts,North America,PM,GPM,118,0.52,3,0,0,0,0,0
+2025-08-17,Azure AI,Predictive Alerts,Europe,Sales,CVP,96,0.67,8,0,0,1,0,0
+2025-08-17,Azure AI,Predictive Alerts,Asia,Sales,Director,101,0.85,4,0,0,0,0,0
+2025-08-17,Azure AI,Predictive Alerts,LATAM,Sales,PM,92,0.5,5,0,0,0,0,0
+2025-08-17,Azure AI,Workflow Automation,North America,Engineering,CVP,96,0.74,7,0,0,0,0,0
+2025-08-17,Azure AI,Workflow Automation,Europe,Sales,GPM,110,0.49,3,0,0,0,0,0
+2025-08-17,Azure AI,Workflow Automation,Asia,PM,Director,110,1.02,7,0,0,0,0,0
+2025-08-17,Azure AI,Workflow Automation,LATAM,Engineering,PM,106,1.01,9,0,0,0,0,0
+2025-08-17,Power Platform,Copilot Chat,North America,Support,CVP,100,-0.07,3,1,0,0,0,0
+2025-08-17,Power Platform,Copilot Chat,Europe,Sales,Director,103,0.95,4,0,0,0,0,0
+2025-08-17,Power Platform,Copilot Chat,Asia,Engineering,PM,83,0.44,7,0,0,0,0,0
+2025-08-17,Power Platform,Copilot Chat,LATAM,Sales,GPM,104,0.75,6,0,0,1,0,0
+2025-08-17,Power Platform,Auto Insights,North America,Support,Director,93,1.02,10,0,0,0,0,0
+2025-08-17,Power Platform,Auto Insights,Europe,Sales,Director,89,0.51,7,0,0,0,0,0
+2025-08-17,Power Platform,Auto Insights,Asia,Engineering,CVP,77,0.44,3,0,0,1,0,0
+2025-08-17,Power Platform,Auto Insights,LATAM,Engineering,GPM,104,0.55,1,0,0,0,0,0
+2025-08-17,Power Platform,Predictive Alerts,North America,Support,Director,89,0.37,1,0,0,0,0,0
+2025-08-17,Power Platform,Predictive Alerts,Europe,Engineering,CVP,109,0.85,4,0,0,0,0,0
+2025-08-17,Power Platform,Predictive Alerts,Asia,Sales,Director,104,0.86,9,0,0,0,0,0
+2025-08-17,Power Platform,Predictive Alerts,LATAM,Engineering,GPM,78,1.14,4,0,0,0,0,0
+2025-08-17,Power Platform,Workflow Automation,North America,Engineering,CVP,97,0.62,6,0,0,0,0,0
+2025-08-17,Power Platform,Workflow Automation,Europe,Support,Director,132,0.85,3,0,0,0,0,0
+2025-08-17,Power Platform,Workflow Automation,Asia,Support,GPM,118,0.91,8,1,0,0,0,0
+2025-08-17,Power Platform,Workflow Automation,LATAM,PM,CVP,101,0.78,4,0,0,0,0,0
+2025-08-17,Dynamics 365,Copilot Chat,North America,Engineering,PM,112,1.14,3,0,0,0,0,0
+2025-08-17,Dynamics 365,Copilot Chat,Europe,Engineering,GPM,91,0.89,7,0,0,0,0,0
+2025-08-17,Dynamics 365,Copilot Chat,Asia,Support,CVP,87,0.43,10,0,0,1,0,0
+2025-08-17,Dynamics 365,Copilot Chat,LATAM,Sales,GPM,98,0.51,7,0,0,1,0,0
+2025-08-17,Dynamics 365,Auto Insights,North America,PM,Director,105,0.77,7,0,0,0,0,0
+2025-08-17,Dynamics 365,Auto Insights,Europe,Support,GPM,103,0.76,0,0,0,0,0,0
+2025-08-17,Dynamics 365,Auto Insights,Asia,Sales,Director,116,0.59,3,0,0,0,0,0
+2025-08-17,Dynamics 365,Auto Insights,LATAM,Support,CVP,124,0.6,4,0,0,0,0,0
+2025-08-17,Dynamics 365,Predictive Alerts,North America,Support,CVP,90,1.05,3,1,0,0,0,0
+2025-08-17,Dynamics 365,Predictive Alerts,Europe,Engineering,Director,104,0.67,7,0,0,0,0,0
+2025-08-17,Dynamics 365,Predictive Alerts,Asia,Support,PM,92,0.71,6,0,0,0,0,0
+2025-08-17,Dynamics 365,Predictive Alerts,LATAM,Sales,Director,103,0.39,4,0,0,0,0,0
+2025-08-17,Dynamics 365,Workflow Automation,North America,Engineering,CVP,101,0.9,2,0,0,0,0,0
+2025-08-17,Dynamics 365,Workflow Automation,Europe,Support,GPM,104,0.74,5,0,0,0,0,0
+2025-08-17,Dynamics 365,Workflow Automation,Asia,Engineering,CVP,109,0.34,6,0,0,0,0,0
+2025-08-17,Dynamics 365,Workflow Automation,LATAM,PM,CVP,109,0.91,6,0,0,0,0,0
+2025-08-16,Azure AI,Copilot Chat,North America,PM,GPM,109,0.65,4,0,0,0,0,0
+2025-08-16,Azure AI,Copilot Chat,Europe,Engineering,PM,94,0.74,9,0,0,0,0,0
+2025-08-16,Azure AI,Copilot Chat,Asia,PM,PM,87,0.61,5,0,0,1,0,0
+2025-08-16,Azure AI,Copilot Chat,LATAM,Sales,Director,102,0.7,6,0,0,0,0,0
+2025-08-16,Azure AI,Auto Insights,North America,Sales,GPM,120,0.23,6,0,0,0,0,0
+2025-08-16,Azure AI,Auto Insights,Europe,Sales,GPM,85,0.7,2,0,0,0,0,0
+2025-08-16,Azure AI,Auto Insights,Asia,Sales,CVP,81,0.38,5,0,0,0,0,0
+2025-08-16,Azure AI,Auto Insights,LATAM,Engineering,GPM,103,0.83,4,0,0,0,0,0
+2025-08-16,Azure AI,Predictive Alerts,North America,PM,Director,96,0.62,7,0,0,0,0,0
+2025-08-16,Azure AI,Predictive Alerts,Europe,Sales,CVP,112,0.64,4,0,0,0,0,0
+2025-08-16,Azure AI,Predictive Alerts,Asia,Support,GPM,108,0.64,7,0,0,0,0,0
+2025-08-16,Azure AI,Predictive Alerts,LATAM,Sales,Director,105,0.94,3,0,0,1,0,0
+2025-08-16,Azure AI,Workflow Automation,North America,Support,Director,89,1.02,7,0,0,0,0,0
+2025-08-16,Azure AI,Workflow Automation,Europe,Sales,GPM,90,0.55,9,0,0,0,0,0
+2025-08-16,Azure AI,Workflow Automation,Asia,PM,Director,94,0.78,9,0,0,0,0,0
+2025-08-16,Azure AI,Workflow Automation,LATAM,Support,GPM,94,0.86,11,0,0,1,0,1
+2025-08-16,Power Platform,Copilot Chat,North America,Support,Director,106,0.69,5,0,0,0,0,0
+2025-08-16,Power Platform,Copilot Chat,Europe,PM,CVP,107,0.88,11,0,0,0,0,1
+2025-08-16,Power Platform,Copilot Chat,Asia,Support,CVP,105,0.83,5,0,0,0,0,0
+2025-08-16,Power Platform,Copilot Chat,LATAM,Support,Director,95,0.73,4,0,0,0,0,0
+2025-08-16,Power Platform,Auto Insights,North America,Support,PM,93,0.49,9,0,0,0,0,0
+2025-08-16,Power Platform,Auto Insights,Europe,Sales,CVP,106,0.39,7,0,0,0,0,0
+2025-08-16,Power Platform,Auto Insights,Asia,Support,GPM,105,1.07,8,0,0,0,0,0
+2025-08-16,Power Platform,Auto Insights,LATAM,Support,PM,97,0.35,6,0,0,0,0,0
+2025-08-16,Power Platform,Predictive Alerts,North America,Support,PM,121,0.63,3,0,0,0,0,0
+2025-08-16,Power Platform,Predictive Alerts,Europe,Support,CVP,111,1.11,5,0,0,0,0,0
+2025-08-16,Power Platform,Predictive Alerts,Asia,Support,CVP,101,0.69,9,0,0,1,0,0
+2025-08-16,Power Platform,Predictive Alerts,LATAM,PM,GPM,109,0.41,6,0,0,0,0,0
+2025-08-16,Power Platform,Workflow Automation,North America,Support,Director,87,0.6,9,0,0,0,0,0
+2025-08-16,Power Platform,Workflow Automation,Europe,PM,PM,106,0.89,3,0,0,0,0,0
+2025-08-16,Power Platform,Workflow Automation,Asia,PM,GPM,81,0.74,7,0,0,0,0,0
+2025-08-16,Power Platform,Workflow Automation,LATAM,Engineering,GPM,100,0.73,5,0,0,0,0,0
+2025-08-16,Dynamics 365,Copilot Chat,North America,PM,PM,99,0.9,6,0,0,0,0,0
+2025-08-16,Dynamics 365,Copilot Chat,Europe,Engineering,CVP,93,0.62,7,0,0,0,0,0
+2025-08-16,Dynamics 365,Copilot Chat,Asia,Support,CVP,86,0.49,6,0,0,1,0,0
+2025-08-16,Dynamics 365,Copilot Chat,LATAM,Engineering,GPM,95,0.5,5,0,0,0,0,0
+2025-08-16,Dynamics 365,Auto Insights,North America,Engineering,GPM,105,0.43,2,0,0,0,0,0
+2025-08-16,Dynamics 365,Auto Insights,Europe,Sales,CVP,106,0.64,7,0,0,0,0,0
+2025-08-16,Dynamics 365,Auto Insights,Asia,Sales,GPM,102,0.59,2,0,0,0,0,0
+2025-08-16,Dynamics 365,Auto Insights,LATAM,Support,Director,107,0.33,5,0,0,0,0,0
+2025-08-16,Dynamics 365,Predictive Alerts,North America,Support,PM,96,0.75,1,0,0,0,0,0
+2025-08-16,Dynamics 365,Predictive Alerts,Europe,Engineering,GPM,87,0.65,9,1,0,1,0,0
+2025-08-16,Dynamics 365,Predictive Alerts,Asia,Engineering,GPM,119,0.64,5,0,0,0,0,0
+2025-08-16,Dynamics 365,Predictive Alerts,LATAM,Sales,GPM,106,0.97,5,0,0,0,0,0
+2025-08-16,Dynamics 365,Workflow Automation,North America,Engineering,CVP,109,0.85,5,0,0,0,0,0
+2025-08-16,Dynamics 365,Workflow Automation,Europe,Sales,GPM,102,0.91,3,0,0,0,0,0
+2025-08-16,Dynamics 365,Workflow Automation,Asia,Support,PM,118,0.74,6,0,0,0,0,0
+2025-08-16,Dynamics 365,Workflow Automation,LATAM,Engineering,Director,90,1.02,10,0,0,0,0,0
+2025-08-15,Azure AI,Copilot Chat,North America,Engineering,Director,115,0.78,3,0,0,1,0,0
+2025-08-15,Azure AI,Copilot Chat,Europe,Support,CVP,113,0.47,4,0,0,0,0,0
+2025-08-15,Azure AI,Copilot Chat,Asia,Sales,GPM,112,1.05,6,0,0,0,0,0
+2025-08-15,Azure AI,Copilot Chat,LATAM,Sales,Director,97,0.58,8,0,0,0,0,0
+2025-08-15,Azure AI,Auto Insights,North America,PM,PM,114,0.81,5,0,0,0,0,0
+2025-08-15,Azure AI,Auto Insights,Europe,Support,GPM,107,0.29,5,0,0,0,0,0
+2025-08-15,Azure AI,Auto Insights,Asia,Sales,Director,108,0.74,4,0,0,1,0,0
+2025-08-15,Azure AI,Auto Insights,LATAM,PM,PM,100,0.94,6,0,0,0,0,0
+2025-08-15,Azure AI,Predictive Alerts,North America,Support,Director,123,0.87,8,0,0,0,0,0
+2025-08-15,Azure AI,Predictive Alerts,Europe,PM,GPM,93,0.82,4,0,0,0,0,0
+2025-08-15,Azure AI,Predictive Alerts,Asia,Sales,CVP,88,0.75,6,0,0,0,0,0
+2025-08-15,Azure AI,Predictive Alerts,LATAM,Support,PM,105,0.81,6,0,0,0,0,0
+2025-08-15,Azure AI,Workflow Automation,North America,Sales,PM,110,0.58,1,0,0,0,0,0
+2025-08-15,Azure AI,Workflow Automation,Europe,PM,GPM,95,0.93,4,0,0,0,0,0
+2025-08-15,Azure AI,Workflow Automation,Asia,Sales,Director,108,0.51,9,1,0,0,0,0
+2025-08-15,Azure AI,Workflow Automation,LATAM,PM,PM,107,0.34,3,0,0,0,0,0
+2025-08-15,Power Platform,Copilot Chat,North America,Support,CVP,82,0.75,11,0,0,0,0,1
+2025-08-15,Power Platform,Copilot Chat,Europe,PM,CVP,88,0.88,3,0,0,0,0,0
+2025-08-15,Power Platform,Copilot Chat,Asia,Support,Director,89,0.35,4,0,0,0,0,0
+2025-08-15,Power Platform,Copilot Chat,LATAM,Support,PM,93,0.7,4,0,0,0,0,0
+2025-08-15,Power Platform,Auto Insights,North America,Support,Director,88,0.97,4,0,0,0,0,0
+2025-08-15,Power Platform,Auto Insights,Europe,PM,PM,92,0.36,6,0,0,0,0,0
+2025-08-15,Power Platform,Auto Insights,Asia,Engineering,CVP,106,0.65,7,0,1,0,0,0
+2025-08-15,Power Platform,Auto Insights,LATAM,Support,GPM,89,0.31,2,0,0,0,0,0
+2025-08-15,Power Platform,Predictive Alerts,North America,Sales,Director,91,0.98,6,0,0,0,0,0
+2025-08-15,Power Platform,Predictive Alerts,Europe,Engineering,Director,78,0.71,1,0,0,0,0,0
+2025-08-15,Power Platform,Predictive Alerts,Asia,Support,GPM,87,0.78,10,0,1,0,0,0
+2025-08-15,Power Platform,Predictive Alerts,LATAM,PM,GPM,99,0.87,3,0,0,0,0,0
+2025-08-15,Power Platform,Workflow Automation,North America,Sales,GPM,86,0.6,7,0,0,0,0,0
+2025-08-15,Power Platform,Workflow Automation,Europe,Sales,Director,95,0.57,2,0,0,1,0,0
+2025-08-15,Power Platform,Workflow Automation,Asia,Sales,CVP,101,0.98,2,0,0,0,0,0
+2025-08-15,Power Platform,Workflow Automation,LATAM,PM,GPM,115,0.79,7,0,0,0,0,0
+2025-08-15,Dynamics 365,Copilot Chat,North America,Engineering,CVP,120,0.71,11,0,0,0,0,1
+2025-08-15,Dynamics 365,Copilot Chat,Europe,Support,PM,107,0.67,5,0,0,0,0,0
+2025-08-15,Dynamics 365,Copilot Chat,Asia,Engineering,PM,94,0.76,3,0,0,0,0,0
+2025-08-15,Dynamics 365,Copilot Chat,LATAM,PM,GPM,109,0.83,1,0,0,0,0,0
+2025-08-15,Dynamics 365,Auto Insights,North America,PM,Director,117,0.77,3,0,0,0,0,0
+2025-08-15,Dynamics 365,Auto Insights,Europe,Sales,PM,99,0.77,3,0,0,0,0,0
+2025-08-15,Dynamics 365,Auto Insights,Asia,PM,CVP,97,0.52,6,0,0,1,0,0
+2025-08-15,Dynamics 365,Auto Insights,LATAM,Engineering,CVP,87,0.69,11,0,0,0,0,1
+2025-08-15,Dynamics 365,Predictive Alerts,North America,Engineering,CVP,92,0.64,6,0,0,0,0,0
+2025-08-15,Dynamics 365,Predictive Alerts,Europe,PM,CVP,101,0.57,6,0,0,0,0,0
+2025-08-15,Dynamics 365,Predictive Alerts,Asia,Sales,PM,138,0.62,4,0,0,1,0,0
+2025-08-15,Dynamics 365,Predictive Alerts,LATAM,Sales,Director,98,0.85,8,0,0,0,0,0
+2025-08-15,Dynamics 365,Workflow Automation,North America,Engineering,CVP,97,0.56,7,0,0,0,0,0
+2025-08-15,Dynamics 365,Workflow Automation,Europe,Support,PM,112,0.68,6,0,1,0,0,0
+2025-08-15,Dynamics 365,Workflow Automation,Asia,PM,PM,88,0.94,8,0,0,1,0,0
+2025-08-15,Dynamics 365,Workflow Automation,LATAM,Engineering,CVP,98,0.43,7,0,0,0,0,0
+2025-08-14,Azure AI,Copilot Chat,North America,Support,PM,102,0.66,6,0,0,0,0,0
+2025-08-14,Azure AI,Copilot Chat,Europe,Engineering,PM,107,0.62,7,0,0,0,0,0
+2025-08-14,Azure AI,Copilot Chat,Asia,Sales,PM,107,0.69,9,1,0,0,0,0
+2025-08-14,Azure AI,Copilot Chat,LATAM,Support,CVP,103,0.54,2,0,0,0,0,0
+2025-08-14,Azure AI,Auto Insights,North America,PM,GPM,85,0.79,4,0,0,0,0,0
+2025-08-14,Azure AI,Auto Insights,Europe,Sales,Director,98,0.72,4,0,0,0,0,0
+2025-08-14,Azure AI,Auto Insights,Asia,Sales,CVP,96,0.39,8,1,0,0,0,0
+2025-08-14,Azure AI,Auto Insights,LATAM,Sales,CVP,99,0.75,4,0,0,0,0,0
+2025-08-14,Azure AI,Predictive Alerts,North America,Engineering,GPM,100,0.41,6,0,0,0,0,0
+2025-08-14,Azure AI,Predictive Alerts,Europe,Support,PM,87,0.8,1,0,0,0,0,0
+2025-08-14,Azure AI,Predictive Alerts,Asia,PM,CVP,92,0.75,6,0,0,0,0,0
+2025-08-14,Azure AI,Predictive Alerts,LATAM,PM,GPM,100,0.7,4,0,0,0,0,0
+2025-08-14,Azure AI,Workflow Automation,North America,Engineering,PM,91,0.64,2,0,0,0,0,0
+2025-08-14,Azure AI,Workflow Automation,Europe,Support,CVP,86,0.84,6,0,0,0,0,0
+2025-08-14,Azure AI,Workflow Automation,Asia,Sales,CVP,102,0.99,3,0,0,0,0,0
+2025-08-14,Azure AI,Workflow Automation,LATAM,PM,GPM,118,0.6,8,1,0,0,0,0
+2025-08-14,Power Platform,Copilot Chat,North America,Sales,Director,94,0.54,1,0,0,1,0,0
+2025-08-14,Power Platform,Copilot Chat,Europe,PM,Director,99,0.9,6,0,0,1,0,0
+2025-08-14,Power Platform,Copilot Chat,Asia,PM,PM,93,0.85,5,0,0,1,0,0
+2025-08-14,Power Platform,Copilot Chat,LATAM,Engineering,CVP,98,1.0,5,0,0,0,0,0
+2025-08-14,Power Platform,Auto Insights,North America,Engineering,GPM,124,0.99,5,0,0,0,0,0
+2025-08-14,Power Platform,Auto Insights,Europe,PM,PM,80,0.7,5,0,0,0,0,0
+2025-08-14,Power Platform,Auto Insights,Asia,Engineering,PM,99,0.94,2,0,0,0,0,0
+2025-08-14,Power Platform,Auto Insights,LATAM,Sales,PM,111,0.41,5,0,0,1,0,0
+2025-08-14,Power Platform,Predictive Alerts,North America,PM,PM,94,-0.08,6,0,0,0,0,0
+2025-08-14,Power Platform,Predictive Alerts,Europe,Sales,CVP,111,0.76,5,0,0,1,0,0
+2025-08-14,Power Platform,Predictive Alerts,Asia,PM,GPM,82,0.65,3,0,0,0,0,0
+2025-08-14,Power Platform,Predictive Alerts,LATAM,Engineering,GPM,88,0.77,7,0,0,0,0,0
+2025-08-14,Power Platform,Workflow Automation,North America,Support,GPM,124,0.5,5,0,0,1,1,0
+2025-08-14,Power Platform,Workflow Automation,Europe,Support,Director,106,0.59,4,0,0,0,0,0
+2025-08-14,Power Platform,Workflow Automation,Asia,PM,Director,98,0.8,5,0,0,0,0,0
+2025-08-14,Power Platform,Workflow Automation,LATAM,PM,GPM,105,0.57,4,0,0,0,0,0
+2025-08-14,Dynamics 365,Copilot Chat,North America,Sales,Director,112,0.72,2,0,0,0,0,0
+2025-08-14,Dynamics 365,Copilot Chat,Europe,Support,PM,91,0.67,3,0,0,0,0,0
+2025-08-14,Dynamics 365,Copilot Chat,Asia,PM,CVP,110,0.81,8,0,0,0,0,0
+2025-08-14,Dynamics 365,Copilot Chat,LATAM,Sales,PM,98,0.49,4,0,0,0,0,0
+2025-08-14,Dynamics 365,Auto Insights,North America,Support,CVP,103,0.81,2,0,0,0,0,0
+2025-08-14,Dynamics 365,Auto Insights,Europe,Support,CVP,92,0.48,4,0,0,0,0,0
+2025-08-14,Dynamics 365,Auto Insights,Asia,Sales,GPM,104,0.48,9,0,0,0,0,0
+2025-08-14,Dynamics 365,Auto Insights,LATAM,Support,CVP,109,0.69,2,1,0,0,0,0
+2025-08-14,Dynamics 365,Predictive Alerts,North America,PM,CVP,86,0.65,7,0,0,0,0,0
+2025-08-14,Dynamics 365,Predictive Alerts,Europe,PM,GPM,122,0.68,5,0,0,0,0,0
+2025-08-14,Dynamics 365,Predictive Alerts,Asia,Support,GPM,102,0.2,8,0,0,1,0,0
+2025-08-14,Dynamics 365,Predictive Alerts,LATAM,Sales,PM,104,0.29,6,0,0,0,0,0
+2025-08-14,Dynamics 365,Workflow Automation,North America,Sales,CVP,117,0.69,1,0,0,0,0,0
+2025-08-14,Dynamics 365,Workflow Automation,Europe,PM,CVP,107,1.04,8,0,0,1,0,0
+2025-08-14,Dynamics 365,Workflow Automation,Asia,PM,Director,97,0.63,3,0,0,0,0,0
+2025-08-14,Dynamics 365,Workflow Automation,LATAM,PM,Director,103,0.34,6,0,0,0,0,0
+2025-08-13,Azure AI,Copilot Chat,North America,Engineering,CVP,78,0.54,6,0,0,0,0,0
+2025-08-13,Azure AI,Copilot Chat,Europe,Support,PM,89,0.9,7,0,0,0,0,0
+2025-08-13,Azure AI,Copilot Chat,Asia,PM,PM,100,0.86,5,0,0,0,0,0
+2025-08-13,Azure AI,Copilot Chat,LATAM,Support,CVP,101,0.89,2,0,0,0,0,0
+2025-08-13,Azure AI,Auto Insights,North America,Engineering,PM,116,0.75,4,0,0,0,0,0
+2025-08-13,Azure AI,Auto Insights,Europe,PM,GPM,103,0.95,6,0,0,0,0,0
+2025-08-13,Azure AI,Auto Insights,Asia,Sales,GPM,96,0.66,5,0,0,0,0,0
+2025-08-13,Azure AI,Auto Insights,LATAM,Support,Director,98,0.65,8,0,0,0,0,0
+2025-08-13,Azure AI,Predictive Alerts,North America,Engineering,GPM,108,0.83,4,1,0,0,0,0
+2025-08-13,Azure AI,Predictive Alerts,Europe,PM,PM,94,0.76,9,0,0,0,0,0
+2025-08-13,Azure AI,Predictive Alerts,Asia,Sales,GPM,111,0.66,4,0,0,0,0,0
+2025-08-13,Azure AI,Predictive Alerts,LATAM,PM,CVP,126,0.3,3,0,0,0,1,0
+2025-08-13,Azure AI,Workflow Automation,North America,PM,Director,108,0.53,4,0,0,0,0,0
+2025-08-13,Azure AI,Workflow Automation,Europe,Support,CVP,90,0.65,5,0,0,0,0,0
+2025-08-13,Azure AI,Workflow Automation,Asia,Sales,Director,100,0.9,6,0,0,0,0,0
+2025-08-13,Azure AI,Workflow Automation,LATAM,Support,Director,97,0.65,7,0,0,0,0,0
+2025-08-13,Power Platform,Copilot Chat,North America,Support,CVP,104,0.42,5,0,0,1,0,0
+2025-08-13,Power Platform,Copilot Chat,Europe,Sales,PM,109,0.74,4,0,0,0,0,0
+2025-08-13,Power Platform,Copilot Chat,Asia,Sales,Director,93,0.99,9,0,0,0,0,0
+2025-08-13,Power Platform,Copilot Chat,LATAM,PM,Director,113,1.08,8,0,0,0,0,0
+2025-08-13,Power Platform,Auto Insights,North America,Support,CVP,105,0.57,4,0,0,0,0,0
+2025-08-13,Power Platform,Auto Insights,Europe,Engineering,GPM,101,0.72,5,0,0,1,0,0
+2025-08-13,Power Platform,Auto Insights,Asia,PM,PM,115,0.62,9,0,0,0,0,0
+2025-08-13,Power Platform,Auto Insights,LATAM,Support,CVP,90,0.4,5,0,0,1,0,0
+2025-08-13,Power Platform,Predictive Alerts,North America,Support,GPM,100,0.65,6,0,0,0,0,0
+2025-08-13,Power Platform,Predictive Alerts,Europe,PM,Director,128,0.53,6,0,0,0,0,0
+2025-08-13,Power Platform,Predictive Alerts,Asia,PM,CVP,105,0.59,4,0,0,0,0,0
+2025-08-13,Power Platform,Predictive Alerts,LATAM,PM,CVP,98,0.6,8,1,0,1,0,0
+2025-08-13,Power Platform,Workflow Automation,North America,Support,Director,102,0.38,3,0,0,1,0,0
+2025-08-13,Power Platform,Workflow Automation,Europe,Sales,CVP,96,0.82,9,0,0,0,0,0
+2025-08-13,Power Platform,Workflow Automation,Asia,Sales,GPM,121,0.69,2,0,0,0,0,0
+2025-08-13,Power Platform,Workflow Automation,LATAM,Support,GPM,97,0.44,2,0,1,0,0,0
+2025-08-13,Dynamics 365,Copilot Chat,North America,PM,CVP,79,0.41,8,0,0,0,0,0
+2025-08-13,Dynamics 365,Copilot Chat,Europe,PM,PM,98,0.66,6,0,0,0,0,0
+2025-08-13,Dynamics 365,Copilot Chat,Asia,Engineering,PM,102,0.82,6,0,0,1,0,0
+2025-08-13,Dynamics 365,Copilot Chat,LATAM,Engineering,PM,93,0.49,4,0,0,0,0,0
+2025-08-13,Dynamics 365,Auto Insights,North America,Sales,GPM,76,0.45,2,0,0,0,0,0
+2025-08-13,Dynamics 365,Auto Insights,Europe,PM,PM,103,0.56,2,0,0,0,0,0
+2025-08-13,Dynamics 365,Auto Insights,Asia,PM,PM,106,0.3,6,0,0,0,0,0
+2025-08-13,Dynamics 365,Auto Insights,LATAM,PM,CVP,90,0.47,7,0,0,0,0,0
+2025-08-13,Dynamics 365,Predictive Alerts,North America,Support,PM,95,0.7,9,0,0,0,0,0
+2025-08-13,Dynamics 365,Predictive Alerts,Europe,Sales,CVP,99,0.66,8,0,0,0,0,0
+2025-08-13,Dynamics 365,Predictive Alerts,Asia,Engineering,PM,93,0.95,3,0,0,1,0,0
+2025-08-13,Dynamics 365,Predictive Alerts,LATAM,Sales,PM,92,0.65,5,0,0,0,0,0
+2025-08-13,Dynamics 365,Workflow Automation,North America,Engineering,Director,98,0.51,3,0,0,0,0,0
+2025-08-13,Dynamics 365,Workflow Automation,Europe,Support,PM,105,0.56,6,0,0,0,0,0
+2025-08-13,Dynamics 365,Workflow Automation,Asia,Sales,GPM,106,1.08,5,0,0,0,0,0
+2025-08-13,Dynamics 365,Workflow Automation,LATAM,Engineering,PM,97,0.78,4,0,0,1,0,0
+2025-08-12,Azure AI,Copilot Chat,North America,PM,GPM,107,0.71,9,0,0,0,0,0
+2025-08-12,Azure AI,Copilot Chat,Europe,PM,Director,100,0.52,6,0,0,0,0,0
+2025-08-12,Azure AI,Copilot Chat,Asia,Support,Director,100,0.75,6,0,0,0,0,0
+2025-08-12,Azure AI,Copilot Chat,LATAM,Sales,PM,111,0.68,5,0,0,1,0,0
+2025-08-12,Azure AI,Auto Insights,North America,Support,CVP,93,0.49,5,0,0,0,0,0
+2025-08-12,Azure AI,Auto Insights,Europe,Sales,GPM,112,0.53,2,0,0,1,0,0
+2025-08-12,Azure AI,Auto Insights,Asia,PM,Director,104,0.6,5,0,0,0,0,0
+2025-08-12,Azure AI,Auto Insights,LATAM,Engineering,PM,114,1.03,3,0,1,0,0,0
+2025-08-12,Azure AI,Predictive Alerts,North America,Engineering,CVP,96,0.53,5,0,0,1,0,0
+2025-08-12,Azure AI,Predictive Alerts,Europe,Sales,CVP,99,0.45,11,0,0,1,0,0
+2025-08-12,Azure AI,Predictive Alerts,Asia,Sales,PM,94,0.79,8,0,0,0,0,0
+2025-08-12,Azure AI,Predictive Alerts,LATAM,Engineering,GPM,111,0.68,6,0,1,0,0,0
+2025-08-12,Azure AI,Workflow Automation,North America,Engineering,CVP,96,0.89,5,0,0,0,0,0
+2025-08-12,Azure AI,Workflow Automation,Europe,Sales,Director,106,1.06,2,0,0,0,0,0
+2025-08-12,Azure AI,Workflow Automation,Asia,Engineering,PM,105,0.92,4,0,0,0,0,0
+2025-08-12,Azure AI,Workflow Automation,LATAM,PM,GPM,106,0.66,2,0,0,0,0,0
+2025-08-12,Power Platform,Copilot Chat,North America,Sales,Director,109,0.67,5,0,0,0,0,0
+2025-08-12,Power Platform,Copilot Chat,Europe,Engineering,PM,97,1.22,7,0,0,0,0,0
+2025-08-12,Power Platform,Copilot Chat,Asia,Support,PM,94,0.56,5,0,0,0,0,0
+2025-08-12,Power Platform,Copilot Chat,LATAM,PM,Director,102,0.43,5,0,0,0,0,0
+2025-08-12,Power Platform,Auto Insights,North America,Engineering,GPM,108,0.55,5,0,0,0,0,0
+2025-08-12,Power Platform,Auto Insights,Europe,PM,CVP,88,0.7,8,0,0,0,0,0
+2025-08-12,Power Platform,Auto Insights,Asia,Engineering,Director,94,0.61,6,0,0,0,0,0
+2025-08-12,Power Platform,Auto Insights,LATAM,PM,GPM,99,0.4,1,0,0,0,0,0
+2025-08-12,Power Platform,Predictive Alerts,North America,Sales,Director,98,0.63,3,0,0,0,0,0
+2025-08-12,Power Platform,Predictive Alerts,Europe,Sales,GPM,99,0.85,5,0,1,0,0,0
+2025-08-12,Power Platform,Predictive Alerts,Asia,Engineering,Director,86,0.95,10,0,0,0,0,0
+2025-08-12,Power Platform,Predictive Alerts,LATAM,Engineering,PM,105,0.95,1,0,0,1,0,0
+2025-08-12,Power Platform,Workflow Automation,North America,Sales,GPM,96,0.55,8,0,0,0,0,0
+2025-08-12,Power Platform,Workflow Automation,Europe,Engineering,Director,96,0.86,8,1,0,0,0,0
+2025-08-12,Power Platform,Workflow Automation,Asia,Sales,Director,100,0.57,4,0,0,0,0,0
+2025-08-12,Power Platform,Workflow Automation,LATAM,Engineering,Director,107,0.8,5,0,0,0,0,0
+2025-08-12,Dynamics 365,Copilot Chat,North America,Sales,CVP,86,0.76,5,0,0,1,0,0
+2025-08-12,Dynamics 365,Copilot Chat,Europe,PM,Director,90,0.41,8,0,0,0,0,0
+2025-08-12,Dynamics 365,Copilot Chat,Asia,Sales,CVP,105,0.64,5,0,0,0,0,0
+2025-08-12,Dynamics 365,Copilot Chat,LATAM,PM,CVP,102,0.57,3,0,0,1,0,0
+2025-08-12,Dynamics 365,Auto Insights,North America,Engineering,Director,109,0.74,10,0,1,0,0,0
+2025-08-12,Dynamics 365,Auto Insights,Europe,PM,PM,96,0.54,3,0,0,0,0,0
+2025-08-12,Dynamics 365,Auto Insights,Asia,Engineering,Director,92,0.8,6,1,0,0,0,0
+2025-08-12,Dynamics 365,Auto Insights,LATAM,PM,CVP,87,0.77,4,0,0,0,0,0
+2025-08-12,Dynamics 365,Predictive Alerts,North America,PM,CVP,92,1.13,2,1,0,0,0,0
+2025-08-12,Dynamics 365,Predictive Alerts,Europe,Support,Director,92,0.67,1,0,0,0,0,0
+2025-08-12,Dynamics 365,Predictive Alerts,Asia,Engineering,PM,97,1.04,3,0,0,0,0,0
+2025-08-12,Dynamics 365,Predictive Alerts,LATAM,Engineering,Director,99,0.65,4,0,0,0,0,0
+2025-08-12,Dynamics 365,Workflow Automation,North America,Sales,Director,113,0.37,7,0,0,0,0,0
+2025-08-12,Dynamics 365,Workflow Automation,Europe,Support,PM,104,0.54,3,0,0,0,0,0
+2025-08-12,Dynamics 365,Workflow Automation,Asia,PM,PM,99,0.64,3,0,0,0,0,0
+2025-08-12,Dynamics 365,Workflow Automation,LATAM,PM,CVP,94,0.61,5,0,0,0,0,0
+2025-08-11,Azure AI,Copilot Chat,North America,Sales,CVP,111,0.84,3,0,0,0,0,0
+2025-08-11,Azure AI,Copilot Chat,Europe,Engineering,PM,99,0.66,5,0,0,0,0,0
+2025-08-11,Azure AI,Copilot Chat,Asia,Engineering,Director,90,0.35,5,0,0,0,0,0
+2025-08-11,Azure AI,Copilot Chat,LATAM,Engineering,Director,88,0.93,2,0,0,0,0,0
+2025-08-11,Azure AI,Auto Insights,North America,Sales,PM,101,0.67,5,0,0,1,0,0
+2025-08-11,Azure AI,Auto Insights,Europe,Support,CVP,119,0.55,6,0,0,0,0,0
+2025-08-11,Azure AI,Auto Insights,Asia,Sales,PM,90,0.6,3,0,0,0,0,0
+2025-08-11,Azure AI,Auto Insights,LATAM,PM,GPM,82,0.84,6,0,0,0,0,0
+2025-08-11,Azure AI,Predictive Alerts,North America,Sales,GPM,104,0.99,7,0,0,1,0,0
+2025-08-11,Azure AI,Predictive Alerts,Europe,PM,Director,88,0.37,4,0,0,0,0,0
+2025-08-11,Azure AI,Predictive Alerts,Asia,Support,Director,85,0.71,5,0,0,0,0,0
+2025-08-11,Azure AI,Predictive Alerts,LATAM,Sales,GPM,104,0.71,2,0,0,0,0,0
+2025-08-11,Azure AI,Workflow Automation,North America,Engineering,GPM,104,0.88,9,0,0,1,0,0
+2025-08-11,Azure AI,Workflow Automation,Europe,Sales,Director,95,1.05,4,0,0,0,0,0
+2025-08-11,Azure AI,Workflow Automation,Asia,Sales,Director,86,0.44,6,0,0,1,0,0
+2025-08-11,Azure AI,Workflow Automation,LATAM,Sales,PM,97,0.75,11,0,0,0,0,1
+2025-08-11,Power Platform,Copilot Chat,North America,Support,Director,110,0.77,4,0,1,0,0,0
+2025-08-11,Power Platform,Copilot Chat,Europe,PM,CVP,105,0.93,6,0,0,0,0,0
+2025-08-11,Power Platform,Copilot Chat,Asia,PM,CVP,98,0.49,4,0,0,0,0,0
+2025-08-11,Power Platform,Copilot Chat,LATAM,Engineering,GPM,100,0.92,3,0,0,0,0,0
+2025-08-11,Power Platform,Auto Insights,North America,Support,PM,89,0.9,1,0,0,0,0,0
+2025-08-11,Power Platform,Auto Insights,Europe,Sales,Director,100,0.76,5,0,0,1,0,0
+2025-08-11,Power Platform,Auto Insights,Asia,Sales,Director,113,0.55,3,0,0,0,0,0
+2025-08-11,Power Platform,Auto Insights,LATAM,Sales,Director,99,0.73,3,0,0,0,0,0
+2025-08-11,Power Platform,Predictive Alerts,North America,Sales,GPM,81,0.86,10,0,0,0,0,0
+2025-08-11,Power Platform,Predictive Alerts,Europe,Support,Director,113,0.88,2,0,0,0,0,0
+2025-08-11,Power Platform,Predictive Alerts,Asia,PM,CVP,100,0.96,1,0,0,0,0,0
+2025-08-11,Power Platform,Predictive Alerts,LATAM,Support,GPM,120,1.27,7,0,0,0,0,0
+2025-08-11,Power Platform,Workflow Automation,North America,Sales,Director,112,0.78,4,0,0,0,0,0
+2025-08-11,Power Platform,Workflow Automation,Europe,Support,CVP,111,0.79,4,0,0,0,0,0
+2025-08-11,Power Platform,Workflow Automation,Asia,PM,Director,96,0.59,9,0,0,0,0,0
+2025-08-11,Power Platform,Workflow Automation,LATAM,Sales,Director,108,0.59,5,0,0,0,0,0
+2025-08-11,Dynamics 365,Copilot Chat,North America,Sales,Director,104,0.68,3,0,0,0,0,0
+2025-08-11,Dynamics 365,Copilot Chat,Europe,Engineering,GPM,104,0.43,3,0,0,0,0,0
+2025-08-11,Dynamics 365,Copilot Chat,Asia,PM,PM,114,0.41,2,0,0,0,0,0
+2025-08-11,Dynamics 365,Copilot Chat,LATAM,Sales,GPM,99,0.52,4,0,0,0,0,0
+2025-08-11,Dynamics 365,Auto Insights,North America,Sales,Director,96,0.36,4,0,0,1,0,0
+2025-08-11,Dynamics 365,Auto Insights,Europe,Engineering,CVP,109,0.63,10,0,0,0,0,0
+2025-08-11,Dynamics 365,Auto Insights,Asia,Sales,GPM,105,0.37,6,0,0,0,0,0
+2025-08-11,Dynamics 365,Auto Insights,LATAM,Support,GPM,104,0.84,4,0,0,0,0,0
+2025-08-11,Dynamics 365,Predictive Alerts,North America,Support,GPM,109,0.95,8,1,0,1,0,0
+2025-08-11,Dynamics 365,Predictive Alerts,Europe,Sales,CVP,101,0.79,4,0,0,1,0,0
+2025-08-11,Dynamics 365,Predictive Alerts,Asia,Engineering,CVP,115,0.97,5,0,0,0,0,0
+2025-08-11,Dynamics 365,Predictive Alerts,LATAM,Sales,CVP,115,0.52,7,0,0,0,0,0
+2025-08-11,Dynamics 365,Workflow Automation,North America,Sales,PM,109,0.44,7,0,0,1,0,0
+2025-08-11,Dynamics 365,Workflow Automation,Europe,Support,PM,93,0.48,2,0,0,0,0,0
+2025-08-11,Dynamics 365,Workflow Automation,Asia,Engineering,GPM,91,0.78,3,0,0,0,0,0
+2025-08-11,Dynamics 365,Workflow Automation,LATAM,Support,GPM,99,0.81,3,0,0,0,0,0
+2025-08-10,Azure AI,Copilot Chat,North America,Engineering,CVP,119,0.65,5,0,0,0,0,0
+2025-08-10,Azure AI,Copilot Chat,Europe,Support,CVP,91,0.63,7,0,0,0,0,0
+2025-08-10,Azure AI,Copilot Chat,Asia,Engineering,PM,103,0.62,4,0,0,0,0,0
+2025-08-10,Azure AI,Copilot Chat,LATAM,Engineering,Director,102,0.87,4,0,0,0,0,0
+2025-08-10,Azure AI,Auto Insights,North America,PM,GPM,105,0.65,8,0,0,0,0,0
+2025-08-10,Azure AI,Auto Insights,Europe,Sales,Director,95,0.72,5,0,0,0,0,0
+2025-08-10,Azure AI,Auto Insights,Asia,Sales,CVP,96,0.77,9,1,0,0,0,0
+2025-08-10,Azure AI,Auto Insights,LATAM,PM,Director,84,0.45,12,0,0,0,0,0
+2025-08-10,Azure AI,Predictive Alerts,North America,Engineering,CVP,114,0.87,5,0,0,0,0,0
+2025-08-10,Azure AI,Predictive Alerts,Europe,Engineering,Director,106,0.64,5,0,0,0,0,0
+2025-08-10,Azure AI,Predictive Alerts,Asia,Sales,PM,109,0.76,6,0,0,0,0,0
+2025-08-10,Azure AI,Predictive Alerts,LATAM,Engineering,GPM,111,0.88,4,0,0,0,0,0
+2025-08-10,Azure AI,Workflow Automation,North America,Support,Director,100,0.74,1,0,0,0,0,0
+2025-08-10,Azure AI,Workflow Automation,Europe,Support,CVP,113,0.65,2,0,0,0,0,0
+2025-08-10,Azure AI,Workflow Automation,Asia,PM,CVP,96,0.8,3,0,0,0,0,0
+2025-08-10,Azure AI,Workflow Automation,LATAM,Support,CVP,101,0.59,5,0,0,0,0,0
+2025-08-10,Power Platform,Copilot Chat,North America,Engineering,CVP,94,0.93,4,0,0,1,0,0
+2025-08-10,Power Platform,Copilot Chat,Europe,Sales,Director,87,0.38,3,0,0,0,0,0
+2025-08-10,Power Platform,Copilot Chat,Asia,Engineering,Director,114,0.64,4,1,0,0,0,0
+2025-08-10,Power Platform,Copilot Chat,LATAM,Engineering,PM,101,0.97,5,0,0,0,0,0
+2025-08-10,Power Platform,Auto Insights,North America,Engineering,Director,97,0.58,5,0,0,0,0,0
+2025-08-10,Power Platform,Auto Insights,Europe,Engineering,GPM,93,0.28,10,0,0,0,0,0
+2025-08-10,Power Platform,Auto Insights,Asia,PM,GPM,104,0.8,7,0,0,0,0,0
+2025-08-10,Power Platform,Auto Insights,LATAM,PM,Director,111,0.61,6,0,0,0,0,0
+2025-08-10,Power Platform,Predictive Alerts,North America,Sales,CVP,101,0.55,6,0,0,0,0,0
+2025-08-10,Power Platform,Predictive Alerts,Europe,PM,CVP,98,0.4,4,0,0,0,0,0
+2025-08-10,Power Platform,Predictive Alerts,Asia,PM,GPM,109,0.71,8,0,0,0,0,0
+2025-08-10,Power Platform,Predictive Alerts,LATAM,Sales,CVP,102,0.73,4,0,0,0,0,0
+2025-08-10,Power Platform,Workflow Automation,North America,Engineering,GPM,97,0.87,4,0,0,0,0,0
+2025-08-10,Power Platform,Workflow Automation,Europe,Sales,CVP,99,0.85,7,0,0,0,0,0
+2025-08-10,Power Platform,Workflow Automation,Asia,Sales,PM,101,0.7,2,0,0,0,0,0
+2025-08-10,Power Platform,Workflow Automation,LATAM,PM,GPM,99,0.68,1,0,0,0,0,0
+2025-08-10,Dynamics 365,Copilot Chat,North America,Support,PM,103,0.75,8,0,0,0,0,0
+2025-08-10,Dynamics 365,Copilot Chat,Europe,Engineering,GPM,98,0.63,4,0,0,0,0,0
+2025-08-10,Dynamics 365,Copilot Chat,Asia,Support,Director,108,0.64,3,0,0,0,0,0
+2025-08-10,Dynamics 365,Copilot Chat,LATAM,PM,CVP,102,0.65,10,0,0,0,0,0
+2025-08-10,Dynamics 365,Auto Insights,North America,Engineering,Director,98,1.05,4,0,0,0,0,0
+2025-08-10,Dynamics 365,Auto Insights,Europe,Sales,Director,106,0.4,8,0,0,0,0,0
+2025-08-10,Dynamics 365,Auto Insights,Asia,Sales,CVP,92,0.84,2,0,0,0,0,0
+2025-08-10,Dynamics 365,Auto Insights,LATAM,Engineering,Director,102,0.95,3,0,0,0,0,0
+2025-08-10,Dynamics 365,Predictive Alerts,North America,Support,CVP,99,0.71,5,0,0,0,0,0
+2025-08-10,Dynamics 365,Predictive Alerts,Europe,PM,Director,94,0.94,4,0,0,0,0,0
+2025-08-10,Dynamics 365,Predictive Alerts,Asia,Engineering,GPM,97,0.65,2,0,0,0,0,0
+2025-08-10,Dynamics 365,Predictive Alerts,LATAM,Support,PM,88,0.91,6,0,0,0,0,0
+2025-08-10,Dynamics 365,Workflow Automation,North America,PM,Director,92,0.66,2,0,0,1,0,0
+2025-08-10,Dynamics 365,Workflow Automation,Europe,Engineering,GPM,119,0.64,4,0,0,0,0,0
+2025-08-10,Dynamics 365,Workflow Automation,Asia,Support,GPM,105,0.52,3,0,0,0,0,0
+2025-08-10,Dynamics 365,Workflow Automation,LATAM,Sales,CVP,104,0.64,6,0,0,0,0,0
+2025-08-09,Azure AI,Copilot Chat,North America,PM,CVP,102,1.05,4,0,0,0,0,0
+2025-08-09,Azure AI,Copilot Chat,Europe,Sales,GPM,115,0.36,3,0,0,0,0,0
+2025-08-09,Azure AI,Copilot Chat,Asia,Sales,GPM,104,0.62,4,0,0,0,0,0
+2025-08-09,Azure AI,Copilot Chat,LATAM,PM,CVP,93,0.88,10,0,0,0,0,0
+2025-08-09,Azure AI,Auto Insights,North America,Support,GPM,100,0.82,5,0,0,0,0,0
+2025-08-09,Azure AI,Auto Insights,Europe,PM,Director,90,0.41,4,1,0,0,0,0
+2025-08-09,Azure AI,Auto Insights,Asia,Sales,PM,94,0.8,1,0,0,0,0,0
+2025-08-09,Azure AI,Auto Insights,LATAM,Support,PM,91,0.58,3,0,0,0,0,0
+2025-08-09,Azure AI,Predictive Alerts,North America,Sales,GPM,116,1.13,6,0,0,1,0,0
+2025-08-09,Azure AI,Predictive Alerts,Europe,PM,CVP,101,0.83,4,0,0,0,0,0
+2025-08-09,Azure AI,Predictive Alerts,Asia,Sales,CVP,125,0.91,5,0,0,0,0,0
+2025-08-09,Azure AI,Predictive Alerts,LATAM,Sales,CVP,98,0.61,6,0,0,0,0,0
+2025-08-09,Azure AI,Workflow Automation,North America,Sales,CVP,90,0.83,9,0,0,0,0,0
+2025-08-09,Azure AI,Workflow Automation,Europe,PM,PM,83,0.74,7,1,0,0,0,0
+2025-08-09,Azure AI,Workflow Automation,Asia,Engineering,GPM,117,1.03,11,0,0,1,0,1
+2025-08-09,Azure AI,Workflow Automation,LATAM,Support,PM,99,0.75,6,1,0,0,0,0
+2025-08-09,Power Platform,Copilot Chat,North America,Support,GPM,111,0.85,5,0,0,0,0,0
+2025-08-09,Power Platform,Copilot Chat,Europe,Support,GPM,102,0.54,3,0,0,0,0,0
+2025-08-09,Power Platform,Copilot Chat,Asia,Sales,CVP,97,0.63,3,0,0,1,0,0
+2025-08-09,Power Platform,Copilot Chat,LATAM,Engineering,PM,96,0.93,5,0,0,0,0,0
+2025-08-09,Power Platform,Auto Insights,North America,Support,Director,99,0.45,4,0,0,0,0,0
+2025-08-09,Power Platform,Auto Insights,Europe,Engineering,CVP,95,0.62,7,0,0,0,0,0
+2025-08-09,Power Platform,Auto Insights,Asia,PM,CVP,117,0.93,5,0,0,0,0,0
+2025-08-09,Power Platform,Auto Insights,LATAM,Engineering,GPM,93,0.6,7,0,0,0,0,0
+2025-08-09,Power Platform,Predictive Alerts,North America,Support,PM,95,0.84,5,0,0,0,0,0
+2025-08-09,Power Platform,Predictive Alerts,Europe,Sales,Director,107,0.51,2,0,0,0,0,0
+2025-08-09,Power Platform,Predictive Alerts,Asia,Support,PM,88,0.5,5,0,1,0,0,0
+2025-08-09,Power Platform,Predictive Alerts,LATAM,Sales,PM,90,1.16,4,0,0,0,0,0
+2025-08-09,Power Platform,Workflow Automation,North America,PM,GPM,111,0.75,5,0,0,0,0,0
+2025-08-09,Power Platform,Workflow Automation,Europe,Support,CVP,101,0.86,6,0,0,0,0,0
+2025-08-09,Power Platform,Workflow Automation,Asia,PM,GPM,106,0.75,4,0,0,1,0,0
+2025-08-09,Power Platform,Workflow Automation,LATAM,PM,GPM,106,0.43,7,0,0,0,0,0
+2025-08-09,Dynamics 365,Copilot Chat,North America,Engineering,Director,99,0.67,2,1,0,0,0,0
+2025-08-09,Dynamics 365,Copilot Chat,Europe,Support,GPM,101,0.59,7,0,0,0,0,0
+2025-08-09,Dynamics 365,Copilot Chat,Asia,Support,Director,104,0.39,4,0,0,0,0,0
+2025-08-09,Dynamics 365,Copilot Chat,LATAM,Support,Director,110,1.05,2,0,0,1,0,0
+2025-08-09,Dynamics 365,Auto Insights,North America,Engineering,GPM,116,0.83,4,0,0,0,0,0
+2025-08-09,Dynamics 365,Auto Insights,Europe,Sales,PM,102,0.58,4,0,0,1,0,0
+2025-08-09,Dynamics 365,Auto Insights,Asia,Support,GPM,97,0.5,3,0,0,0,0,0
+2025-08-09,Dynamics 365,Auto Insights,LATAM,PM,GPM,106,0.73,2,0,0,0,0,0
+2025-08-09,Dynamics 365,Predictive Alerts,North America,PM,Director,103,0.53,9,0,0,1,0,0
+2025-08-09,Dynamics 365,Predictive Alerts,Europe,PM,CVP,98,0.56,8,0,0,1,0,0
+2025-08-09,Dynamics 365,Predictive Alerts,Asia,Sales,GPM,105,0.71,6,0,0,0,0,0
+2025-08-09,Dynamics 365,Predictive Alerts,LATAM,Support,CVP,110,0.62,1,0,0,0,0,0
+2025-08-09,Dynamics 365,Workflow Automation,North America,Sales,CVP,107,0.74,3,0,0,0,0,0
+2025-08-09,Dynamics 365,Workflow Automation,Europe,Engineering,PM,110,0.69,2,0,0,0,0,0
+2025-08-09,Dynamics 365,Workflow Automation,Asia,Sales,Director,110,0.86,2,0,0,0,0,0
+2025-08-09,Dynamics 365,Workflow Automation,LATAM,Support,CVP,86,0.73,4,0,0,0,0,0
+2025-08-08,Azure AI,Copilot Chat,North America,Sales,Director,106,0.32,2,0,0,0,0,0
+2025-08-08,Azure AI,Copilot Chat,Europe,Engineering,PM,101,0.69,3,0,0,0,0,0
+2025-08-08,Azure AI,Copilot Chat,Asia,Sales,Director,96,0.56,3,0,0,0,0,0
+2025-08-08,Azure AI,Copilot Chat,LATAM,Engineering,CVP,91,0.67,7,0,0,0,0,0
+2025-08-08,Azure AI,Auto Insights,North America,PM,CVP,117,1.0,2,0,0,0,0,0
+2025-08-08,Azure AI,Auto Insights,Europe,PM,CVP,94,0.67,5,0,0,0,0,0
+2025-08-08,Azure AI,Auto Insights,Asia,Support,Director,80,0.79,4,0,0,1,0,0
+2025-08-08,Azure AI,Auto Insights,LATAM,Support,Director,104,0.47,3,0,0,0,0,0
+2025-08-08,Azure AI,Predictive Alerts,North America,PM,CVP,104,0.54,6,0,0,0,0,0
+2025-08-08,Azure AI,Predictive Alerts,Europe,Support,PM,87,0.46,5,0,0,0,0,0
+2025-08-08,Azure AI,Predictive Alerts,Asia,Engineering,PM,92,0.73,6,0,0,0,0,0
+2025-08-08,Azure AI,Predictive Alerts,LATAM,Sales,PM,102,0.59,4,0,0,0,0,0
+2025-08-08,Azure AI,Workflow Automation,North America,Engineering,GPM,87,0.88,7,0,0,0,0,0
+2025-08-08,Azure AI,Workflow Automation,Europe,Sales,CVP,88,0.73,4,0,0,0,0,0
+2025-08-08,Azure AI,Workflow Automation,Asia,Engineering,CVP,102,0.54,5,0,0,0,0,0
+2025-08-08,Azure AI,Workflow Automation,LATAM,PM,GPM,116,0.72,1,0,0,0,0,0
+2025-08-08,Power Platform,Copilot Chat,North America,Support,GPM,94,0.55,4,0,0,0,0,0
+2025-08-08,Power Platform,Copilot Chat,Europe,Support,PM,93,0.83,3,0,0,0,0,0
+2025-08-08,Power Platform,Copilot Chat,Asia,Support,Director,91,0.63,6,0,0,0,0,0
+2025-08-08,Power Platform,Copilot Chat,LATAM,Engineering,Director,118,0.61,1,0,0,0,0,0
+2025-08-08,Power Platform,Auto Insights,North America,PM,PM,95,0.68,3,0,0,0,0,0
+2025-08-08,Power Platform,Auto Insights,Europe,Sales,Director,113,0.65,3,0,0,0,0,0
+2025-08-08,Power Platform,Auto Insights,Asia,PM,CVP,100,0.45,5,0,0,0,0,0
+2025-08-08,Power Platform,Auto Insights,LATAM,Engineering,PM,93,0.47,6,0,0,0,0,0
+2025-08-08,Power Platform,Predictive Alerts,North America,Engineering,GPM,112,0.63,8,0,0,0,0,0
+2025-08-08,Power Platform,Predictive Alerts,Europe,Sales,PM,97,0.78,2,0,0,0,0,0
+2025-08-08,Power Platform,Predictive Alerts,Asia,PM,GPM,116,0.67,3,0,0,1,0,0
+2025-08-08,Power Platform,Predictive Alerts,LATAM,Sales,PM,91,0.4,9,0,0,0,0,0
+2025-08-08,Power Platform,Workflow Automation,North America,Engineering,Director,113,0.78,7,0,0,0,0,0
+2025-08-08,Power Platform,Workflow Automation,Europe,Engineering,CVP,96,0.63,10,1,0,0,0,0
+2025-08-08,Power Platform,Workflow Automation,Asia,PM,CVP,96,0.63,2,0,0,0,0,0
+2025-08-08,Power Platform,Workflow Automation,LATAM,Engineering,GPM,93,0.57,5,0,0,0,0,0
+2025-08-08,Dynamics 365,Copilot Chat,North America,Sales,PM,92,0.75,10,0,0,0,0,0
+2025-08-08,Dynamics 365,Copilot Chat,Europe,Engineering,PM,95,0.94,2,0,0,0,0,0
+2025-08-08,Dynamics 365,Copilot Chat,Asia,Support,Director,95,0.83,6,0,0,0,0,0
+2025-08-08,Dynamics 365,Copilot Chat,LATAM,Support,GPM,79,0.6,5,0,0,1,0,0
+2025-08-08,Dynamics 365,Auto Insights,North America,Sales,GPM,99,0.84,8,0,0,0,0,0
+2025-08-08,Dynamics 365,Auto Insights,Europe,PM,PM,101,0.9,8,0,0,1,0,0
+2025-08-08,Dynamics 365,Auto Insights,Asia,Engineering,GPM,102,0.46,6,0,0,0,0,0
+2025-08-08,Dynamics 365,Auto Insights,LATAM,Sales,Director,102,0.74,7,0,0,0,0,0
+2025-08-08,Dynamics 365,Predictive Alerts,North America,PM,GPM,94,0.74,4,0,0,1,0,0
+2025-08-08,Dynamics 365,Predictive Alerts,Europe,Sales,CVP,96,0.69,3,0,0,0,0,0
+2025-08-08,Dynamics 365,Predictive Alerts,Asia,PM,PM,88,0.5,6,0,0,0,0,0
+2025-08-08,Dynamics 365,Predictive Alerts,LATAM,Engineering,GPM,101,0.9,4,0,0,0,0,0
+2025-08-08,Dynamics 365,Workflow Automation,North America,Engineering,CVP,107,0.99,8,0,0,0,0,0
+2025-08-08,Dynamics 365,Workflow Automation,Europe,Support,CVP,109,0.64,4,0,0,0,0,0
+2025-08-08,Dynamics 365,Workflow Automation,Asia,Support,GPM,89,0.5,6,0,0,0,0,0
+2025-08-08,Dynamics 365,Workflow Automation,LATAM,PM,Director,97,0.58,4,0,0,1,0,0
+2025-08-07,Azure AI,Copilot Chat,North America,Engineering,GPM,73,0.7,9,0,0,0,0,0
+2025-08-07,Azure AI,Copilot Chat,Europe,Support,PM,120,0.42,9,0,0,0,0,0
+2025-08-07,Azure AI,Copilot Chat,Asia,Support,GPM,95,0.49,2,1,0,1,0,0
+2025-08-07,Azure AI,Copilot Chat,LATAM,PM,CVP,79,0.73,6,0,0,0,0,0
+2025-08-07,Azure AI,Auto Insights,North America,Support,PM,98,1.0,3,0,0,0,0,0
+2025-08-07,Azure AI,Auto Insights,Europe,PM,CVP,122,0.8,5,0,0,0,0,0
+2025-08-07,Azure AI,Auto Insights,Asia,Sales,PM,92,0.47,4,1,0,0,0,0
+2025-08-07,Azure AI,Auto Insights,LATAM,PM,CVP,98,0.78,6,0,0,0,0,0
+2025-08-07,Azure AI,Predictive Alerts,North America,Engineering,PM,102,0.72,6,0,0,0,0,0
+2025-08-07,Azure AI,Predictive Alerts,Europe,Support,Director,98,0.78,6,0,0,0,0,0
+2025-08-07,Azure AI,Predictive Alerts,Asia,PM,CVP,97,0.8,7,0,0,0,0,0
+2025-08-07,Azure AI,Predictive Alerts,LATAM,Sales,Director,108,0.53,3,0,0,0,0,0
+2025-08-07,Azure AI,Workflow Automation,North America,PM,CVP,99,0.52,5,0,0,0,0,0
+2025-08-07,Azure AI,Workflow Automation,Europe,Engineering,PM,101,0.86,3,0,0,0,0,0
+2025-08-07,Azure AI,Workflow Automation,Asia,Engineering,PM,70,0.38,3,0,0,0,0,0
+2025-08-07,Azure AI,Workflow Automation,LATAM,Support,GPM,106,0.52,5,0,0,0,0,0
+2025-08-07,Power Platform,Copilot Chat,North America,Engineering,PM,104,0.73,4,0,0,0,0,0
+2025-08-07,Power Platform,Copilot Chat,Europe,Sales,Director,102,0.91,6,0,0,0,0,0
+2025-08-07,Power Platform,Copilot Chat,Asia,Sales,CVP,104,0.94,3,0,0,1,0,0
+2025-08-07,Power Platform,Copilot Chat,LATAM,Sales,PM,79,0.79,2,0,0,1,0,0
+2025-08-07,Power Platform,Auto Insights,North America,PM,Director,95,0.97,1,0,0,0,0,0
+2025-08-07,Power Platform,Auto Insights,Europe,Engineering,Director,115,0.73,5,0,0,0,0,0
+2025-08-07,Power Platform,Auto Insights,Asia,Engineering,GPM,112,1.08,6,0,0,0,0,0
+2025-08-07,Power Platform,Auto Insights,LATAM,PM,Director,110,0.71,3,0,0,0,0,0
+2025-08-07,Power Platform,Predictive Alerts,North America,Sales,PM,97,0.72,6,0,0,0,0,0
+2025-08-07,Power Platform,Predictive Alerts,Europe,Support,CVP,102,0.71,2,1,0,0,0,0
+2025-08-07,Power Platform,Predictive Alerts,Asia,PM,PM,98,1.24,5,0,0,0,0,0
+2025-08-07,Power Platform,Predictive Alerts,LATAM,PM,PM,100,0.58,4,0,0,0,0,0
+2025-08-07,Power Platform,Workflow Automation,North America,Sales,PM,96,0.69,4,0,0,0,0,0
+2025-08-07,Power Platform,Workflow Automation,Europe,Sales,PM,88,0.65,6,0,0,1,0,0
+2025-08-07,Power Platform,Workflow Automation,Asia,Support,GPM,108,1.08,2,0,0,0,0,0
+2025-08-07,Power Platform,Workflow Automation,LATAM,Engineering,PM,114,0.45,6,0,0,0,0,0
+2025-08-07,Dynamics 365,Copilot Chat,North America,PM,PM,105,1.12,2,0,0,0,0,0
+2025-08-07,Dynamics 365,Copilot Chat,Europe,PM,CVP,99,0.65,7,0,0,0,0,0
+2025-08-07,Dynamics 365,Copilot Chat,Asia,Support,Director,103,0.86,1,0,0,0,0,0
+2025-08-07,Dynamics 365,Copilot Chat,LATAM,PM,Director,78,0.82,11,0,0,0,0,0
+2025-08-07,Dynamics 365,Auto Insights,North America,PM,Director,109,0.79,7,0,0,0,0,0
+2025-08-07,Dynamics 365,Auto Insights,Europe,Engineering,PM,101,0.94,7,0,0,0,0,0
+2025-08-07,Dynamics 365,Auto Insights,Asia,Support,CVP,104,0.35,3,0,0,0,0,0
+2025-08-07,Dynamics 365,Auto Insights,LATAM,Support,PM,103,0.54,5,0,0,0,0,0
+2025-08-07,Dynamics 365,Predictive Alerts,North America,Support,PM,101,0.8,9,0,0,0,0,0
+2025-08-07,Dynamics 365,Predictive Alerts,Europe,Sales,CVP,80,0.81,4,0,0,0,0,0
+2025-08-07,Dynamics 365,Predictive Alerts,Asia,Support,PM,70,1.14,4,0,0,0,0,0
+2025-08-07,Dynamics 365,Predictive Alerts,LATAM,Sales,GPM,112,0.94,8,0,0,0,0,0
+2025-08-07,Dynamics 365,Workflow Automation,North America,Support,GPM,93,0.48,5,0,0,1,0,0
+2025-08-07,Dynamics 365,Workflow Automation,Europe,Support,PM,101,0.52,3,0,0,0,0,0
+2025-08-07,Dynamics 365,Workflow Automation,Asia,Engineering,GPM,103,0.78,5,0,0,0,0,0
+2025-08-07,Dynamics 365,Workflow Automation,LATAM,Engineering,PM,81,0.69,5,0,0,0,0,0
+2025-08-06,Azure AI,Copilot Chat,North America,Engineering,GPM,90,0.11,7,0,0,0,0,0
+2025-08-06,Azure AI,Copilot Chat,Europe,Engineering,CVP,104,0.56,1,0,0,0,0,0
+2025-08-06,Azure AI,Copilot Chat,Asia,Support,CVP,93,1.05,2,0,0,0,0,0
+2025-08-06,Azure AI,Copilot Chat,LATAM,PM,GPM,120,0.72,7,0,0,1,0,0
+2025-08-06,Azure AI,Auto Insights,North America,Engineering,CVP,103,0.87,7,0,0,0,0,0
+2025-08-06,Azure AI,Auto Insights,Europe,PM,Director,104,0.95,7,0,0,0,0,0
+2025-08-06,Azure AI,Auto Insights,Asia,PM,CVP,81,0.52,5,0,0,0,0,0
+2025-08-06,Azure AI,Auto Insights,LATAM,Support,Director,98,0.72,8,0,0,0,0,0
+2025-08-06,Azure AI,Predictive Alerts,North America,Engineering,Director,84,0.52,2,0,0,0,0,0
+2025-08-06,Azure AI,Predictive Alerts,Europe,Engineering,PM,110,0.9,7,0,0,0,0,0
+2025-08-06,Azure AI,Predictive Alerts,Asia,PM,GPM,100,0.84,5,0,0,0,0,0
+2025-08-06,Azure AI,Predictive Alerts,LATAM,Engineering,CVP,83,0.52,6,0,0,0,0,0
+2025-08-06,Azure AI,Workflow Automation,North America,Engineering,CVP,112,1.12,3,0,0,1,0,0
+2025-08-06,Azure AI,Workflow Automation,Europe,Support,Director,99,0.9,6,1,0,0,0,0
+2025-08-06,Azure AI,Workflow Automation,Asia,Support,PM,127,0.53,4,0,0,0,0,0
+2025-08-06,Azure AI,Workflow Automation,LATAM,Sales,PM,107,0.85,6,0,0,0,0,0
+2025-08-06,Power Platform,Copilot Chat,North America,Support,GPM,91,0.79,4,0,0,0,0,0
+2025-08-06,Power Platform,Copilot Chat,Europe,Support,Director,103,0.6,13,0,0,0,0,1
+2025-08-06,Power Platform,Copilot Chat,Asia,PM,CVP,103,0.9,12,0,0,0,0,1
+2025-08-06,Power Platform,Copilot Chat,LATAM,Support,CVP,90,0.6,8,0,0,0,0,0
+2025-08-06,Power Platform,Auto Insights,North America,PM,GPM,90,0.52,3,0,0,0,0,0
+2025-08-06,Power Platform,Auto Insights,Europe,PM,PM,102,0.97,4,0,0,0,0,0
+2025-08-06,Power Platform,Auto Insights,Asia,Sales,PM,108,0.56,5,0,0,1,0,0
+2025-08-06,Power Platform,Auto Insights,LATAM,PM,Director,87,0.74,7,0,0,0,0,0
+2025-08-06,Power Platform,Predictive Alerts,North America,Engineering,Director,83,0.49,2,0,0,1,0,0
+2025-08-06,Power Platform,Predictive Alerts,Europe,Engineering,CVP,89,0.56,4,1,0,0,0,0
+2025-08-06,Power Platform,Predictive Alerts,Asia,Support,PM,108,0.57,5,0,0,0,0,0
+2025-08-06,Power Platform,Predictive Alerts,LATAM,PM,GPM,96,0.98,4,0,0,0,0,0
+2025-08-06,Power Platform,Workflow Automation,North America,Sales,CVP,109,1.17,7,0,0,0,0,0
+2025-08-06,Power Platform,Workflow Automation,Europe,Engineering,GPM,103,0.71,3,0,0,0,0,0
+2025-08-06,Power Platform,Workflow Automation,Asia,Support,PM,109,0.83,9,0,0,0,0,0
+2025-08-06,Power Platform,Workflow Automation,LATAM,Engineering,GPM,100,0.37,6,0,0,1,0,0
+2025-08-06,Dynamics 365,Copilot Chat,North America,Sales,Director,90,0.88,7,0,0,0,0,0
+2025-08-06,Dynamics 365,Copilot Chat,Europe,Sales,PM,88,0.92,6,0,0,0,0,0
+2025-08-06,Dynamics 365,Copilot Chat,Asia,Engineering,GPM,91,0.47,7,0,0,0,0,0
+2025-08-06,Dynamics 365,Copilot Chat,LATAM,Sales,PM,104,0.88,10,1,0,0,0,0
+2025-08-06,Dynamics 365,Auto Insights,North America,Engineering,CVP,81,0.84,4,0,0,0,0,0
+2025-08-06,Dynamics 365,Auto Insights,Europe,PM,GPM,101,0.92,6,0,0,0,0,0
+2025-08-06,Dynamics 365,Auto Insights,Asia,Support,Director,103,0.69,7,0,0,0,0,0
+2025-08-06,Dynamics 365,Auto Insights,LATAM,Support,CVP,100,0.53,4,0,0,1,0,0
+2025-08-06,Dynamics 365,Predictive Alerts,North America,Support,Director,97,0.49,3,0,0,0,0,0
+2025-08-06,Dynamics 365,Predictive Alerts,Europe,Sales,Director,109,0.63,3,0,0,0,0,0
+2025-08-06,Dynamics 365,Predictive Alerts,Asia,PM,PM,88,0.76,8,0,0,0,0,0
+2025-08-06,Dynamics 365,Predictive Alerts,LATAM,PM,GPM,100,0.83,6,0,0,0,0,0
+2025-08-06,Dynamics 365,Workflow Automation,North America,Engineering,GPM,106,0.56,11,0,0,1,0,0
+2025-08-06,Dynamics 365,Workflow Automation,Europe,Engineering,GPM,114,0.67,9,0,0,0,0,0
+2025-08-06,Dynamics 365,Workflow Automation,Asia,Sales,CVP,106,0.93,5,0,0,0,0,0
+2025-08-06,Dynamics 365,Workflow Automation,LATAM,Support,CVP,104,0.7,10,0,0,0,0,0
+2025-08-05,Azure AI,Copilot Chat,North America,Engineering,Director,67,0.73,4,0,0,0,0,0
+2025-08-05,Azure AI,Copilot Chat,Europe,PM,CVP,96,0.65,4,0,0,0,0,0
+2025-08-05,Azure AI,Copilot Chat,Asia,Support,CVP,111,0.94,2,0,0,0,0,0
+2025-08-05,Azure AI,Copilot Chat,LATAM,Support,PM,98,0.44,3,0,0,0,0,0
+2025-08-05,Azure AI,Auto Insights,North America,Engineering,GPM,102,0.81,10,0,0,0,0,0
+2025-08-05,Azure AI,Auto Insights,Europe,Support,PM,89,0.73,4,1,0,0,0,0
+2025-08-05,Azure AI,Auto Insights,Asia,PM,Director,107,0.78,4,0,0,0,0,0
+2025-08-05,Azure AI,Auto Insights,LATAM,PM,PM,98,0.4,6,0,0,0,0,0
+2025-08-05,Azure AI,Predictive Alerts,North America,PM,Director,86,1.06,4,0,0,0,0,0
+2025-08-05,Azure AI,Predictive Alerts,Europe,Sales,PM,130,0.84,7,0,0,0,0,0
+2025-08-05,Azure AI,Predictive Alerts,Asia,Support,Director,104,0.64,5,0,0,0,0,0
+2025-08-05,Azure AI,Predictive Alerts,LATAM,PM,PM,107,0.75,4,0,0,1,0,0
+2025-08-05,Azure AI,Workflow Automation,North America,Sales,CVP,94,0.8,5,0,0,0,0,0
+2025-08-05,Azure AI,Workflow Automation,Europe,PM,PM,105,0.84,5,0,0,0,0,0
+2025-08-05,Azure AI,Workflow Automation,Asia,Sales,PM,93,0.97,4,0,0,0,0,0
+2025-08-05,Azure AI,Workflow Automation,LATAM,PM,PM,89,0.55,5,0,0,0,0,0
+2025-08-05,Power Platform,Copilot Chat,North America,Engineering,PM,106,0.53,4,0,0,0,0,0
+2025-08-05,Power Platform,Copilot Chat,Europe,PM,GPM,98,0.58,3,0,0,0,0,0
+2025-08-05,Power Platform,Copilot Chat,Asia,PM,CVP,99,0.79,3,0,0,1,0,0
+2025-08-05,Power Platform,Copilot Chat,LATAM,Support,PM,93,0.75,5,0,0,0,0,0
+2025-08-05,Power Platform,Auto Insights,North America,Support,PM,93,0.68,7,0,0,0,0,0
+2025-08-05,Power Platform,Auto Insights,Europe,Engineering,PM,96,0.49,2,0,0,0,0,0
+2025-08-05,Power Platform,Auto Insights,Asia,PM,CVP,78,0.84,3,1,0,0,0,0
+2025-08-05,Power Platform,Auto Insights,LATAM,PM,PM,96,0.88,8,0,0,1,0,0
+2025-08-05,Power Platform,Predictive Alerts,North America,Support,PM,89,0.78,1,0,0,0,0,0
+2025-08-05,Power Platform,Predictive Alerts,Europe,Engineering,CVP,123,0.61,5,0,0,0,0,0
+2025-08-05,Power Platform,Predictive Alerts,Asia,Engineering,GPM,105,0.31,8,0,0,0,0,0
+2025-08-05,Power Platform,Predictive Alerts,LATAM,Sales,CVP,97,0.77,3,0,0,0,0,0
+2025-08-05,Power Platform,Workflow Automation,North America,Sales,PM,102,0.84,3,0,0,0,0,0
+2025-08-05,Power Platform,Workflow Automation,Europe,Sales,CVP,120,0.74,4,0,0,0,0,0
+2025-08-05,Power Platform,Workflow Automation,Asia,PM,Director,100,0.82,8,0,0,0,0,0
+2025-08-05,Power Platform,Workflow Automation,LATAM,PM,GPM,93,0.93,5,0,0,1,0,0
+2025-08-05,Dynamics 365,Copilot Chat,North America,Support,Director,92,0.31,6,0,0,0,0,0
+2025-08-05,Dynamics 365,Copilot Chat,Europe,Sales,GPM,101,0.52,5,0,0,0,0,0
+2025-08-05,Dynamics 365,Copilot Chat,Asia,Engineering,GPM,99,0.79,3,0,0,0,0,0
+2025-08-05,Dynamics 365,Copilot Chat,LATAM,Support,CVP,108,0.85,8,0,0,0,0,0
+2025-08-05,Dynamics 365,Auto Insights,North America,Sales,CVP,111,0.77,4,0,0,1,0,0
+2025-08-05,Dynamics 365,Auto Insights,Europe,Engineering,PM,106,0.65,10,0,0,0,0,0
+2025-08-05,Dynamics 365,Auto Insights,Asia,Support,CVP,101,0.56,4,0,0,0,0,0
+2025-08-05,Dynamics 365,Auto Insights,LATAM,PM,CVP,111,0.68,5,0,0,0,0,0
+2025-08-05,Dynamics 365,Predictive Alerts,North America,PM,GPM,108,0.94,8,0,0,0,0,0
+2025-08-05,Dynamics 365,Predictive Alerts,Europe,Engineering,CVP,99,0.97,6,1,0,0,0,0
+2025-08-05,Dynamics 365,Predictive Alerts,Asia,Support,CVP,96,0.59,2,0,0,0,0,0
+2025-08-05,Dynamics 365,Predictive Alerts,LATAM,Sales,Director,75,0.71,4,0,0,0,0,0
+2025-08-05,Dynamics 365,Workflow Automation,North America,Support,CVP,100,0.67,11,0,0,0,0,1
+2025-08-05,Dynamics 365,Workflow Automation,Europe,Support,GPM,97,0.53,7,0,0,0,0,0
+2025-08-05,Dynamics 365,Workflow Automation,Asia,Engineering,Director,96,0.92,6,0,0,0,0,0
+2025-08-05,Dynamics 365,Workflow Automation,LATAM,PM,PM,109,0.41,8,0,0,0,0,0
