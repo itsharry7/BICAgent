@@ -50,6 +50,32 @@ def search(query, max_results=5):
 def load_data():
     return pd.read_csv("synthetic_enterprise_data.csv")
 
+# ---------------- Autonomous Introduction on First Run ----------------
+if not st.session_state.history:  # only on very first load
+    intro_message = """
+👋 Hello, I’m your **Autonomous BI Agent** powered by Groq AI.  
+Here’s what I can do for you:  
+
+### 🔎 Capabilities
+- **Risk Synthesis** → Detect reliability issues, anomalies, adoption blockers.  
+- **Opportunity Discovery** → Identify high-adoption features and growth levers.  
+- **Edge Case Analysis** → Surface unusual usage or sentiment patterns.  
+- **Stretch Scenarios** → Explore bold, forward-looking disruptive ideas.  
+- **Feature Health** → Track adoption, reliability, and customer sentiment trends.  
+
+### 💡 Sample Prompts
+- *“Show me any risky features in our dataset.”*  
+- *“What new opportunities should we double down on?”*  
+- *“Are there any edge cases hidden in the data?”*  
+- *“Predict a disruptive feature we could launch in Azure.”*  
+- *“Give me a health report on Copilot features.”*  
+
+---
+
+✨ What can I do for you today?
+"""
+    st.session_state.history.append(("agent", intro_message))
+
 if "user_df" not in st.session_state:
     st.session_state.user_df = None
 
