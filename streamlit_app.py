@@ -9,7 +9,7 @@ from sklearn.cluster import KMeans
 from sklearn.linear_model import LinearRegression
 import io
 import base64
-
+from groq import GroqClient
 # ---------------- OpenAI Integration ----------------
 from openai import OpenAI
 import os
