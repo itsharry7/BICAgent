@@ -420,21 +420,6 @@ Your answer/response should cover the following concerns, if applicable:
 
     return summary, table, extra_outputs, structured, figures
 
-# Append agent’s main response
-st.session_state.history.append(("agent", f"**Scenario:** {scenario}\n\n{summary}\n\n{structured}"))
-
-# Add follow-up question
-followup_msg = """
-🤖 Would you like me to go deeper? For example:
-- 📊 Drill down into anomalies
-- 🔮 Predict future trends
-- 💬 Summarize user complaints
-- 🚀 Suggest actions to take next
-
-Just reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
-"""
-st.session_state.history.append(("agent", followup_msg))
-    
 # ---------------- Streamlit Chat UI ----------------
 st.title("Autonomous BI Agent with Groq AI")
 st.markdown("""
