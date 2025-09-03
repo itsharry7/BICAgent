@@ -34,7 +34,6 @@ def search(query, max_results=5):
         return {"results": [], "error": str(e)}
         
 # External signals fusion
-df['External Adoption'] = df['usage'] + np.random.normal(-10,15,len(df))
 df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage']+1)) + np.random.normal(0,0.05,len(df))
 df['External Reliability'] = df['External Reliability'].clip(0,1)
 
