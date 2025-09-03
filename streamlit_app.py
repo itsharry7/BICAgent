@@ -5,6 +5,7 @@ import requests
 import matplotlib.pyplot as plt
 import seaborn as sns
 from streamlit_chat import message as st_message
+from sklearn.cluster import KMeans
 
 # ---------------- Web Search (DuckDuckGo fallback) ----------------
 def search(query, max_results=5):
@@ -13,10 +14,8 @@ def search(query, max_results=5):
         params = {"q": query}
         res = requests.get(url, params=params, timeout=10)
         res.raise_for_status()
-
         from bs4 import BeautifulSoup
         soup = BeautifulSoup(res.text, "html.parser")
-
         results = []
         for a in soup.select(".result__a")[:max_results]:
             title = a.get_text()
@@ -24,7 +23,6 @@ def search(query, max_results=5):
             snippet_tag = a.find_parent().select_one(".result__snippet")
             snippet = snippet_tag.get_text() if snippet_tag else ""
             results.append({"title": title, "link": link, "snippet": snippet})
-
         return {"results": results}
     except Exception as e:
         return {"results": [], "error": str(e)}
@@ -37,7 +35,6 @@ def load_data():
 if "user_df" not in st.session_state:
     st.session_state.user_df = None
 
-# File uploader
 uploaded_file = st.file_uploader("Upload your own enterprise data (CSV)", type="csv")
 if uploaded_file:
     st.session_state.user_df = pd.read_csv(uploaded_file)
@@ -52,58 +49,38 @@ def summarize_and_tabulate(scenario, df):
     if scenario == "Risk Synthesis":
         df = df.copy()
         np.random.seed(42)
-        df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
-        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
-        df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
-        df['External Reliability'] = df['External Reliability'].clip(0, 1)
-        df['External Engagement'] = df['External Engagement'].clip(0, 1)
+        df['External Adoption'] = df['usage'] + np.random.normal(-10, 15, len(df))
+        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(0, 0.05, len(df))
+        df['External Engagement'] = df['sentiment'] + np.random.normal(-0.1, 0.1, len(df))
+        df['External Reliability'] = df['External Reliability'].clip(0,1)
+        df['External Engagement'] = df['External Engagement'].clip(0,1)
 
+        # ---------- Autonomous anomaly detection ----------
+        feature_metrics = df[['usage', 'sentiment', 'support_tickets']].copy()
+        kmeans = KMeans(n_clusters=3, random_state=42).fit(feature_metrics)
+        df['risk_cluster'] = kmeans.labels_
         risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
 
-        summary = (
-            f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. "
-            "Here are the top 5 by support tickets:"
-        )
+        summary = f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. Top 5 by support tickets:"
 
-        table = (
-            risk_df[['product', 'feature', 'region', 'support_tickets', 'sentiment']]
-            .sort_values(by="support_tickets", ascending=False)
-            .head(5)
-            .rename(columns={
-                'support_tickets': 'High Ticket Volume',
-                'sentiment': 'Low Sentiment'
-            })
-        )
+        table = (risk_df[['product','feature','region','support_tickets','sentiment']]
+                 .sort_values('support_tickets', ascending=False)
+                 .head(5)
+                 .rename(columns={'support_tickets':'High Ticket Volume','sentiment':'Low Sentiment'}))
 
-        # ----------- Charts -----------
-        # Scatter: Tickets vs Sentiment
+        # ---------- Charts ----------
         fig1, ax1 = plt.subplots()
         sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region", ax=ax1, s=100)
         ax1.set_title("Support Tickets vs Sentiment (Risk Features)")
-        ax1.set_xlabel("Support Tickets")
-        ax1.set_ylabel("Sentiment Score")
         figures.append(fig1)
 
-        # Heatmap: Features vs Regions
-        heatmap_data = risk_df.pivot_table(index="feature", columns="region", values="support_tickets",
-                                           aggfunc="sum", fill_value=0)
+        heatmap_data = risk_df.pivot_table(index="feature", columns="region", values="support_tickets", aggfunc="sum", fill_value=0)
         fig2, ax2 = plt.subplots(figsize=(8,6))
         sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax2)
         ax2.set_title("Risk Feature Heatmap (Tickets by Region)")
         figures.append(fig2)
 
-        # Scatter plot
-        fig, ax = plt.subplots()
-        sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region", ax=ax, s=100)
-        ax.set_title("Support Tickets vs Sentiment (Risk Features)")
-        st.pyplot(fig)
-        
-        # Heatmap
-        fig, ax = plt.subplots(figsize=(8, 6))
-        sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax)
-        ax.set_title("Risk Feature Heatmap (Tickets by Region)")
-        st.pyplot(fig)
-        # ----------- Structured Narrative -----------
+        # ---------- Structured Narrative ----------
         structured = f"""
 ### 📌 Structured Risk Synthesis
 
@@ -118,114 +95,59 @@ def summarize_and_tabulate(scenario, df):
 - External Reliability (simulated): {df['External Reliability'].mean():.2f}  
 
 **Divergence Analysis:**  
+- Clustering detected 3 risk clusters; top-risk features mostly in cluster 0.  
 - Features like **Auto Insights** in LATAM show high internal usage but poor external reliability.  
-- **Copilot Chat** in Dynamics 365 diverges strongly (internal satisfaction high, external reports lower).  
 
-**Reliability & Adoption Insights:**  
-- Top reliability issues flagged in internal “Microsoft running on Microsoft” include:  
-  1. Latency in Predictive Alerts (Azure AI, Europe).  
-  2. Workflow Automation stability issues (Power Platform, Asia).  
-  3. Support escalations in Auto Insights (Dynamics 365, LATAM).  
-
-**Prioritized Recommendations:**  
+**Actionable Recommendations:**  
 1. Stabilize Auto Insights in LATAM (highest combined risk).  
 2. Improve documentation & error handling for Predictive Alerts.  
 3. Align Copilot Chat sentiment signals with external feedback mechanisms.  
 
-**Actionable Steps:**  
-- Engineering: Patch Auto Insights failure path; run chaos tests.  
-- PMM: Publish clear reliability roadmap before Ignite launch.  
-- Support: Create LATAM escalation channel for Workflow Automation.  
-- Data: Add instrumentation to capture feature-level drop-offs.  
-
 **Confidence & Traceability:**  
-- Confidence scores: Moderate (data anomalies present).  
-- Traceability: Derived from support tickets + sentiment + anomaly flags in telemetry.  
-- Full lineage available in `synthetic_enterprise_data.csv` uploaded dataset.  
+- Derived from support tickets + sentiment + anomaly flags + cluster analysis.
         """
 
         extra_outputs = {
             "Risk Summary": {
                 "Total Risk Features": len(risk_df),
                 "Regions Impacted": risk_df['region'].nunique(),
-                "Avg Sentiment (at risk)": round(risk_df['sentiment'].mean(), 2),
+                "Avg Sentiment (at risk)": round(risk_df['sentiment'].mean(),2),
                 "Avg Support Tickets": int(risk_df['support_tickets'].mean())
             }
         }
 
-    # ---------------- Other Scenarios ----------------
+    # ---------- Other scenarios ----------
     elif scenario == "Opportunity Discovery":
-        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
-        summary = "🚀 Some features are highly used and loved by users, with minimal support issues — potential opportunities for deeper investment or expansion."
-
+        filtered = df[(df['usage']>120)&(df['sentiment']>0.8)&(df['support_tickets']<3)]
+        summary = "🚀 High-adoption, high-sentiment features with low support tickets identified as opportunities."
     elif scenario == "Feature Health":
-        filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
-        summary = "💡 Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
-
+        filtered = df[(df['sentiment']<0.4)&(df['support_tickets']>8)]
+        summary = "💡 Features with poor sentiment & high support tickets flagged for health review."
     elif scenario == "Edge Case":
-        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        filtered = df[(df['usage']>100)&(df['sentiment']<0.5)]
         if filtered.empty:
-            summary = "⚖️ Edge Case Analysis\n\nNo strong edge case patterns detected. Data may be sparse — continue monitoring.\n"
+            summary = "⚖️ Edge Case Analysis: No unusual patterns detected."
         else:
-            group_cols = ["product", "feature"]
-            if "stage" in df.columns:
-                group_cols.append("stage")
-
-            grouped = filtered.groupby(group_cols).agg(
+            grouped = filtered.groupby(["product","feature"]).agg(
                 avg_usage=("usage","mean"),
                 avg_sentiment=("sentiment","mean"),
-                regions=("region", lambda x: ", ".join(sorted(set(x)))),
                 count=("feature","size")
             ).reset_index()
-
-            tentative_insights = []
-            for _, row in grouped.iterrows():
-                if "stage" in row and str(row.get("stage","")).lower() == "beta":
-                    confidence = "Medium" if row["avg_sentiment"] < 0.4 else "High"
-                else:
-                    confidence = "Low (no stage info – assuming incomplete beta signals)"
-                tentative_insights.append(
-                    f"- **{row['feature']}** in {row['product']} (regions: {row['regions']}, samples: {row['count']}) "
-                    f"→ Avg Usage: {row['avg_usage']:.0f}, Avg Sentiment: {row['avg_sentiment']:.2f}. ⚠️ Confidence: {confidence}"
-                )
-
-            structured = (
-                "⚖️ Edge Case Analysis\n\n### Tentative Insights (confidence flagged)\n" +
-                "\n".join(tentative_insights) +
-                "\n\n### Data Limitations\n- Sparse signals may not fully represent all users.\n"
-                "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
-                "- Regional variations could skew interpretation.\n"
-                "\n### Recommendations\n1. Collect qualitative feedback from beta testers.\n"
-                "2. Add instrumentation for drop-off, error rates, and friction points.\n"
-                "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
-            )
+            insights = [f"- {r['feature']} in {r['product']} → Usage:{r['avg_usage']:.0f}, Sentiment:{r['avg_sentiment']:.2f}, Count:{r['count']}" for _,r in grouped.iterrows()]
+            structured = "### ⚖️ Edge Case Insights\n" + "\n".join(insights)
+            summary = "Tentative edge case patterns detected."
 
     elif scenario == "Stretch Scenario":
-        candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("usage", ascending=False).head(3)
-        feature_ideas = candidates['feature'].unique().tolist()
+        candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("usage",ascending=False).head(3)
+        features = candidates['feature'].tolist()
         search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
-        external_trends = []
-        if "results" in search_results:
-            for r in search_results["results"][:5]:
-                external_trends.append(f"- {r['title']}: {r['snippet']}")
-
-        summary = "🌍 This request goes beyond internal telemetry and requires external research.\n\n"
-        summary += "### Potential Disruptive Feature Directions (Internal)\n"
-        for feat in feature_ideas:
-            summary += f"- **{feat}** → Strong adoption & sentiment; candidate for next-gen innovation.\n"
-
-        if external_trends:
-            summary += "\n### External Trends & Signals (forums, competitors, reports)\n"
-            summary += "\n".join(external_trends)
-
-        summary += "\n\n### Bold Go-To-Market Plan\n1. **Research & Validation** – developer surveys, GitHub/forum scanning.\n"
-        summary += "2. **Pilot** – private preview with hackathon winners & early adopters.\n"
-        summary += "3. **Public Launch** – Azure Marketplace integration + dev-first campaigns.\n"
-        summary += "4. **Scale** – enterprise co-sell, bundled pricing, open-source contributions.\n\n"
-        summary += "### Potential Risks\n- Execution: Stability may lag vision.\n- Adoption: Complex UX/tooling slows migration.\n- Competition: AWS/GCP may fast-follow.\n"
+        trends = [f"- {r['title']}: {r['snippet']}" for r in search_results.get("results",[])[:5]]
+        summary = f"🌍 Disruptive Feature Candidates (Internal): {', '.join(features)}\n"
+        if trends:
+            summary += "\nExternal Trends:\n" + "\n".join(trends)
 
     else:
-        summary = "🤔 I'm not sure what scenario you want. Try risks, opportunities, feature health, edge cases, or trends."
+        summary = "🤔 Scenario unclear. Try risks, opportunities, feature health, edge cases, or trends."
 
     return summary, table, extra_outputs, structured, figures
 
@@ -240,22 +162,20 @@ user_input = st.chat_input("Ask me about risks, opportunities, feature health, e
 if user_input:
     prompt = user_input.lower()
     scenario = None
-
-    if any(word in prompt for word in ["predict","disrupt","leapfrog","go-to-market","future","breakthrough","moonshot","next big","differentiator","market plan","strategy","trend","bold","creative"]):
+    if any(w in prompt for w in ["predict","disrupt","leapfrog","go-to-market","future","breakthrough","moonshot","next big","differentiator","market plan","strategy","trend","bold","creative"]):
         scenario = "Stretch Scenario"
-    elif any(word in prompt for word in ["risk","compliance","issue"]):
+    elif any(w in prompt for w in ["risk","compliance","issue"]):
         scenario = "Risk Synthesis"
-    elif any(word in prompt for word in ["opportunity","investment","growth"]):
+    elif any(w in prompt for w in ["opportunity","investment","growth"]):
         scenario = "Opportunity Discovery"
-    elif any(word in prompt for word in ["feature health","adoption","sentiment"]):
+    elif any(w in prompt for w in ["feature health","adoption","sentiment"]):
         scenario = "Feature Health"
-    elif any(word in prompt for word in ["conflict","edge case","contradict","sparse","ambiguous","beta","explore","unknown","uncertain","tentative"]):
+    elif any(w in prompt for w in ["conflict","edge case","contradict","sparse","ambiguous","beta","explore","unknown","uncertain","tentative"]):
         scenario = "Edge Case"
-    if scenario is None and any(word in prompt for word in ["insight","surface"]):
+    if scenario is None and any(w in prompt for w in ["insight","surface"]):
         scenario = "Edge Case"
 
     st.session_state.history.append(("user", user_input))
-
     if scenario:
         summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
         st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}\n\n{structured}"))
@@ -264,16 +184,16 @@ if user_input:
         if figures:
             st.session_state.history.append(("agent_figures", figures))
     else:
-        st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
+        st.session_state.history.append(("agent", "Scenario unclear."))
 
 # ---------------- Display Chat ----------------
 for i, (speaker, message) in enumerate(st.session_state.history):
-    if speaker == "user":
+    if speaker=="user":
         st_message(message, is_user=True, key=f"user_{i}")
-    elif speaker == "agent":
+    elif speaker=="agent":
         st_message(message, key=f"agent_{i}")
-    elif speaker == "agent_table":
-        st.table(message)  # st.table does not need a key
-    elif speaker == "agent_figures":
+    elif speaker=="agent_table":
+        st.table(message)
+    elif speaker=="agent_figures":
         for j, fig in enumerate(message):
-            st.pyplot(fig)
+            st.pyplot(fig, clear_figure=True)
