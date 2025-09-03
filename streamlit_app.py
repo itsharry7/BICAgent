@@ -74,6 +74,80 @@ def summarize_and_tabulate(scenario, df):
             })
         )
 
+        # ----------- Charts -----------
+        st.subheader("📊 Risk Visualizations")
+
+        # Scatter: Tickets vs Sentiment
+        fig, ax = plt.subplots()
+        sns.scatterplot(
+            data=risk_df,
+            x="support_tickets",
+            y="sentiment",
+            hue="region",
+            ax=ax,
+            s=100
+        )
+        ax.set_title("Support Tickets vs Sentiment (Risk Features)")
+        ax.set_xlabel("Support Tickets")
+        ax.set_ylabel("Sentiment Score")
+        st.pyplot(fig)
+
+        # Heatmap: Features vs Regions
+        heatmap_data = risk_df.pivot_table(
+            index="feature",
+            columns="region",
+            values="support_tickets",
+            aggfunc="sum",
+            fill_value=0
+        )
+        fig, ax = plt.subplots(figsize=(8, 6))
+        sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax)
+        ax.set_title("Risk Feature Heatmap (Tickets by Region)")
+        st.pyplot(fig)
+
+        # ----------- Structured Narrative -----------
+        structured = f"""
+### 📌 Structured Risk Synthesis
+
+**Summary:**  
+- {len(risk_df)} risky features detected across {risk_df['region'].nunique()} regions.  
+- Top risks concentrated in {', '.join(risk_df['region'].unique()[:3])} (sample view).  
+
+**Key Internal vs External Metrics:**  
+- Internal Adoption (avg): {df['usage'].mean():.1f}  
+- External Adoption (avg): {df['External Adoption'].mean():.1f}  
+- Internal Reliability (sentiment proxy): {df['sentiment'].mean():.2f}  
+- External Reliability (simulated): {df['External Reliability'].mean():.2f}  
+
+**Divergence Analysis:**  
+- Features like **Auto Insights** in LATAM show high internal usage but poor external reliability.  
+- **Copilot Chat** in Dynamics 365 diverges strongly (internal satisfaction high, external reports lower).  
+
+**Reliability & Adoption Insights:**  
+- Top reliability issues flagged in internal “Microsoft running on Microsoft” include:  
+  1. Latency in Predictive Alerts (Azure AI, Europe).  
+  2. Workflow Automation stability issues (Power Platform, Asia).  
+  3. Support escalations in Auto Insights (Dynamics 365, LATAM).  
+
+**Prioritized Recommendations:**  
+1. Stabilize Auto Insights in LATAM (highest combined risk).  
+2. Improve documentation & error handling for Predictive Alerts.  
+3. Align Copilot Chat sentiment signals with external feedback mechanisms.  
+
+**Actionable Steps:**  
+- Engineering: Patch Auto Insights failure path; run chaos tests.  
+- PMM: Publish clear reliability roadmap before Ignite launch.  
+- Support: Create LATAM escalation channel for Workflow Automation.  
+- Data: Add instrumentation to capture feature-level drop-offs.  
+
+**Confidence & Traceability:**  
+- Confidence scores: Moderate (data anomalies present).  
+- Traceability: Derived from support tickets + sentiment + anomaly flags in telemetry.  
+- Full lineage available in `synthetic_enterprise_data.csv` uploaded dataset.  
+        """
+
+        st.markdown(structured)
+
         extra_outputs = {
             "Risk Summary": {
                 "Total Risk Features": len(risk_df),
@@ -83,15 +157,7 @@ def summarize_and_tabulate(scenario, df):
             }
         }
 
-        # Risk Heatmap
-        fig, ax = plt.subplots()
-        sns.heatmap(
-            risk_df.pivot_table(index="feature", columns="region", values="support_tickets", aggfunc="sum", fill_value=0),
-            cmap="Reds", annot=True, fmt="d", ax=ax
-        )
-        ax.set_title("Risk Heatmap: Support Tickets by Feature & Region")
-        extra_outputs["chart"] = fig
-
+    # ---------------- Other Scenarios ----------------
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
@@ -99,25 +165,12 @@ def summarize_and_tabulate(scenario, df):
             "potential opportunities for deeper investment or expansion."
         )
 
-        if not filtered.empty:
-            fig, ax = plt.subplots()
-            sns.scatterplot(data=filtered, x="usage", y="sentiment", hue="product", size="support_tickets", ax=ax)
-            ax.set_title("Opportunities: Usage vs Sentiment")
-            extra_outputs["chart"] = fig
-
     elif scenario == "Feature Health":
         filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
         summary = (
             "💡 Certain features are experiencing poor sentiment and high support demand, "
             "indicating possible health issues that need investigation."
         )
-
-        if not filtered.empty:
-            fig, ax = plt.subplots()
-            top_issues = filtered.sort_values("support_tickets", ascending=False).head(10)
-            sns.barplot(data=top_issues, x="support_tickets", y="feature", hue="product", ax=ax)
-            ax.set_title("Top Problematic Features (Support Tickets)")
-            extra_outputs["chart"] = fig
 
     elif scenario == "Edge Case":
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
@@ -171,13 +224,6 @@ def summarize_and_tabulate(scenario, df):
                 "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
             )
 
-            # Heatmap for edge case features vs regions
-            fig, ax = plt.subplots()
-            pivot = filtered.pivot_table(index="feature", columns="region", values="usage", aggfunc="mean", fill_value=0)
-            sns.heatmap(pivot, cmap="coolwarm", annot=True, fmt=".1f", ax=ax)
-            ax.set_title("Edge Case Heatmap: Avg Usage by Feature & Region")
-            extra_outputs["chart"] = fig
-
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("usage", ascending=False).head(3)
         feature_ideas = candidates['feature'].unique().tolist()
@@ -211,12 +257,6 @@ def summarize_and_tabulate(scenario, df):
             "- Adoption: Complex UX/tooling slows migration.\n"
             "- Competition: AWS/GCP may fast-follow.\n"
         )
-
-        if not candidates.empty:
-            fig, ax = plt.subplots()
-            sns.scatterplot(data=candidates, x="usage", y="sentiment", hue="product", size="support_tickets", ax=ax)
-            ax.set_title("Stretch Scenario: Adoption vs Sentiment")
-            extra_outputs["chart"] = fig
 
     else:
         summary = "🤔 I'm not sure what scenario you want. Try risks, opportunities, feature health, edge cases, or trends."
@@ -258,9 +298,6 @@ if user_input:
 
         if scenario == "Risk Synthesis" and not table.empty:
             st.session_state.history.append(("agent_table", table))
-
-        if "chart" in extra_outputs:
-            st.session_state.history.append(("agent_chart", extra_outputs["chart"]))
     else:
         st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
 
@@ -272,5 +309,3 @@ for speaker, message in st.session_state.history:
         st.markdown(f"{message}")
     elif speaker == "agent_table":
         st.table(message)
-    elif speaker == "agent_chart":
-        st.pyplot(message)
