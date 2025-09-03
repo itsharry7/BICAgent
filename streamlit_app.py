@@ -172,19 +172,41 @@ def summarize_and_tabulate(scenario, df):
 
     # Edge Case
     elif scenario == "Edge Case":
-        filtered = df[(df['usage']>100) & (df['sentiment']<0.5)]
+        # Select features with unusual patterns
+        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        
         if filtered.empty:
-            summary = "⚖️ No edge case patterns detected."
+            summary = "✅ No unusual patterns detected in the current dataset."
+            structured = ""
         else:
-            structured = "⚖️ Edge Case Features Detected:\n" + filtered[['product','feature','region','usage','sentiment']].head(5).to_markdown(index=False)
-            structured += "\n\n**Capabilities in use:** Dynamic scoring ✅, Automatic anomaly detection ✅, Trend prediction ✅, Tables + charts ✅, Semi-automated hooks ⚠️, Internal + external signal fusion ✅"
-            structured += "\n\n*Partial / unknown confidence—based on available data & patterns.*"
+            # User-facing narrative describing capabilities
+            structured = (
+                "⚠️ Some features exhibit unusual patterns based on the available data.\n\n"
+                "I’m analyzing them using my key capabilities:\n"
+                "- **Dynamic scoring:** Compute weighted adoption/risk scores\n"
+                "- **Automatic anomaly detection:** Identify unusual clusters or outliers\n"
+                "- **Trend prediction:** Forecast potential adoption/usage trends\n"
+                "- **Tables + charts in chat:** Visualize metrics and patterns inline\n"
+                "- **Semi-automated hooks:** Option to download insights for further action\n"
+                "- **Internal + external signal fusion:** Combine internal metrics with external indicators\n\n"
+            )
     
-            # Optional: provide download hook for edge case CSV
+            # Show top 5 features in table
+            table_md = filtered[['product','feature','region','usage','sentiment']].head(5).to_markdown(index=False)
+            structured += "**Highlighted Features:**\n" + table_md
+    
+            # Provide a downloadable CSV for semi-automated action
             csv = filtered.to_csv(index=False)
-            structured += "\n\n" + st.download_button("Download Edge Case Features", csv, "edge_case_features.csv")
+            structured += "\n\n*You can download the full data for these features:*"
+            st.download_button("Download Feature Insights", csv, "unusual_features.csv")
+            
+            # Optional: add charts
+            fig_scatter, ax1 = plt.subplots()
+            sns.scatterplot(data=filtered, x="usage", y="sentiment", hue="region", size="support_tickets", ax=ax1, s=100)
+            ax1.set_title("Usage vs Sentiment (Unusual Features)")
+            figures.append(fig_scatter)
     
-            summary = f"⚖️ Edge Case Analysis\n\n{structured}"
+        summary = f"⚖️ {len(filtered)} features show unusual patterns. Review the analysis below."
 
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("dynamic_score", ascending=False).head(3)
