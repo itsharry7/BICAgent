@@ -157,6 +157,71 @@ def summarize_and_tabulate(scenario, df):
             llm_text = response
         structured = f"### 📌 AI Opportunity Insights\n{llm_text}"
 
+    # Edge Case Analysis
+elif scenario == "Edge Case":
+    # Filter for unusual patterns
+    filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+
+    if filtered.empty:
+        summary = "✅ No unusual patterns detected in the current dataset."
+        structured = ""
+    else:
+        # User-facing narrative describing capabilities
+        structured = (
+            "⚠️ Some features exhibit unusual patterns in the dataset.\n\n"
+            "I’m analyzing them using key capabilities:\n"
+            "- **Dynamic scoring:** Compute weighted adoption/risk scores\n"
+            "- **Automatic anomaly detection:** Identify unusual clusters or outliers\n"
+            "- **Trend prediction:** Forecast potential adoption/usage trends\n"
+            "- **Tables + charts in chat:** Visualize metrics and patterns inline\n"
+            "- **Semi-automated hooks:** Option to download insights for further action\n"
+            "- **Internal + external signal fusion:** Combine internal metrics with external indicators\n\n"
+        )
+
+        # Show top 5 features in markdown table
+        top_table = filtered[['product','feature','region','usage','sentiment']].head(5).to_markdown(index=False)
+        structured += "**Highlighted Features (Top 5):**\n" + top_table + "\n\n"
+
+        # LLM-driven opportunity enhancement
+        try:
+            groq_prompt = (
+                f"Here are the top opportunity features:\n"
+                f"{filtered[['feature','dynamic_score']].to_dict(orient='records')}\n"
+                "Generate a concise growth narrative and actionable recommendations."
+            )
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = json.loads(response.json()).get('content', str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
+
+        structured += f"### 📌 AI Opportunity Insights\n{llm_text}\n\n"
+
+        # Provide downloadable CSV for semi-automated action
+        csv_data = filtered.to_csv(index=False)
+        structured += "*You can download the full data for these features:*"
+        st.download_button("Download Feature Insights", csv_data, "unusual_features.csv")
+
+        # Optional: add scatter chart visualization
+        fig_scatter, ax1 = plt.subplots(figsize=(8, 5))
+        sns.scatterplot(
+            data=filtered,
+            x="usage",
+            y="sentiment",
+            hue="region",
+            size="support_tickets",
+            palette="tab10",
+            ax=ax1,
+            s=100,
+            alpha=0.8
+        )
+        ax1.set_title("Usage vs Sentiment (Unusual Features)")
+        ax1.set_xlabel("Usage")
+        ax1.set_ylabel("Sentiment")
+        ax1.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
+        figures.append(fig_scatter)
+
+    summary = f"⚖️ {len(filtered)} feature(s) show unusual patterns. Review the analysis below."
+
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
         feature_ideas = candidates['feature'].tolist()
