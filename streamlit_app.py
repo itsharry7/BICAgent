@@ -302,10 +302,13 @@ if "history" not in st.session_state:
 user_input = st.chat_input("Ask about risks, opportunities, feature health, edge cases, or trends...")
 
 if user_input:
+    # Save user message
+    st.session_state.history.append(("user", user_input))
+
     prompt = user_input.lower()
     scenario = classify_scenario(user_input)
 
-    if scenario:
+    if scenario and scenario != "Unknown":
         summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
         st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}\n\n{structured}"))
         if not table.empty:
@@ -313,7 +316,7 @@ if user_input:
         if figures:
             st.session_state.history.append(("agent_figures", figures))
     else:
-        st.session_state.history.append(("agent", "I'm not sure which scenario to explore."))
+        st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
 
                   
 # ---------------- Display Chat ----------------
