@@ -28,25 +28,27 @@ def summarize_and_tabulate(scenario, df):
         df = df.copy()
         np.random.seed(42)
         df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
-        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
-        df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
-        df['External Reliability'] = df['External Reliability'].clip(0, 1)
-        df['External Engagement'] = df['External Engagement'].clip(0, 1)
-
-        # Filter for risk
-        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
-
-        summary = (
-            "Several products and features across regions show anomalies or high support demand with low sentiment, "
-            "indicating urgent risks that require attention. Below is a comparison of internal and simulated external metrics."
-        )
-
-        # Summary Table
         table = risk_df[['product', 'feature', 'region', 'team', 'role', 'usage', 'External Adoption', 'support_tickets', 'External Reliability', 'sentiment', 'External Engagement']].copy()
         table.rename(columns={
             'usage': 'Internal Adoption',
             'support_tickets': 'Internal Reliability (Tickets)',
-            divergence.append(", ".join(issues) if issues else "No significant divergence")
+            'sentiment': 'Internal Engagement'
+        }, inplace=True)
+
+        # Divergence Analysis
+        divergence = []
+        for _, row in table.iterrows():
+            issues = []
+            if row['Internal Adoption'] > row['External Adoption']:
+                issues.append("Higher internal adoption")
+            if row['Internal Reliability (Tickets)'] > 10 and row['External Reliability'] > 0.8:
+                issues.append("Internal reliability issues not reflected externally")
+            if row['Internal Engagement'] < row['External Engagement']:
+                issues.append("Lower internal engagement")
+            if issues:
+                divergence.append(", ".join(issues))
+            else:
+                divergence.append("No significant divergence")
         table['Divergence'] = divergence
 
         # Reliability & Adoption Insights
@@ -164,16 +166,52 @@ if user_input:
             st.session_state.history.append(("agent", "### Actionable Steps"))
             for act in extra_outputs["Actionable Steps"]:
                 st.session_state.history.append(("agent", f"- {act['Product']} | {act['Feature']} | {act['Region']}: {act['Action']} (Confidence: {act['Confidence']})"))
-            'sentiment': 'Internal Engagement'
-        }, inplace=True)
+        st.session_state.history.append(("agent", "Would you like me to visualize these insights? (yes/no)"))
+        st.session_state.last_scenario = scenario
+    else:
+        st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."))
 
-        # Divergence Analysis
-        divergence = []
-        for _, row in table.iterrows():
-            issues = []
-            if row['Internal Adoption'] > row['External Adoption']:
-                issues.append("Higher internal adoption")
-            if row['Internal Reliability (Tickets)'] > 10 and row['External Reliability'] > 0.8:
-                issues.append("Internal reliability issues not reflected externally")
-            if row['Internal Engagement'] < row['External Engagement']:
-                issues.append("Lower internal engagement")
+# Display chat history
+for speaker, message in st.session_state.history:
+    if speaker == "user":
+        st.markdown(f"**You:** {message}")
+    elif speaker == "agent":
+        st.markdown(f"{message}")
+    elif speaker == "agent_table":
+        st.table(message)
+
+# Visualization on user request
+if st.session_state.history and st.session_state.history[-1][1].endswith("visualize these insights? (yes/no)"):
+    vis_input = st.text_input("Type 'yes' to see a visualization, or 'no' to continue.", key="vis_input")
+    if vis_input and vis_input.lower().startswith("y"):
+        scenario = st.session_state.last_scenario
+        if scenario == "Risk Synthesis":
+            vis_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+        elif scenario == "Opportunity Discovery":
+            vis_df = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
+        elif scenario == "Feature Health":
+            vis_df = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
+        elif scenario == "Edge Case":
+            vis_df = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        elif scenario == "Stretch Scenario":
+            vis_df = df[(df['usage'] > 110) & (df['support_tickets'] > 8) & (df['sentiment'] > 0.7)]
+        else:
+            vis_df = df
+
+        st.subheader("Insights by Region")
+        region_counts = vis_df['region'].value_counts()
+        st.bar_chart(region_counts)
+        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
+        df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
+        df['External Reliability'] = df['External Reliability'].clip(0, 1)
+        df['External Engagement'] = df['External Engagement'].clip(0, 1)
+
+        # Filter for risk
+        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+
+        summary = (
+            "Several products and features across regions show anomalies or high support demand with low sentiment, "
+            "indicating urgent risks that require attention. Below is a comparison of internal and simulated external metrics."
+        )
+
+        # Summary Table
