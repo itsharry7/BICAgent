@@ -136,11 +136,11 @@ Classify the user's request into exactly ONE of these scenarios:
 - Unknown  (use ONLY if it clearly does not fit any category)
 
 Supporting Data for you regarding the scenarios so that you can make classifications easily:
-- Strategy Analysis & Risk Synthesis: Sample Prompt : Surface any internal usage patterns, reliability issues, or adoption blockers in our Copilot-first services. OR Recommend actionable steps to accelerate product-market fit and reliability before external launch.
+- Strategy Analysis & Risk Synthesis: Sample Prompt : Surface any internal usage patterns, reliability issues, or adoption blockers in our Copilot-first services. OR Recommend actionable steps to accelerate product-market fit and reliability before external launch. This may also include insights about the business.
 - Opportunity Discovery: Sample Prompt: What, where and when we can launch a new product.
 - Edge Case: This is when we have Data Ambiguity. Sample Prompt: “Surface any insights about new product.”
 - Stretch Scenario: Scenarios where your internal knwoledge is challenged. Sample prompt: Predict a feature we could launch in Azure that would leapfrog the competition. OR Outline a bold go-to-market plan and potential risks.
-- Feature Health: when some asks about feature health etc.
+- Feature Health: when some asks about feature health etc. Like updates about product or service.
 
 Rules:
 - Never invent a new label.
