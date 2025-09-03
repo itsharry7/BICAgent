@@ -33,10 +33,6 @@ def search(query, max_results=5):
     except Exception as e:
         return {"results": [], "error": str(e)}
         
-# External signals fusion
-df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage']+1)) + np.random.normal(0,0.05,len(df))
-df['External Reliability'] = df['External Reliability'].clip(0,1)
-
 # ---------------- Load default data ----------------
 @st.cache_data
 def load_data():
