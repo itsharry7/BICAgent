@@ -300,17 +300,6 @@ user_input = st.chat_input("Ask about risks, opportunities, feature health, edge
 if user_input:
     prompt = user_input.lower()
     scenario = classify_scenario(user_input)
-            
-if scenario == "Unknown":
-    st.session_state.history.append(("agent", "🤔 I couldn’t map your query to a scenario. Try rephrasing."))
-else:
-    summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
-    st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}\n\n{structured}"))
-    if not table.empty:
-        st.session_state.history.append(("agent_table", table))
-    if figures:
-        st.session_state.history.append(("agent_figures", figures))
-    st.session_state.history.append(("user", user_input))
 
     if scenario:
         summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
@@ -322,6 +311,7 @@ else:
     else:
         st.session_state.history.append(("agent", "I'm not sure which scenario to explore."))
 
+                  
 # ---------------- Display Chat ----------------
 for i, (speaker, message) in enumerate(st.session_state.history):
     if speaker == "user":
