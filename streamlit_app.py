@@ -136,6 +136,23 @@ You are analyzing enterprise product telemetry + customer signals.
 Dataset risk candidates:
 {table.to_dict(orient='records')}
 
+Output Format:
+•	Summary Table: 
+•	Key internal usage metrics vs. external customer metrics (adoption, reliability, feature engagement)
+•	Divergence analysis: Where Microsoft’s internal usage or feedback differs from external customers
+•	Reliability & Adoption Insights: 
+•	List of top reliability issues or blockers found in internal “Microsoft running on Microsoft” scenarios
+•	Prioritized recommendations for engineering or go-to-market teams
+•	Actionable Steps: 
+•	Concrete actions to close gaps (e.g., feature improvements, documentation, support readiness)
+•	Links to supporting telemetry, feedback, and escalation contacts
+•	Confidence & Traceability: 
+•	Confidence scores for each insight, with full data lineage and citations
+Style & Tone:
+•	Executive, strategic, and actionable
+•	Transparent about data sources, confidence, and rationale
+•	Focused on accelerating Copilot-first product excellence and customer alignment
+
 Your tasks:
 1. Identify the 2-3 most concerning risks and WHY they matter.
 2. Highlight any surprising or hidden correlations (region, product, adoption).
