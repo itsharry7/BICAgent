@@ -88,7 +88,7 @@ if user_input:
     if scenario:
         summary, table = summarize_and_tabulate(scenario, df)
         st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}"))
-        st.session_state.history.append(("agent", table.to_markdown(index=False)))
+        st.session_state.history.append(("agent_table", table))
         st.session_state.history.append(("agent", "Would you like me to visualize these insights? (yes/no)"))
         st.session_state.last_scenario = scenario
     else:
@@ -98,15 +98,15 @@ if user_input:
 for speaker, message in st.session_state.history:
     if speaker == "user":
         st.markdown(f"**You:** {message}")
-    else:
+    elif speaker == "agent":
         st.markdown(f"**Agent:**\n{message}")
+    elif speaker == "agent_table":
+        st.table(message)
 
 # Visualization on user request
 if st.session_state.history and st.session_state.history[-1][1].endswith("visualize these insights? (yes/no)"):
     vis_input = st.text_input("Type 'yes' to see a visualization, or 'no' to continue.", key="vis_input")
     if vis_input and vis_input.lower().startswith("y"):
-        import matplotlib.pyplot as plt
-
         scenario = st.session_state.last_scenario
         if scenario == "Risk Synthesis":
             vis_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
