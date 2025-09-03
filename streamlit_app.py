@@ -44,6 +44,8 @@ def summarize_and_tabulate(scenario, df):
         # Summary Table
         table = risk_df[['product', 'feature', 'region', 'team', 'role', 'usage', 'External Adoption', 'support_tickets', 'External Reliability', 'sentiment', 'External Engagement']].copy()
         table.rename(columns={
+            'usage': 'Internal Adoption',
+            'support_tickets': 'Internal Reliability (Tickets)',
             divergence.append(", ".join(issues) if issues else "No significant divergence")
         table['Divergence'] = divergence
 
@@ -162,43 +164,6 @@ if user_input:
             st.session_state.history.append(("agent", "### Actionable Steps"))
             for act in extra_outputs["Actionable Steps"]:
                 st.session_state.history.append(("agent", f"- {act['Product']} | {act['Feature']} | {act['Region']}: {act['Action']} (Confidence: {act['Confidence']})"))
-        st.session_state.history.append(("agent", "Would you like me to visualize these insights? (yes/no)"))
-        st.session_state.last_scenario = scenario
-    else:
-        st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."))
-
-# Display chat history
-for speaker, message in st.session_state.history:
-    if speaker == "user":
-        st.markdown(f"**You:** {message}")
-    elif speaker == "agent":
-        st.markdown(f"{message}")
-    elif speaker == "agent_table":
-        st.table(message)
-
-# Visualization on user request
-if st.session_state.history and st.session_state.history[-1][1].endswith("visualize these insights? (yes/no)"):
-    vis_input = st.text_input("Type 'yes' to see a visualization, or 'no' to continue.", key="vis_input")
-    if vis_input and vis_input.lower().startswith("y"):
-        scenario = st.session_state.last_scenario
-        if scenario == "Risk Synthesis":
-            vis_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
-        elif scenario == "Opportunity Discovery":
-            vis_df = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
-        elif scenario == "Feature Health":
-            vis_df = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
-        elif scenario == "Edge Case":
-            vis_df = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
-        elif scenario == "Stretch Scenario":
-            vis_df = df[(df['usage'] > 110) & (df['support_tickets'] > 8) & (df['sentiment'] > 0.7)]
-        else:
-            vis_df = df
-
-        st.subheader("Insights by Region")
-        region_counts = vis_df['region'].value_counts()
-        st.bar_chart(region_counts)
-        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))            'usage': 'Internal Adoption',
-            'support_tickets': 'Internal Reliability (Tickets)',
             'sentiment': 'Internal Engagement'
         }, inplace=True)
 
