@@ -75,7 +75,37 @@ def compute_dynamic_scores(df):
     weights = np.array([0.4,0.3,0.2,0.1])
     df['dynamic_score'] = metrics.dot(weights)
     return df
-    
+
+def auto_detect_scenario(df):
+    """
+    Check the dataset and suggest a preliminary scenario trigger.
+    Priority order: Risk > Edge Case > Opportunity > Feature Health.
+    Returns scenario label or None.
+    """
+    df = compute_dynamic_scores(df)
+    df = detect_anomalies(df)
+
+    # Risk condition
+    risky = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+    if not risky.empty:
+        return "Risk Synthesis"
+
+    # Edge Case
+    edge = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+    if not edge.empty:
+        return "Edge Case"
+
+    # Opportunity
+    opp = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
+    if not opp.empty:
+        return "Opportunity Discovery"
+
+    # Feature Health fallback (if nothing else triggered but usage exists)
+    if df['usage'].mean() > 0:
+        return "Feature Health"
+
+    return None
+
 # Scenario Classifier Function
 def classify_scenario(user_text: str, last_scenario: str = None) -> str:
     """
@@ -386,6 +416,26 @@ if "history" not in st.session_state:
     st.session_state.history = []
 if "current_scenario" not in st.session_state:
     st.session_state.current_scenario = None
+
+# ---------------- Autonomous Preliminary Response ----------------
+if not st.session_state.history:  # only on first run
+    auto_scenario = auto_detect_scenario(df)
+    if auto_scenario:
+        st.session_state.current_scenario = auto_scenario
+        st.session_state.history.append(
+            ("agent", f"🤖 Preliminary analysis suggests looking at **{auto_scenario}** first.")
+        )
+
+        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
+            auto_scenario, df, context="Autonomous scan (no user input)"
+        )
+
+        st.session_state.history.append(("agent", f"**Scenario:** {auto_scenario}\n\n{summary}\n\n{structured}"))
+
+        if not table.empty:
+            st.session_state.history.append(("agent_table", table))
+        if figures:
+            st.session_state.history.append(("agent_figures", figures))
 
 user_input = st.chat_input("Ask about risks, opportunities, feature health, edge cases, or trends...")
 
