@@ -17,7 +17,7 @@ from langchain_groq import ChatGroq
 
 # ---------------- Load Groq API ----------------
 load_dotenv()
-groq_api_key = os.getenv("GROQ_API_KEY")
+groq_api_key = os.getenv("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")
 
 groq_chat = ChatGroq(
     groq_api_key=groq_api_key,
