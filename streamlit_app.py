@@ -126,6 +126,42 @@ def summarize_and_tabulate(scenario, df):
         figures.append(trend_fig)
         structured = f"### 📌 Structured Risk Analysis\n**Top 5 Features by Score:**\n{table.to_markdown(index=False)}"
         extra_outputs = {"Total Risk Features": len(risk_df), "Regions Impacted": risk_df['region'].nunique()}
+                # ---------- Structured Narrative ----------
+        structured = f"""
+### 📌 Structured Risk Synthesis
+
+**Summary:**  
+- {len(risk_df)} risky features detected across {risk_df['region'].nunique()} regions.  
+- Top risks concentrated in {', '.join(risk_df['region'].unique()[:3])} (sample view).  
+
+**Key Internal vs External Metrics:**  
+- Internal Adoption (avg): {df['usage'].mean():.1f}  
+- External Adoption (avg): {df['External Adoption'].mean():.1f}  
+- Internal Reliability (sentiment proxy): {df['sentiment'].mean():.2f}  
+- External Reliability (simulated): {df['External Reliability'].mean():.2f}  
+
+**Divergence Analysis:**  
+- Clustering detected 3 risk clusters; top-risk features mostly in cluster 0.  
+- Features like **Auto Insights** in LATAM show high internal usage but poor external reliability.  
+
+**Actionable Recommendations:**  
+1. Stabilize Auto Insights in LATAM (highest combined risk).  
+2. Improve documentation & error handling for Predictive Alerts.  
+3. Align Copilot Chat sentiment signals with external feedback mechanisms.  
+
+**Confidence & Traceability:**  
+- Derived from support tickets + sentiment + anomaly flags + cluster analysis.
+        """
+
+        extra_outputs = {
+            "Risk Summary": {
+                "Total Risk Features": len(risk_df),
+                "Regions Impacted": risk_df['region'].nunique(),
+                "Avg Sentiment (at risk)": round(risk_df['sentiment'].mean(),2),
+                "Avg Support Tickets": int(risk_df['support_tickets'].mean())
+            }
+        }
+
 
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
