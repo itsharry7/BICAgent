@@ -128,11 +128,20 @@ def summarize_and_tabulate(scenario, df):
         figures.append(trend_fig)
 
         # ---------------- Groq LLM Narrative ----------------
-        groq_prompt = (
-            f"Analyze this enterprise dataset risk scenario. "
-            f"Top 5 risk features:\n{table.to_dict(orient='records')}\n"
-            f"Provide actionable recommendations for stakeholders in a concise manner."
-        )
+        groq_prompt = f"""
+You are analyzing enterprise product telemetry + customer signals.
+
+Dataset risk candidates:
+{table.to_dict(orient='records')}
+
+Your tasks:
+1. Identify the 2-3 most concerning risks and WHY they matter.
+2. Highlight any surprising or hidden correlations (region, product, adoption).
+3. Predict near-term implications if ignored.
+4. Suggest concrete responses: e.g., triage workflow, customer outreach, incident flag, product fix.
+
+Output a structured summary stakeholders can act on immediately.
+"""
         response = groq_chat.invoke(groq_prompt)
         try:
             llm_text = json.loads(response.json())['content']
