@@ -17,9 +17,9 @@ if uploaded_file:
     st.success("Custom data uploaded! Agent will use this data.")
     
     df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
-        df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
-        df['External Reliability'] = df['External Reliability'].clip(0, 1)
-        df['External Engagement'] = df['External Engagement'].clip(0, 1)
+    df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
+    df['External Reliability'] = df['External Reliability'].clip(0, 1)
+    df['External Engagement'] = df['External Engagement'].clip(0, 1)
 
         # Filter for risk
         risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
