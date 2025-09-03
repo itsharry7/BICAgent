@@ -25,46 +25,46 @@ def summarize_and_tabulate(scenario, df):
     table = pd.DataFrame()
     extra_outputs = {}
 
-        if scenario == "Risk Synthesis":
-        # Simulate external metrics
-        df = df.copy()
-        np.random.seed(42)
-        df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
-        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
-        df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
-        df['External Reliability'] = df['External Reliability'].clip(0, 1)
-        df['External Engagement'] = df['External Engagement'].clip(0, 1)
-    
-        # Filter for risk
-        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
-    
-        summary = (
-            f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. "
-            "Here are the top 5 by support tickets:"
-        )
-    
-        # --- Minimal summary table ---
-        table = (
-            risk_df[['product', 'feature', 'region', 'support_tickets', 'sentiment']]
-            .sort_values(by="support_tickets", ascending=False)
-            .head(5)
-            .rename(columns={
-                'support_tickets': 'High Ticket Volume',
-                'sentiment': 'Low Sentiment'
-            })
-        )
-    
-        # --- High-level aggregates ---
-        extra_outputs = {
-            "Risk Summary": {
-                "Total Risk Features": len(risk_df),
-                "Regions Impacted": risk_df['region'].nunique(),
-                "Avg Sentiment (at risk)": round(risk_df['sentiment'].mean(), 2),
-                "Avg Support Tickets": int(risk_df['support_tickets'].mean())
-            }
+    if scenario == "Risk Synthesis":
+    # Simulate external metrics
+    df = df.copy()
+    np.random.seed(42)
+    df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
+    df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
+    df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
+    df['External Reliability'] = df['External Reliability'].clip(0, 1)
+    df['External Engagement'] = df['External Engagement'].clip(0, 1)
+
+    # Filter for risk
+    risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+
+    summary = (
+        f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. "
+        "Here are the top 5 by support tickets:"
+    )
+
+    # --- Minimal summary table ---
+    table = (
+        risk_df[['product', 'feature', 'region', 'support_tickets', 'sentiment']]
+        .sort_values(by="support_tickets", ascending=False)
+        .head(5)
+        .rename(columns={
+            'support_tickets': 'High Ticket Volume',
+            'sentiment': 'Low Sentiment'
+        })
+    )
+
+    # --- High-level aggregates ---
+    extra_outputs = {
+        "Risk Summary": {
+            "Total Risk Features": len(risk_df),
+            "Regions Impacted": risk_df['region'].nunique(),
+            "Avg Sentiment (at risk)": round(risk_df['sentiment'].mean(), 2),
+            "Avg Support Tickets": int(risk_df['support_tickets'].mean())
         }
-    
-        return summary, table, extra_outputs
+    }
+
+    return summary, table, extra_outputs
 
         # Divergence Analysis
         divergence = []
