@@ -474,6 +474,24 @@ if user_input:
     else:
         st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
 
+    # ---------------- Autonomous Follow-up Scan ----------------
+    auto_scenario = auto_detect_scenario(df)
+    if auto_scenario and auto_scenario != st.session_state.current_scenario:
+        st.session_state.current_scenario = auto_scenario
+        st.session_state.history.append(
+            ("agent", f"🤖 While analyzing, I also detected a potential **{auto_scenario}** situation.")
+        )
+
+        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
+            auto_scenario, df, context="Autonomous follow-up scan"
+        )
+
+        st.session_state.history.append(("agent", f"**Scenario:** {auto_scenario}\n\n{summary}\n\n{structured}"))
+
+        if not table.empty:
+            st.session_state.history.append(("agent_table", table))
+        if figures:
+            st.session_state.history.append(("agent_figures", figures))
 
 # ---------------- Display Chat ----------------
 for i, (speaker, message) in enumerate(st.session_state.history):
