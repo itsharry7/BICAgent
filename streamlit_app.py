@@ -1,30 +1,39 @@
-import streamlit as st
-import pandas as pd
-
-# Load default data
-@st.cache_data
-def load_data():
-    return pd.read_csv("synthetic_enterprise_data.csv")
-
-if "user_df" not in st.session_state:
-    st.session_state.user_df = None
-
-# File uploader for user data
-uploaded_file = st.file_uploader("Upload your own enterprise data (CSV)", type="csv")
-if uploaded_file:
-    st.session_state.user_df = pd.read_csv(uploaded_file)
-    st.success("Custom data uploaded! Agent will use this data.")
-
-df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
-
-# Summarize and tabulate insights
 def summarize_and_tabulate(scenario, df):
     summary = ""
     table = pd.DataFrame()
     if scenario == "Risk Synthesis":
         filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
         summary = (
-            "Several products and features across regions show anomalies or high support demand with low sentiment,"
+            "Several products and features across regions show anomalies or high support demand with low sentiment, "
+            "indicating urgent risks that require attention."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
+        summary = (
+            "Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Poor sentiment and high support demand"
+    elif scenario == "Edge Case":
+        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        summary = (
+            "Some features are heavily used but poorly rated, suggesting possible forced adoption, hidden friction, or ambiguous/sparse data."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "High usage but low sentiment—possible forced adoption or ambiguity"
+    elif scenario == "Stretch Scenario":
+        filtered = df[(df['usage'] > 110) & (df['support_tickets'] > 8) & (df['sentiment'] > 0.7)]
+        summary = (
+            "Emerging patterns show popular features with rising support load—opportunities for automation or bold innovation."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Popular feature, rising support—opportunity for innovation"
+    else:
+        summary = "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."
+    return summary, table
+        table['Insight'] = "Anomaly or high support demand, low sentiment"
+    elif scenario == "Opportunity Discovery":
+        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
             "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
         )
