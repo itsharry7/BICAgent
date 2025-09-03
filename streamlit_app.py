@@ -15,7 +15,7 @@ from openai import OpenAI
 import os
 
 # Set your OpenAI API key here or via environment variable
-OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "YOUR_OPENAI_API_KEY")
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "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")
 client = OpenAI(api_key=OPENAI_API_KEY)
 
 def get_llm_insights(prompt: str, model="gpt-4o-mini"):
