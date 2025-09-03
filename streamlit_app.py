@@ -232,6 +232,13 @@ Your tasks:
 • Links to supporting telemetry, feedback, and escalation contacts 
 7. Confidence & Traceability: 
 • Confidence scores for each insight, with full data lineage and citations 
+
+Your answer/response MUST cover the following concerns:
+•	Delayed strategic responses due to slow insight discovery
+•	Missed opportunities hidden in data complexity
+•	Decision paralysis from conflicting or incomplete information
+•	Competitive disadvantage from reactive rather than predictive intelligence
+
 Style & Tone: 
 • Executive, strategic, and actionable 
 • Transparent about data sources, confidence, and rationale 
@@ -243,7 +250,7 @@ Style & Tone:
         except Exception as e:
             llm_text = f"⚠️ LLM insight generation failed: {e}"
 
-        structured = f"### 📌 AI Risk Insights\n{llm_text}"
+        structured = f"### 📌 AI Insights\n{llm_text}"
 
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage']>120)&(df['sentiment']>0.8)&(df['support_tickets']<3)]
@@ -258,6 +265,12 @@ Tasks:
 1. Identify the top growth levers and why.
 2. Predict scaling implications.
 3. Recommend 2-3 specific bets (campaigns, partnerships, features).
+
+Your answer/response MUST cover the following concerns:
+•	Delayed strategic responses due to slow insight discovery
+•	Missed opportunities hidden in data complexity
+•	Decision paralysis from conflicting or incomplete information
+•	Competitive disadvantage from reactive rather than predictive intelligence
 """)
         try:
             response = groq_chat.invoke(groq_prompt)
@@ -285,6 +298,12 @@ Tasks:
 2. Hypothesize plausible causes.
 3. Suggest how to validate (experiments, interviews, deeper data cuts).
 4. Recommend whether to prioritize or monitor quietly.
+
+Your answer/response should address the following concerns, if applicable:
+•	Delayed strategic responses due to slow insight discovery
+•	Missed opportunities hidden in data complexity
+•	Decision paralysis from conflicting or incomplete information
+•	Competitive disadvantage from reactive rather than predictive intelligence
 """)
             try:
                 response = groq_chat.invoke(groq_prompt)
@@ -317,6 +336,12 @@ Tasks:
 1. Connect internal strengths with external gaps.
 2. Predict next 12 months disruptions.
 3. Propose bold initiatives to leapfrog competitors.
+
+Your answer/response should cover the following concerns, if applicable:
+•	Delayed strategic responses due to slow insight discovery
+•	Missed opportunities hidden in data complexity
+•	Decision paralysis from conflicting or incomplete information
+•	Competitive disadvantage from reactive rather than predictive intelligence
 """)
         try:
             response = groq_chat.invoke(groq_prompt)
