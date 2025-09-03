@@ -15,14 +15,26 @@ uploaded_file = st.file_uploader("Upload your own enterprise data (CSV)", type="
 if uploaded_file:
     st.session_state.user_df = pd.read_csv(uploaded_file)
     st.success("Custom data uploaded! Agent will use this data.")
-    
-    df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
-    df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
-    df['External Reliability'] = df['External Reliability'].clip(0, 1)
-    df['External Engagement'] = df['External Engagement'].clip(0, 1)
+
+df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
+
+def summarize_and_tabulate(scenario, df):
+    summary = ""
+    table = pd.DataFrame()
+    extra_outputs = {}
+
+    if scenario == "Risk Synthesis":
+        # Simulate external metrics
+        df = df.copy()
+        np.random.seed(42)
+        df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
+        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
+        df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
+        df['External Reliability'] = df['External Reliability'].clip(0, 1)
+        df['External Engagement'] = df['External Engagement'].clip(0, 1)
 
         # Filter for risk
-       risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
 
         summary = (
             "Several products and features across regions show anomalies or high support demand with low sentiment, "
@@ -32,21 +44,6 @@ if uploaded_file:
         # Summary Table
         table = risk_df[['product', 'feature', 'region', 'team', 'role', 'usage', 'External Adoption', 'support_tickets', 'External Reliability', 'sentiment', 'External Engagement']].copy()
         table.rename(columns={
-            'usage': 'Internal Adoption',
-            'support_tickets': 'Internal Reliability (Tickets)',
-            'sentiment': 'Internal Engagement'
-        }, inplace=True)
-
-        # Divergence Analysis
-        divergence = []
-        for _, row in table.iterrows():
-            issues = []
-            if row['Internal Adoption'] > row['External Adoption']:
-                issues.append("Higher internal adoption")
-            if row['Internal Reliability (Tickets)'] > 10 and row['External Reliability'] > 0.8:
-                issues.append("Internal reliability issues not reflected externally")
-            if row['Internal Engagement'] < row['External Engagement']:
-                issues.append("Lower internal engagement")
             divergence.append(", ".join(issues) if issues else "No significant divergence")
         table['Divergence'] = divergence
 
@@ -90,7 +87,6 @@ if uploaded_file:
             "Actionable Steps": actions
         }
 
-    # ... (other scenarios unchanged)
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
@@ -201,16 +197,18 @@ if st.session_state.history and st.session_state.history[-1][1].endswith("visual
         st.subheader("Insights by Region")
         region_counts = vis_df['region'].value_counts()
         st.bar_chart(region_counts)
-        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))
-df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
+        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))            'usage': 'Internal Adoption',
+            'support_tickets': 'Internal Reliability (Tickets)',
+            'sentiment': 'Internal Engagement'
+        }, inplace=True)
 
-def summarize_and_tabulate(scenario, df):
-    summary = ""
-    table = pd.DataFrame()
-    extra_outputs = {}
-
-    if scenario == "Risk Synthesis":
-        # Simulate external metrics
-        df = df.copy()
-        np.random.seed(42)
-        df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
+        # Divergence Analysis
+        divergence = []
+        for _, row in table.iterrows():
+            issues = []
+            if row['Internal Adoption'] > row['External Adoption']:
+                issues.append("Higher internal adoption")
+            if row['Internal Reliability (Tickets)'] > 10 and row['External Reliability'] > 0.8:
+                issues.append("Internal reliability issues not reflected externally")
+            if row['Internal Engagement'] < row['External Engagement']:
+                issues.append("Lower internal engagement")
