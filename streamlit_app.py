@@ -24,7 +24,7 @@ def summarize_and_tabulate(scenario, df):
     if scenario == "Risk Synthesis":
         filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
         summary = (
-            "Several products and features across regions show anomalies or high support demand with low sentiment, "
+            "Several products and features across regions show anomalies or high support demand with low sentiment",
         summary = (
             "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
         )
