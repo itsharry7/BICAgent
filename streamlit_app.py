@@ -50,6 +50,12 @@ def search(query, max_results=5):
 def load_data():
     return pd.read_csv("synthetic_enterprise_data.csv")
 
+# ---------------- Session State Initialization ----------------
+if "history" not in st.session_state:
+    st.session_state.history = []
+if "current_scenario" not in st.session_state:
+    st.session_state.current_scenario = None
+
 # ---------------- Autonomous Introduction on First Run ----------------
 if not st.session_state.history:  # only on very first load
     intro_message = """
