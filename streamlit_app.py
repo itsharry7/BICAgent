@@ -72,7 +72,29 @@ def compute_dynamic_scores(df):
     weights = np.array([0.4,0.3,0.2,0.1])
     df['dynamic_score'] = metrics.dot(weights)
     return df
+    
+# Scenario Classifier Function
+def classify_scenario(user_input: str) -> str:
+    """
+    Uses Groq LLM to classify user query into one of the known scenarios.
+    """
+    classify_prompt = f"""
+You are an AI that classifies business intelligence queries.
+Possible scenarios: ["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]
 
+Query: "{user_input}"
+
+Return only the best matching scenario name from the list. If none match, return "Unknown".
+"""
+    try:
+        response = groq_chat.invoke(classify_prompt)
+        scenario = getattr(response, "content", str(response)).strip()
+        if scenario not in ["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]:
+            scenario = "Unknown"
+        return scenario
+    except Exception as e:
+        return "Unknown"
+        
 def detect_anomalies(df, n_clusters=3):
     df = df.copy()
     scaler = StandardScaler()
