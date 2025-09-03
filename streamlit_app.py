@@ -13,15 +13,6 @@ if "user_df" not in st.session_state:
 uploaded_file = st.file_uploader("Upload your own enterprise data (CSV)", type="csv")
 if uploaded_file:
     st.session_state.user_df = pd.read_csv(uploaded_file)
-    st.success("Custom data uploaded! Agent will use this data.")
-
-df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
-
-# Summarize and tabulate insights
-def summarize_and_tabulate(scenario, df):
-    summary = ""
-    table = pd.DataFrame()
-    if scenario == "Risk Synthesis":
         filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
         summary = (
             "Several products and features across regions show anomalies or high support demand with low sentiment, "
@@ -46,10 +37,10 @@ def summarize_and_tabulate(scenario, df):
     elif scenario == "Edge Case":
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
         summary = (
-            "Some features are heavily used but poorly rated, suggesting possible forced adoption or hidden friction."
+            "Some features are heavily used but poorly rated, suggesting possible forced adoption, hidden friction, or ambiguous/sparse data."
         )
         table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
-        table['Insight'] = "High usage but low sentiment—possible forced adoption"
+        table['Insight'] = "High usage but low sentiment—possible forced adoption or ambiguity"
     elif scenario == "Stretch Scenario":
         filtered = df[(df['usage'] > 110) & (df['support_tickets'] > 8) & (df['sentiment'] > 0.7)]
         summary = (
@@ -70,19 +61,24 @@ if "history" not in st.session_state:
 user_input = st.chat_input("Ask me about risks, opportunities, feature health, edge cases, or trends...")
 
 if user_input:
-    # Intent detection
+    # Improved intent detection for edge/ambiguous/exploratory prompts
     prompt = user_input.lower()
     scenario = None
-    if "risk" in prompt or "compliance" in prompt or "issue" in prompt:
+    if any(word in prompt for word in ["risk", "compliance", "issue"]):
         scenario = "Risk Synthesis"
-    elif "opportunity" in prompt or "investment" in prompt or "growth" in prompt:
+    elif any(word in prompt for word in ["opportunity", "investment", "growth"]):
         scenario = "Opportunity Discovery"
-    elif "feature health" in prompt or "adoption" in prompt or "sentiment" in prompt:
+    elif any(word in prompt for word in ["feature health", "adoption", "sentiment"]):
         scenario = "Feature Health"
-    elif "conflict" in prompt or "edge case" in prompt or "contradict" in prompt:
+    elif any(word in prompt for word in [
+        "conflict", "edge case", "contradict", "sparse", "ambiguous", "beta", "explore", "unknown", "uncertain", "tentative"
+    ]):
         scenario = "Edge Case"
-    elif "trend" in prompt or "bold" in prompt or "creative" in prompt:
+    elif any(word in prompt for word in ["trend", "bold", "creative"]):
         scenario = "Stretch Scenario"
+    # Fallback for exploratory/insight prompts
+    if scenario is None and any(word in prompt for word in ["insight", "surface"]):
+        scenario = "Edge Case"
 
     st.session_state.history.append(("user", user_input))
     if scenario:
@@ -124,4 +120,12 @@ if st.session_state.history and st.session_state.history[-1][1].endswith("visual
         st.subheader("Insights by Region")
         region_counts = vis_df['region'].value_counts()
         st.bar_chart(region_counts)
-        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))
+        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))    st.success("Custom data uploaded! Agent will use this data.")
+
+df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
+
+# Summarize and tabulate insights
+def summarize_and_tabulate(scenario, df):
+    summary = ""
+    table = pd.DataFrame()
+    if scenario == "Risk Synthesis":
