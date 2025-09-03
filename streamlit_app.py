@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-from web import search   # ✅ import web search tool
+from web import search
 
 # ---------------- Load default data ----------------
 @st.cache_data
