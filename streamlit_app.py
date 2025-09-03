@@ -212,7 +212,7 @@ Your job: answer based on context + dataset insights.
         figures.append(predict_trends(risk_df))
 
         groq_prompt = with_context(f"""
-Dataset risk candidates:
+Dataset area of concern candidates:
 {table.to_dict(orient='records')}
 
 Your tasks: 
