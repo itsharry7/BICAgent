@@ -113,7 +113,7 @@ def summarize_and_tabulate(scenario, df):
             "indicating possible health issues that need investigation."
         )
 
-elif scenario == "Edge Case":
+    elif scenario == "Edge Case":
     # Filter candidates (high usage + low sentiment)
     filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
 
