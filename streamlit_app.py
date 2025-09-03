@@ -25,7 +25,7 @@ def summarize_and_tabulate(scenario, df):
     table = pd.DataFrame()
     extra_outputs = {}
 
-    if scenario == "Risk Synthesis":
+        if scenario == "Risk Synthesis":
         # Simulate external metrics
         df = df.copy()
         np.random.seed(42)
@@ -39,22 +39,22 @@ def summarize_and_tabulate(scenario, df):
         risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
     
         summary = (
-            f"⚠️ {len(risk_df)} features across {risk_df['region'].nunique()} regions show anomalies "
-            "or high support demand with low sentiment. Below is a summary of the top risks."
+            f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. "
+            "Here are the top 5 by support tickets:"
         )
     
-        # --- Instead of full table, show only top 5 risky items ---
+        # --- Minimal summary table ---
         table = (
             risk_df[['product', 'feature', 'region', 'support_tickets', 'sentiment']]
             .sort_values(by="support_tickets", ascending=False)
             .head(5)
+            .rename(columns={
+                'support_tickets': 'High Ticket Volume',
+                'sentiment': 'Low Sentiment'
+            })
         )
-        table.rename(columns={
-            'support_tickets': 'High Ticket Volume',
-            'sentiment': 'Low Sentiment'
-        }, inplace=True)
     
-        # Add high-level aggregates (optional)
+        # --- High-level aggregates ---
         extra_outputs = {
             "Risk Summary": {
                 "Total Risk Features": len(risk_df),
@@ -63,6 +63,8 @@ def summarize_and_tabulate(scenario, df):
                 "Avg Support Tickets": int(risk_df['support_tickets'].mean())
             }
         }
+    
+        return summary, table, extra_outputs
 
         # Divergence Analysis
         divergence = []
