@@ -434,32 +434,6 @@ followup_msg = """
 Just reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
 """
 st.session_state.history.append(("agent", followup_msg))
-
-user_input = st.chat_input("Type your request...")
-
-if user_input:
-    st.session_state.history.append(("user", user_input))
-
-    # Check if this is a follow-up acceptance
-    if user_input.lower().startswith("yes"):
-        # Strip 'yes' and keep the rest
-        followup_request = user_input[3:].strip() or "Provide more details"
-        
-        # Send back to Groq LLM
-        groq_response = client.chat.completions.create(
-            model="llama-3.1-70b-versatile",
-            messages=[
-                {"role": "system", "content": "You are an autonomous BI agent. Expand on prior analysis."},
-                {"role": "user", "content": followup_request}
-            ]
-        )
-        followup_answer = groq_response.choices[0].message.content
-        st.session_state.history.append(("agent", followup_answer))
-    else:
-        # Normal flow: classify scenario & summarize
-        scenario = classify_scenario(user_input, df)
-        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
-        st.session_state.history.append(("agent", f"**Scenario:** {scenario}\n\n{summary}\n\n{structured}"))
     
 # ---------------- Streamlit Chat UI ----------------
 st.title("Autonomous BI Agent with Groq AI")
