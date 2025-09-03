@@ -13,15 +13,18 @@ if "user_df" not in st.session_state:
 uploaded_file = st.file_uploader("Upload your own enterprise data (CSV)", type="csv")
 if uploaded_file:
     st.session_state.user_df = pd.read_csv(uploaded_file)
+    st.success("Custom data uploaded! Agent will use this data.")
+
+df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
+
+# Summarize and tabulate insights
+def summarize_and_tabulate(scenario, df):
+    summary = ""
+    table = pd.DataFrame()
+    if scenario == "Risk Synthesis":
         filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
         summary = (
             "Several products and features across regions show anomalies or high support demand with low sentiment, "
-            "indicating urgent risks that require attention."
-        )
-        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
-        table['Insight'] = "Anomaly or high support demand, low sentiment"
-    elif scenario == "Opportunity Discovery":
-        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
             "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
         )
@@ -120,12 +123,9 @@ if st.session_state.history and st.session_state.history[-1][1].endswith("visual
         st.subheader("Insights by Region")
         region_counts = vis_df['region'].value_counts()
         st.bar_chart(region_counts)
-        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))    st.success("Custom data uploaded! Agent will use this data.")
-
-df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
-
-# Summarize and tabulate insights
-def summarize_and_tabulate(scenario, df):
-    summary = ""
-    table = pd.DataFrame()
-    if scenario == "Risk Synthesis":
+        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))            "indicating urgent risks that require attention."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Anomaly or high support demand, low sentiment"
+    elif scenario == "Opportunity Discovery":
+        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
