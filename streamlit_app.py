@@ -92,6 +92,17 @@ def summarize_and_tabulate(scenario, df):
         ax2.set_title("Risk Feature Heatmap (Tickets by Region)")
         figures.append(fig2)
 
+        # Scatter plot
+        fig, ax = plt.subplots()
+        sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region", ax=ax, s=100)
+        ax.set_title("Support Tickets vs Sentiment (Risk Features)")
+        st.pyplot(fig)
+        
+        # Heatmap
+        fig, ax = plt.subplots(figsize=(8, 6))
+        sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax)
+        ax.set_title("Risk Feature Heatmap (Tickets by Region)")
+        st.pyplot(fig)
         # ----------- Structured Narrative -----------
         structured = f"""
 ### 📌 Structured Risk Synthesis
@@ -265,4 +276,4 @@ for i, (speaker, message) in enumerate(st.session_state.history):
         st.table(message)  # st.table does not need a key
     elif speaker == "agent_figures":
         for j, fig in enumerate(message):
-            st.pyplot(fig, key=f"fig_{i}_{j}")
+            st.pyplot(fig)
