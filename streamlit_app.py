@@ -343,10 +343,8 @@ if user_input:
 # ---------------- Display Chat ----------------
 for i, (speaker, message) in enumerate(st.session_state.history):
     if speaker == "user":
-        st_message(message, is_user=True, key=f"user_{i}", avatar_style="big-smile")
         st.markdown(f"<div class='stChatMessage user-bubble'>{message}</div>", unsafe_allow_html=True)
     elif speaker == "agent":
-        st_message(message, is_user=False, key=f"agent_{i}", avatar_style="bottts")
         st.markdown(f"<div class='stChatMessage agent-bubble'>{message}</div>", unsafe_allow_html=True)
     elif speaker == "agent_table":
         st.table(message)
