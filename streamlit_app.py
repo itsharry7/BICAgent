@@ -70,7 +70,7 @@ if "history" not in st.session_state:
 user_input = st.chat_input("Ask me about risks, opportunities, feature health, edge cases, or trends...")
 
 if user_input:
-    # Improved intent detection for edge/ambiguous/exploratory prompts
+    # Improved intent detection for stretch/creative/disruptive/edge/ambiguous/exploratory prompts
     prompt = user_input.lower()
     scenario = None
     if any(word in prompt for word in ["risk", "compliance", "issue"]):
@@ -80,11 +80,13 @@ if user_input:
     elif any(word in prompt for word in ["feature health", "adoption", "sentiment"]):
         scenario = "Feature Health"
     elif any(word in prompt for word in [
+        "predict", "disrupt", "leapfrog", "go-to-market", "future", "breakthrough", "moonshot", "next big", "differentiator", "market plan", "strategy", "trend", "bold", "creative"
+    ]):
+        scenario = "Stretch Scenario"
+    elif any(word in prompt for word in [
         "conflict", "edge case", "contradict", "sparse", "ambiguous", "beta", "explore", "unknown", "uncertain", "tentative"
     ]):
         scenario = "Edge Case"
-    elif any(word in prompt for word in ["trend", "bold", "creative"]):
-        scenario = "Stretch Scenario"
     # Fallback for exploratory/insight prompts
     if scenario is None and any(word in prompt for word in ["insight", "surface"]):
         scenario = "Edge Case"
