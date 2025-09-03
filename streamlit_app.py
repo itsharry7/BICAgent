@@ -77,29 +77,61 @@ def compute_dynamic_scores(df):
     return df
     
 # Scenario Classifier Function
-def classify_scenario(user_input: str) -> str:
+def classify_scenario(user_text: str, last_scenario: str = None) -> str:
     """
-    Uses Groq LLM to classify user query into one of the known scenarios.
+    Use Groq to classify user input into one of the known scenarios.
+    Returns one of: Risk Synthesis, Opportunity Discovery, Edge Case,
+    Stretch Scenario, Feature Health, Unknown
+
+    If the user input is a continuation (e.g., "continue", "complete"),
+    it will reuse the last_scenario instead of switching.
     """
-    classify_prompt = f"""
-Classify the following query into exactly one of these categories:
-["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]
 
-Query: "{user_input}"
+    # --- Continuation Guard ---
+    continuation_phrases = ["continue", "go on", "complete", "carry on", "elaborate", "finish"]
+    if any(p in user_text.lower() for p in continuation_phrases) and last_scenario:
+        return last_scenario
 
-Respond with ONLY the scenario name, nothing else.
+    # --- Groq Classification Prompt ---
+    classification_prompt = f"""
+You are a strict scenario classifier for a Business Intelligence Agent.
+
+Task:
+Classify the user's request into exactly ONE of these scenarios:
+- Risk Synthesis
+- Opportunity Discovery
+- Edge Case
+- Stretch Scenario
+- Feature Health
+- Unknown  (use ONLY if it clearly does not fit any category)
+
+Rules:
+- Never invent a new label.
+- If the user message is vague or ambiguous, return "Unknown".
+- Do not output explanations, only the label.
+- If the user asks to continue a previous response, you should return the previous scenario (handled above).
+
+User request: "{user_text}"
 """
+
     try:
-        response = groq_chat.invoke(classify_prompt)
-        scenario = getattr(response, "content", str(response)).strip()
+        response = groq_chat.invoke(classification_prompt)
+        label = getattr(response, "content", str(response)).strip()
 
-        # Clean up common issues (extra quotes, punctuation, explanations)
-        scenario = scenario.replace('"', '').replace("'", "").strip()
+        # sanitize
+        valid_labels = {
+            "Risk Synthesis",
+            "Opportunity Discovery",
+            "Edge Case",
+            "Stretch Scenario",
+            "Feature Health",
+            "Unknown"
+        }
+        if label not in valid_labels:
+            return "Unknown"
+        return label
 
-        if scenario not in ["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]:
-            scenario = "Unknown"
-        return scenario
-    except Exception as e:
+    except Exception:
         return "Unknown"
         
 def detect_anomalies(df, n_clusters=3):
@@ -312,12 +344,18 @@ user_input = st.chat_input("Ask about risks, opportunities, feature health, edge
 
 if user_input:
     st.session_state.history.append(("user", user_input))
-    new_scenario = classify_scenario(user_input)
-
-    # detect abrupt change → reset context
-    if new_scenario != st.session_state.current_scenario:
+    new_scenario = classify_scenario(
+    user_input,
+    last_scenario=st.session_state.get("current_scenario")
+    )
+    
+    # Update state
+    if new_scenario != st.session_state.get("current_scenario"):
         st.session_state.current_scenario = new_scenario
-        st.session_state.history.append(("agent", f"🔄 New topic detected → switching to **{new_scenario}**"))
+        if new_scenario != "Unknown":  # only announce if real switch
+            st.session_state.history.append(
+                ("agent", f"🔄 New topic detected → switching to **{new_scenario}**")
+            )
 
     if new_scenario and new_scenario != "Unknown":
         # grab last 5 turns for continuity
