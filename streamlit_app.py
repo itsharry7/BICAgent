@@ -16,7 +16,6 @@ if uploaded_file:
     st.success("Custom data uploaded! Agent will use this data.")
 
 df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
-
 # Summarize and tabulate insights
         table['Insight'] = "Anomaly or high support demand, low sentiment"
     elif scenario == "Opportunity Discovery":
