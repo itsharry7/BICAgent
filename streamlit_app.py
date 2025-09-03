@@ -216,7 +216,7 @@ Dataset risk candidates:
 {table.to_dict(orient='records')}
 
 Your tasks: 
-1. Identify the 2-3 most concerning risks and WHY they matter. 
+1. Identify the 2-3 most concerning areas and WHY they matter. 
 2. Highlight any surprising or hidden correlations (region, product, adoption). 
 3. Predict near-term implications if ignored. 
 4. Suggest concrete responses: e.g., triage workflow, customer outreach, incident flag, product fix. 
