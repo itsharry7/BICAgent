@@ -256,13 +256,13 @@ if user_input:
         st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
 
 # ---------------- Display Chat ----------------
-for speaker, message in st.session_state.history:
+for i, (speaker, message) in enumerate(st.session_state.history):
     if speaker == "user":
-        st_message(message, is_user=True)
+        st_message(message, is_user=True, key=f"user_{i}")
     elif speaker == "agent":
-        st_message(message)
+        st_message(message, key=f"agent_{i}")
     elif speaker == "agent_table":
-        st.table(message)
+        st.table(message)  # st.table does not need a key
     elif speaker == "agent_figures":
-        for fig in message:
-            st.pyplot(fig)
+        for j, fig in enumerate(message):
+            st.pyplot(fig, key=f"fig_{i}_{j}")
