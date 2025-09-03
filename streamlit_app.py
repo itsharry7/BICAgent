@@ -79,16 +79,20 @@ def classify_scenario(user_input: str) -> str:
     Uses Groq LLM to classify user query into one of the known scenarios.
     """
     classify_prompt = f"""
-You are an AI that classifies business intelligence queries.
-Possible scenarios: ["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]
+Classify the following query into exactly one of these categories:
+["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]
 
 Query: "{user_input}"
 
-Return only the best matching scenario name from the list. If none match, return "Unknown".
+Respond with ONLY the scenario name, nothing else.
 """
     try:
         response = groq_chat.invoke(classify_prompt)
         scenario = getattr(response, "content", str(response)).strip()
+
+        # Clean up common issues (extra quotes, punctuation, explanations)
+        scenario = scenario.replace('"', '').replace("'", "").strip()
+
         if scenario not in ["Risk Synthesis", "Opportunity Discovery", "Edge Case", "Stretch Scenario", "Feature Health"]:
             scenario = "Unknown"
         return scenario
