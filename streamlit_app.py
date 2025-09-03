@@ -31,7 +31,7 @@ def summarize_and_tabulate(scenario, df):
     else:
         summary = "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."
     return summary, table
-    table['Insight'] = "Anomaly or high support demand, low sentiment"
+     table['Insight'] = "Anomaly or high support demand, low sentiment"
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
