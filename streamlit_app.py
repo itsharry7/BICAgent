@@ -201,4 +201,5 @@ for i, (speaker, message) in enumerate(st.session_state.history):
         st.table(message)
     elif speaker == "agent_figures":
         for j, fig in enumerate(message):
-            st.image(render_fig_in_chat(fig), use_column_width=True)
+            # Instead of base64, directly show figure
+            st.pyplot(fig, clear_figure=False, use_container_width=True)
