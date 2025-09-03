@@ -17,13 +17,62 @@ if uploaded_file:
 
 df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
 
-# Agent logic
-def agent_response(prompt, df):
-    prompt = prompt.lower()
-    insights = []
-    scenario = None
+# Summarize and tabulate insights
+def summarize_and_tabulate(scenario, df):
+    summary = ""
+    table = pd.DataFrame()
+    if scenario == "Risk Synthesis":
+        filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+        summary = (
+            "Several products and features across regions show anomalies or high support demand with low sentiment, "
+            "indicating urgent risks that require attention."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Anomaly or high support demand, low sentiment"
+    elif scenario == "Opportunity Discovery":
+        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
+        summary = (
+            "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "High engagement and satisfaction, low friction"
+    elif scenario == "Feature Health":
+        filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
+        summary = (
+            "Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Poor sentiment and high support demand"
+    elif scenario == "Edge Case":
+        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        summary = (
+            "Some features are heavily used but poorly rated, suggesting possible forced adoption or hidden friction."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "High usage but low sentiment—possible forced adoption"
+    elif scenario == "Stretch Scenario":
+        filtered = df[(df['usage'] > 110) & (df['support_tickets'] > 8) & (df['sentiment'] > 0.7)]
+        summary = (
+            "Emerging patterns show popular features with rising support load—opportunities for automation or bold innovation."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Popular feature, rising support—opportunity for innovation"
+    else:
+        summary = "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."
+    return summary, table
 
+# Streamlit chat UI
+st.title("Autonomous BI Agent (Conversational Prototype)")
+
+if "history" not in st.session_state:
+    st.session_state.history = []
+
+user_input = st.chat_input("Ask me about risks, opportunities, feature health, edge cases, or trends...")
+
+if user_input:
     # Intent detection
+    prompt = user_input.lower()
+    scenario = None
     if "risk" in prompt or "compliance" in prompt or "issue" in prompt:
         scenario = "Risk Synthesis"
     elif "opportunity" in prompt or "investment" in prompt or "growth" in prompt:
@@ -35,57 +84,22 @@ def agent_response(prompt, df):
     elif "trend" in prompt or "bold" in prompt or "creative" in prompt:
         scenario = "Stretch Scenario"
 
-    if scenario == "Risk Synthesis":
-        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
-        for _, row in risk_df.iterrows():
-            insights.append(f"Risk: {row['product']} - {row['feature']} in {row['region']} ({row['team']}, {row['role']}) shows anomaly or high support demand with low sentiment.")
-    elif scenario == "Opportunity Discovery":
-        opp_df = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
-        for _, row in opp_df.iterrows():
-            insights.append(f"Opportunity: {row['product']} - {row['feature']} in {row['region']} ({row['team']}, {row['role']}) is loved by users and has low friction.")
-    elif scenario == "Feature Health":
-        health_df = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
-        for _, row in health_df.iterrows():
-            insights.append(f"Health Alert: {row['product']} - {row['feature']} in {row['region']} ({row['team']}, {row['role']}) has poor sentiment and high support.")
-    elif scenario == "Edge Case":
-        edge_df = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
-        for _, row in edge_df.iterrows():
-            insights.append(f"Edge Case: {row['product']} - {row['feature']} in {row['region']} ({row['team']}, {row['role']}) is heavily used but poorly rated.")
-    elif scenario == "Stretch Scenario":
-        stretch_df = df[(df['usage'] > 110) & (df['support_tickets'] > 8) & (df['sentiment'] > 0.7)]
-        for _, row in stretch_df.iterrows():
-            insights.append(f"Stretch: {row['product']} - {row['feature']} in {row['region']} ({row['team']}, {row['role']}) is popular but support load is rising—opportunity for automation or new feature.")
-    else:
-        insights.append("I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends.")
-
-    return scenario, insights
-
-# Streamlit chat UI
-st.title("Autonomous BI Agent (Conversational Prototype)")
-
-if "history" not in st.session_state:
-    st.session_state.history = []
-
-user_input = st.chat_input("Ask me about risks, opportunities, feature health, edge cases, or trends...")
-
-if user_input:
-    scenario, insights = agent_response(user_input, df)
     st.session_state.history.append(("user", user_input))
     if scenario:
-        st.session_state.history.append(("agent", f"Scenario detected: **{scenario}**. Here are the top insights:"))
-        for insight in insights[:5]:
-            st.session_state.history.append(("agent", insight))
+        summary, table = summarize_and_tabulate(scenario, df)
+        st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}"))
+        st.session_state.history.append(("agent", table.to_markdown(index=False)))
         st.session_state.history.append(("agent", "Would you like me to visualize these insights? (yes/no)"))
         st.session_state.last_scenario = scenario
     else:
-        st.session_state.history.append(("agent", insights[0]))
+        st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."))
 
 # Display chat history
 for speaker, message in st.session_state.history:
     if speaker == "user":
         st.markdown(f"**You:** {message}")
     else:
-        st.markdown(f"**Agent:** {message}")
+        st.markdown(f"**Agent:**\n{message}")
 
 # Visualization on user request
 if st.session_state.history and st.session_state.history[-1][1].endswith("visualize these insights? (yes/no)"):
