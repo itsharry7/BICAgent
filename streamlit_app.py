@@ -60,6 +60,9 @@ if uploaded_file:
 
 df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
 
+if "current_scenario" not in st.session_state:
+    st.session_state.current_scenario = None
+
 # ---------------- Helper Functions ----------------
 def compute_dynamic_scores(df):
     df = df.copy()
@@ -135,10 +138,24 @@ def render_fig_in_chat(fig):
     return f"![plot](data:image/png;base64,{img_base64})"
 
 # ---------------- Core Function with Groq Integration ----------------
-def summarize_and_tabulate(scenario, df):
+def summarize_and_tabulate(scenario, df, context=""):
     summary, table, extra_outputs, structured, figures = "", pd.DataFrame(), {}, "", []
     df = compute_dynamic_scores(df)
     df = detect_anomalies(df)
+
+    # Helper to add conversation context
+    def with_context(prompt):
+        return f"""
+You are an Autonomous BI Agent.
+
+Recent conversation context:
+{context}
+
+User has triggered scenario: {scenario}.
+Your job: answer based on context + dataset insights.
+
+{prompt}
+"""
 
     # ---------------- Scenario Analysis ----------------
     if scenario == "Risk Synthesis":
@@ -155,37 +172,17 @@ def summarize_and_tabulate(scenario, df):
         figures.append(fig_scatter)
         figures.append(predict_trends(risk_df))
 
-        # 🔥 Upgraded Groq Prompt
-        groq_prompt = f"""
-You are analyzing enterprise product telemetry + customer signals.
-
+        groq_prompt = with_context(f"""
 Dataset risk candidates:
 {table.to_dict(orient='records')}
 
-Your tasks:
-1. Identify the 2-3 most concerning risks and WHY they matter.
-2. Highlight any surprising or hidden correlations (region, product, adoption).
+Tasks:
+1. Identify the 2-3 most concerning risks and why they matter.
+2. Highlight surprising or hidden correlations (region, product, adoption).
 3. Predict near-term implications if ignored.
-4. Suggest concrete responses: e.g., triage workflow, customer outreach, incident flag, product fix.
-5. Output Format:
-•	Summary Table: 
-•	Key internal usage metrics vs. external customer metrics (adoption, reliability, feature engagement)
-•	Divergence analysis: Where Microsoft’s internal usage or feedback differs from external customers
-•	Reliability & Adoption Insights: 
-•	List of top reliability issues or blockers found in internal “Microsoft running on Microsoft” scenarios
-•	Prioritized recommendations for engineering or go-to-market teams
-6. Actionable Steps: 
-•	Concrete actions to close gaps (e.g., feature improvements, documentation, support readiness)
-•	Links to supporting telemetry, feedback, and escalation contacts
-7. Confidence & Traceability: 
-•	Confidence scores for each insight, with full data lineage and citations
-Style & Tone:
-•	Executive, strategic, and actionable
-•	Transparent about data sources, confidence, and rationale
-•	Focused on accelerating Copilot-first product excellence and customer alignment
-
-Output a structured summary stakeholders can act on immediately.
-"""
+4. Suggest concrete responses (triage workflow, customer outreach, incident flag, product fix).
+5. Provide executive-style structured summary.
+""")
         try:
             response = groq_chat.invoke(groq_prompt)
             llm_text = getattr(response, "content", str(response))
@@ -199,19 +196,15 @@ Output a structured summary stakeholders can act on immediately.
         summary = f"🚀 {len(filtered)} high adoption features detected. Showing top 5."
         table = filtered[['product','feature','region','dynamic_score']].sort_values("dynamic_score", ascending=False).head(5)
 
-        groq_prompt = f"""
-You are a product growth strategist reviewing adoption + sentiment metrics.
-
+        groq_prompt = with_context(f"""
 Dataset opportunity candidates:
 {table.to_dict(orient='records')}
 
-Your tasks:
-1. Identify the top growth levers and explain WHY they stand out.
-2. Predict scaling implications if invested in now.
-3. Recommend 2-3 specific bets (campaigns, partnerships, feature doubling).
-
-Keep it concise but action-oriented.
-"""
+Tasks:
+1. Identify the top growth levers and why.
+2. Predict scaling implications.
+3. Recommend 2-3 specific bets (campaigns, partnerships, features).
+""")
         try:
             response = groq_chat.invoke(groq_prompt)
             llm_text = getattr(response, "content", str(response))
@@ -229,18 +222,16 @@ Keep it concise but action-oriented.
             summary = f"⚖️ {len(filtered)} feature(s) show unusual patterns."
             table = filtered[['product','feature','region','usage','sentiment']].head(5)
 
-            groq_prompt = f"""
-You are scanning for unusual or conflicting signals.
-
+            groq_prompt = with_context(f"""
 Edge case features:
 {table.to_dict(orient='records')}
 
-Your tasks:
+Tasks:
 1. Explain what makes these patterns unusual.
-2. Hypothesize plausible causes (data issue, adoption shift, misaligned expectations).
-3. Suggest how to validate (experiments, customer interviews, deeper data cuts).
-4. Recommend whether these should be prioritized or monitored quietly.
-"""
+2. Hypothesize plausible causes.
+3. Suggest how to validate (experiments, interviews, deeper data cuts).
+4. Recommend whether to prioritize or monitor quietly.
+""")
             try:
                 response = groq_chat.invoke(groq_prompt)
                 llm_text = getattr(response, "content", str(response))
@@ -249,7 +240,6 @@ Your tasks:
 
             structured = f"### 📌 AI Edge Case Insights\n{llm_text}"
 
-            # Add visualization
             fig_scatter, ax1 = plt.subplots(figsize=(8, 5))
             sns.scatterplot(
                 data=filtered, x="usage", y="sentiment", hue="region",
@@ -264,20 +254,16 @@ Your tasks:
         search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
         external_trends = "\n".join([f"- {r['title']}: {r['snippet']}" for r in search_results.get("results", [])[:5]])
 
-        groq_prompt = f"""
-You are synthesizing internal telemetry + external market signals.
-
+        groq_prompt = with_context(f"""
 Internal candidates: {feature_ideas}
 External competitor trends:
 {external_trends}
 
-Your tasks:
+Tasks:
 1. Connect internal strengths with external gaps.
-2. Predict where disruption is most likely in the next 12 months.
-3. Propose bold initiatives Microsoft could take to leapfrog competitors.
-
-Keep tone visionary but backed by evidence.
-"""
+2. Predict next 12 months disruptions.
+3. Propose bold initiatives to leapfrog competitors.
+""")
         try:
             response = groq_chat.invoke(groq_prompt)
             llm_text = getattr(response, "content", str(response))
@@ -293,9 +279,9 @@ Keep tone visionary but backed by evidence.
 
     return summary, table, extra_outputs, structured, figures
 
+
 # ---------------- Streamlit Chat UI ----------------
 st.title("Autonomous BI Agent with Groq AI")
-# --- Custom Chat Styling ---
 st.markdown("""
     <style>
     .stChatMessage {
@@ -305,33 +291,47 @@ st.markdown("""
         max-width: 80%;
     }
     .user-bubble {
-        background-color: #0078D4; /* MSFT blue */
+        background-color: #0078D4;
         color: white;
         margin-left: auto;
     }
     .agent-bubble {
-        background-color: #F3F2F1; /* light gray */
+        background-color: #F3F2F1;
         color: black;
         margin-right: auto;
     }
     </style>
 """, unsafe_allow_html=True)
-                        
+
 if "history" not in st.session_state:
     st.session_state.history = []
+if "current_scenario" not in st.session_state:
+    st.session_state.current_scenario = None
 
 user_input = st.chat_input("Ask about risks, opportunities, feature health, edge cases, or trends...")
 
 if user_input:
-    # Save user message
     st.session_state.history.append(("user", user_input))
+    new_scenario = classify_scenario(user_input)
 
-    prompt = user_input.lower()
-    scenario = classify_scenario(user_input)
+    # detect abrupt change → reset context
+    if new_scenario != st.session_state.current_scenario:
+        st.session_state.current_scenario = new_scenario
+        st.session_state.history.append(("agent", f"🔄 New topic detected → switching to **{new_scenario}**"))
 
-    if scenario and scenario != "Unknown":
-        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
-        st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}\n\n{structured}"))
+    if new_scenario and new_scenario != "Unknown":
+        # grab last 5 turns for continuity
+        recent_context = "\n".join([
+            f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
+            if speaker in ["user", "agent"]
+        ])
+
+        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
+            new_scenario, df, context=recent_context
+        )
+
+        st.session_state.history.append(("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}"))
+
         if not table.empty:
             st.session_state.history.append(("agent_table", table))
         if figures:
@@ -339,7 +339,7 @@ if user_input:
     else:
         st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
 
-                  
+
 # ---------------- Display Chat ----------------
 for i, (speaker, message) in enumerate(st.session_state.history):
     if speaker == "user":
