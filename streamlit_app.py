@@ -145,7 +145,6 @@ def summarize_and_tabulate(scenario, df):
 - Traceability: Derived from support tickets + sentiment + anomaly flags in telemetry.  
 - Full lineage available in `synthetic_enterprise_data.csv` uploaded dataset.  
         """
-
         st.markdown(structured)
 
         extra_outputs = {
@@ -174,7 +173,6 @@ def summarize_and_tabulate(scenario, df):
 
     elif scenario == "Edge Case":
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
-
         if filtered.empty:
             summary = (
                 "⚖️ Edge Case Analysis\n\n"
@@ -301,11 +299,20 @@ if user_input:
     else:
         st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
 
-# ---------------- Display Chat ----------------
-for speaker, message in st.session_state.history:
+# ---------------- Enhanced Chat Display ----------------
+try:
+    from streamlit_chat import message as st_message
+except ImportError:
+    st.warning("Install `streamlit-chat` via `pip install streamlit-chat` for enhanced UI.")
+
+st.markdown("---")
+st.markdown("### 💬 Conversation")
+
+for i, (speaker, message) in enumerate(st.session_state.history):
     if speaker == "user":
-        st.markdown(f"**You:** {message}")
+        st_message(message, is_user=True, key=f"user_{i}")
     elif speaker == "agent":
-        st.markdown(f"{message}")
+        st_message(message, is_user=False, key=f"agent_{i}", avatar_style="bottts")
     elif speaker == "agent_table":
+        st.markdown("📊 **Agent Data Table Response**")
         st.table(message)
