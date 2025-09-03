@@ -8,6 +8,8 @@ def summarize_and_tabulate(scenario, df):
             "indicating urgent risks that require attention."
         )
         table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Anomaly or high support demand, low sentiment"
+    elif scenario == "Opportunity Discovery":
         filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
         summary = (
             "Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
@@ -30,10 +32,7 @@ def summarize_and_tabulate(scenario, df):
         table['Insight'] = "Popular feature, rising support—opportunity for innovation"
     else:
         summary = "I'm not sure what scenario you want to explore. Try asking about risks, opportunities, feature health, edge cases, or trends."
-    return summary, table
-     table['Insight'] = "Anomaly or high support demand, low sentiment"
-    elif scenario == "Opportunity Discovery":
-        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
+    return summary, table        filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
             "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
         )
