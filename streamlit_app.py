@@ -4,6 +4,7 @@ import numpy as np
 import requests
 import matplotlib.pyplot as plt
 import seaborn as sns
+from streamlit_chat import message as st_message
 
 # ---------------- Web Search (DuckDuckGo fallback) ----------------
 def search(query, max_results=5):
@@ -46,7 +47,7 @@ df = st.session_state.user_df if st.session_state.user_df is not None else load_
 
 # ---------------- Core Function ----------------
 def summarize_and_tabulate(scenario, df):
-    summary, table, extra_outputs = "", pd.DataFrame(), {}
+    summary, table, extra_outputs, structured, figures = "", pd.DataFrame(), {}, "", []
 
     if scenario == "Risk Synthesis":
         df = df.copy()
@@ -75,35 +76,21 @@ def summarize_and_tabulate(scenario, df):
         )
 
         # ----------- Charts -----------
-        st.subheader("📊 Risk Visualizations")
-
         # Scatter: Tickets vs Sentiment
-        fig, ax = plt.subplots()
-        sns.scatterplot(
-            data=risk_df,
-            x="support_tickets",
-            y="sentiment",
-            hue="region",
-            ax=ax,
-            s=100
-        )
-        ax.set_title("Support Tickets vs Sentiment (Risk Features)")
-        ax.set_xlabel("Support Tickets")
-        ax.set_ylabel("Sentiment Score")
-        st.pyplot(fig)
+        fig1, ax1 = plt.subplots()
+        sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region", ax=ax1, s=100)
+        ax1.set_title("Support Tickets vs Sentiment (Risk Features)")
+        ax1.set_xlabel("Support Tickets")
+        ax1.set_ylabel("Sentiment Score")
+        figures.append(fig1)
 
         # Heatmap: Features vs Regions
-        heatmap_data = risk_df.pivot_table(
-            index="feature",
-            columns="region",
-            values="support_tickets",
-            aggfunc="sum",
-            fill_value=0
-        )
-        fig, ax = plt.subplots(figsize=(8, 6))
-        sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax)
-        ax.set_title("Risk Feature Heatmap (Tickets by Region)")
-        st.pyplot(fig)
+        heatmap_data = risk_df.pivot_table(index="feature", columns="region", values="support_tickets",
+                                           aggfunc="sum", fill_value=0)
+        fig2, ax2 = plt.subplots(figsize=(8,6))
+        sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax2)
+        ax2.set_title("Risk Feature Heatmap (Tickets by Region)")
+        figures.append(fig2)
 
         # ----------- Structured Narrative -----------
         structured = f"""
@@ -145,7 +132,6 @@ def summarize_and_tabulate(scenario, df):
 - Traceability: Derived from support tickets + sentiment + anomaly flags in telemetry.  
 - Full lineage available in `synthetic_enterprise_data.csv` uploaded dataset.  
         """
-        st.markdown(structured)
 
         extra_outputs = {
             "Risk Summary": {
@@ -159,65 +145,46 @@ def summarize_and_tabulate(scenario, df):
     # ---------------- Other Scenarios ----------------
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
-        summary = (
-            "🚀 Some features are highly used and loved by users, with minimal support issues — "
-            "potential opportunities for deeper investment or expansion."
-        )
+        summary = "🚀 Some features are highly used and loved by users, with minimal support issues — potential opportunities for deeper investment or expansion."
 
     elif scenario == "Feature Health":
         filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
-        summary = (
-            "💡 Certain features are experiencing poor sentiment and high support demand, "
-            "indicating possible health issues that need investigation."
-        )
+        summary = "💡 Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
 
     elif scenario == "Edge Case":
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
         if filtered.empty:
-            summary = (
-                "⚖️ Edge Case Analysis\n\n"
-                "No strong edge case patterns detected. Data may be sparse — continue monitoring.\n"
-            )
+            summary = "⚖️ Edge Case Analysis\n\nNo strong edge case patterns detected. Data may be sparse — continue monitoring.\n"
         else:
             group_cols = ["product", "feature"]
             if "stage" in df.columns:
                 group_cols.append("stage")
 
-            grouped = (
-                filtered.groupby(group_cols)
-                .agg(
-                    avg_usage=("usage", "mean"),
-                    avg_sentiment=("sentiment", "mean"),
-                    regions=("region", lambda x: ", ".join(sorted(set(x)))),
-                    count=("feature", "size"),
-                )
-                .reset_index()
-            )
+            grouped = filtered.groupby(group_cols).agg(
+                avg_usage=("usage","mean"),
+                avg_sentiment=("sentiment","mean"),
+                regions=("region", lambda x: ", ".join(sorted(set(x)))),
+                count=("feature","size")
+            ).reset_index()
 
             tentative_insights = []
             for _, row in grouped.iterrows():
-                if "stage" in row and str(row.get("stage", "")).lower() == "beta":
+                if "stage" in row and str(row.get("stage","")).lower() == "beta":
                     confidence = "Medium" if row["avg_sentiment"] < 0.4 else "High"
                 else:
                     confidence = "Low (no stage info – assuming incomplete beta signals)"
-
                 tentative_insights.append(
-                    f"- **{row['feature']}** in {row['product']} "
-                    f"(regions: {row['regions']}, samples: {row['count']}) "
-                    f"→ Avg Usage: {row['avg_usage']:.0f}, Avg Sentiment: {row['avg_sentiment']:.2f}. "
-                    f"⚠️ Confidence: {confidence}"
+                    f"- **{row['feature']}** in {row['product']} (regions: {row['regions']}, samples: {row['count']}) "
+                    f"→ Avg Usage: {row['avg_usage']:.0f}, Avg Sentiment: {row['avg_sentiment']:.2f}. ⚠️ Confidence: {confidence}"
                 )
 
-            summary = (
-                "⚖️ Edge Case Analysis\n\n"
-                "### Tentative Insights (confidence flagged)\n"
-                + "\n".join(tentative_insights) +
-                "\n\n### Data Limitations\n"
-                "- Sparse signals: sentiment data may not fully represent all users.\n"
+            structured = (
+                "⚖️ Edge Case Analysis\n\n### Tentative Insights (confidence flagged)\n" +
+                "\n".join(tentative_insights) +
+                "\n\n### Data Limitations\n- Sparse signals may not fully represent all users.\n"
                 "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
                 "- Regional variations could skew interpretation.\n"
-                "\n### Recommendations\n"
-                "1. Collect qualitative feedback from beta testers.\n"
+                "\n### Recommendations\n1. Collect qualitative feedback from beta testers.\n"
                 "2. Add instrumentation for drop-off, error rates, and friction points.\n"
                 "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
             )
@@ -225,18 +192,14 @@ def summarize_and_tabulate(scenario, df):
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("usage", ascending=False).head(3)
         feature_ideas = candidates['feature'].unique().tolist()
-
         search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
         external_trends = []
         if "results" in search_results:
             for r in search_results["results"][:5]:
                 external_trends.append(f"- {r['title']}: {r['snippet']}")
 
-        summary = (
-            "🌍 This request goes beyond internal telemetry and requires external research. "
-            "Here’s a structured response combining **internal adoption signals** and **live market insights**:\n\n"
-            "### Potential Disruptive Feature Directions (Internal)\n"
-        )
+        summary = "🌍 This request goes beyond internal telemetry and requires external research.\n\n"
+        summary += "### Potential Disruptive Feature Directions (Internal)\n"
         for feat in feature_ideas:
             summary += f"- **{feat}** → Strong adoption & sentiment; candidate for next-gen innovation.\n"
 
@@ -244,22 +207,16 @@ def summarize_and_tabulate(scenario, df):
             summary += "\n### External Trends & Signals (forums, competitors, reports)\n"
             summary += "\n".join(external_trends)
 
-        summary += (
-            "\n\n### Bold Go-To-Market Plan\n"
-            "1. **Research & Validation** – developer surveys, GitHub/forum scanning.\n"
-            "2. **Pilot** – private preview with hackathon winners & early adopters.\n"
-            "3. **Public Launch** – Azure Marketplace integration + dev-first campaigns.\n"
-            "4. **Scale** – enterprise co-sell, bundled pricing, open-source contributions.\n\n"
-            "### Potential Risks\n"
-            "- Execution: Stability may lag vision.\n"
-            "- Adoption: Complex UX/tooling slows migration.\n"
-            "- Competition: AWS/GCP may fast-follow.\n"
-        )
+        summary += "\n\n### Bold Go-To-Market Plan\n1. **Research & Validation** – developer surveys, GitHub/forum scanning.\n"
+        summary += "2. **Pilot** – private preview with hackathon winners & early adopters.\n"
+        summary += "3. **Public Launch** – Azure Marketplace integration + dev-first campaigns.\n"
+        summary += "4. **Scale** – enterprise co-sell, bundled pricing, open-source contributions.\n\n"
+        summary += "### Potential Risks\n- Execution: Stability may lag vision.\n- Adoption: Complex UX/tooling slows migration.\n- Competition: AWS/GCP may fast-follow.\n"
 
     else:
         summary = "🤔 I'm not sure what scenario you want. Try risks, opportunities, feature health, edge cases, or trends."
 
-    return summary, table, extra_outputs
+    return summary, table, extra_outputs, structured, figures
 
 # ---------------- Streamlit Chat UI ----------------
 st.title("Autonomous BI Agent (Conversational Prototype)")
@@ -273,46 +230,39 @@ if user_input:
     prompt = user_input.lower()
     scenario = None
 
-    if any(word in prompt for word in [
-        "predict", "disrupt", "leapfrog", "go-to-market", "future", "breakthrough", "moonshot", "next big", "differentiator", "market plan", "strategy", "trend", "bold", "creative"
-    ]):
+    if any(word in prompt for word in ["predict","disrupt","leapfrog","go-to-market","future","breakthrough","moonshot","next big","differentiator","market plan","strategy","trend","bold","creative"]):
         scenario = "Stretch Scenario"
-    elif any(word in prompt for word in ["risk", "compliance", "issue"]):
+    elif any(word in prompt for word in ["risk","compliance","issue"]):
         scenario = "Risk Synthesis"
-    elif any(word in prompt for word in ["opportunity", "investment", "growth"]):
+    elif any(word in prompt for word in ["opportunity","investment","growth"]):
         scenario = "Opportunity Discovery"
-    elif any(word in prompt for word in ["feature health", "adoption", "sentiment"]):
+    elif any(word in prompt for word in ["feature health","adoption","sentiment"]):
         scenario = "Feature Health"
-    elif any(word in prompt for word in ["conflict", "edge case", "contradict", "sparse", "ambiguous", "beta", "explore", "unknown", "uncertain", "tentative"]):
+    elif any(word in prompt for word in ["conflict","edge case","contradict","sparse","ambiguous","beta","explore","unknown","uncertain","tentative"]):
         scenario = "Edge Case"
-
-    if scenario is None and any(word in prompt for word in ["insight", "surface"]):
+    if scenario is None and any(word in prompt for word in ["insight","surface"]):
         scenario = "Edge Case"
 
     st.session_state.history.append(("user", user_input))
-    if scenario:
-        summary, table, extra_outputs = summarize_and_tabulate(scenario, df)
-        st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}"))
 
-        if scenario == "Risk Synthesis" and not table.empty:
+    if scenario:
+        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
+        st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}\n\n{structured}"))
+        if not table.empty:
             st.session_state.history.append(("agent_table", table))
+        if figures:
+            st.session_state.history.append(("agent_figures", figures))
     else:
         st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
 
-# ---------------- Enhanced Chat Display ----------------
-try:
-    from streamlit_chat import message as st_message
-except ImportError:
-    st.warning("Install `streamlit-chat` via `pip install streamlit-chat` for enhanced UI.")
-
-st.markdown("---")
-st.markdown("### 💬 Conversation")
-
-for i, (speaker, message) in enumerate(st.session_state.history):
+# ---------------- Display Chat ----------------
+for speaker, message in st.session_state.history:
     if speaker == "user":
-        st_message(message, is_user=True, key=f"user_{i}")
+        st_message(message, is_user=True)
     elif speaker == "agent":
-        st_message(message, is_user=False, key=f"agent_{i}", avatar_style="bottts")
+        st_message(message)
     elif speaker == "agent_table":
-        st.markdown("📊 **Agent Data Table Response**")
         st.table(message)
+    elif speaker == "agent_figures":
+        for fig in message:
+            st.pyplot(fig)
