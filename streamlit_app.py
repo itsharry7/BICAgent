@@ -295,7 +295,28 @@ Keep tone visionary but backed by evidence.
 
 # ---------------- Streamlit Chat UI ----------------
 st.title("Autonomous BI Agent with Groq AI")
-
+# --- Custom Chat Styling ---
+st.markdown("""
+    <style>
+    .stChatMessage {
+        border-radius: 18px;
+        padding: 10px 15px;
+        margin-bottom: 10px;
+        max-width: 80%;
+    }
+    .user-bubble {
+        background-color: #0078D4; /* MSFT blue */
+        color: white;
+        margin-left: auto;
+    }
+    .agent-bubble {
+        background-color: #F3F2F1; /* light gray */
+        color: black;
+        margin-right: auto;
+    }
+    </style>
+""", unsafe_allow_html=True)
+                        
 if "history" not in st.session_state:
     st.session_state.history = []
 
@@ -322,9 +343,11 @@ if user_input:
 # ---------------- Display Chat ----------------
 for i, (speaker, message) in enumerate(st.session_state.history):
     if speaker == "user":
-        st_message(message, is_user=True, key=f"user_{i}")
+        st_message(message, is_user=True, key=f"user_{i}", avatar_style="big-smile")
+        st.markdown(f"<div class='stChatMessage user-bubble'>{message}</div>", unsafe_allow_html=True)
     elif speaker == "agent":
-        st_message(message, key=f"agent_{i}")
+        st_message(message, is_user=False, key=f"agent_{i}", avatar_style="bottts")
+        st.markdown(f"<div class='stChatMessage agent-bubble'>{message}</div>", unsafe_allow_html=True)
     elif speaker == "agent_table":
         st.table(message)
     elif speaker == "agent_figures":
