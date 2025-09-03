@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import numpy as np
 import requests
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 # ---------------- Web Search (DuckDuckGo fallback) ----------------
 def search(query, max_results=5):
@@ -57,30 +59,10 @@ def summarize_and_tabulate(scenario, df):
 
         risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
 
-        # Microsoft vs Customer divergence simulation
-        if "user_type" not in df.columns:
-            df["user_type"] = np.where(np.random.rand(len(df)) > 0.7, "Microsoft", "Customer")
-
-        divergence = (
-            df.groupby(["product", "feature", "user_type"])
-            .agg(avg_usage=("usage", "mean"), avg_sentiment=("sentiment", "mean"))
-            .reset_index()
-            .pivot_table(index=["product", "feature"], columns="user_type", values=["avg_usage", "avg_sentiment"])
+        summary = (
+            f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. "
+            "Here are the top 5 by support tickets:"
         )
-        divergence = divergence.fillna(0)
-
-        divergence_highlights = []
-        for idx, row in divergence.iterrows():
-            ms_usage = row[("avg_usage", "Microsoft")]
-            cust_usage = row[("avg_usage", "Customer")]
-            ms_sent = row[("avg_sentiment", "Microsoft")]
-            cust_sent = row[("avg_sentiment", "Customer")]
-
-            if abs(ms_usage - cust_usage) > 30 or abs(ms_sent - cust_sent) > 0.2:
-                divergence_highlights.append(
-                    f"- {idx[0]} / {idx[1]} → Microsoft (Usage {ms_usage:.0f}, Sent {ms_sent:.2f}) "
-                    f"vs Customer (Usage {cust_usage:.0f}, Sent {cust_sent:.2f})"
-                )
 
         table = (
             risk_df[['product', 'feature', 'region', 'support_tickets', 'sentiment']]
@@ -92,31 +74,6 @@ def summarize_and_tabulate(scenario, df):
             })
         )
 
-        summary = (
-            f"⚠️ **{len(risk_df)} risky features detected across {risk_df['region'].nunique()} regions.**\n\n"
-            "### Internal Usage Patterns\n"
-            "- Microsoft adoption is embedded in Dynamics 365, Power Platform, and Azure services.\n"
-            "- Early signals show Copilot-first scenarios are gaining traction internally.\n\n"
-            "### Reliability Issues & Adoption Blockers\n"
-            "- Concentrated support demand in AI-driven features (Auto Insights, Predictive Alerts).\n"
-            "- Sentiment dips where support tickets exceed threshold (>10 per feature).\n"
-            "- Some features show forced adoption (high usage, low sentiment).\n\n"
-            "### Microsoft vs Customer Divergence\n"
-        )
-        if divergence_highlights:
-            summary += "\n".join(divergence_highlights)
-        else:
-            summary += "- No major divergence detected in current dataset.\n"
-
-        summary += (
-            "\n\n### Recommended Actions to Accelerate Product-Market Fit\n"
-            "1. **Stabilize Copilot-first AI features** → improve reliability before GA.\n"
-            "2. **Close adoption gap** → features where Microsoft relies heavily but customers lag should have enablement docs + customer training.\n"
-            "3. **Improve sentiment** → launch feedback loops to identify top pain points.\n"
-            "4. **Regionalize fixes** → LATAM & Europe showing repeated risk patterns.\n"
-            "5. **Pre-GA stress testing** → simulate customer-scale workloads on Copilot-first scenarios.\n"
-        )
-
         extra_outputs = {
             "Risk Summary": {
                 "Total Risk Features": len(risk_df),
@@ -126,6 +83,15 @@ def summarize_and_tabulate(scenario, df):
             }
         }
 
+        # Risk Heatmap
+        fig, ax = plt.subplots()
+        sns.heatmap(
+            risk_df.pivot_table(index="feature", columns="region", values="support_tickets", aggfunc="sum", fill_value=0),
+            cmap="Reds", annot=True, fmt="d", ax=ax
+        )
+        ax.set_title("Risk Heatmap: Support Tickets by Feature & Region")
+        extra_outputs["chart"] = fig
+
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
         summary = (
@@ -133,12 +99,25 @@ def summarize_and_tabulate(scenario, df):
             "potential opportunities for deeper investment or expansion."
         )
 
+        if not filtered.empty:
+            fig, ax = plt.subplots()
+            sns.scatterplot(data=filtered, x="usage", y="sentiment", hue="product", size="support_tickets", ax=ax)
+            ax.set_title("Opportunities: Usage vs Sentiment")
+            extra_outputs["chart"] = fig
+
     elif scenario == "Feature Health":
         filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
         summary = (
             "💡 Certain features are experiencing poor sentiment and high support demand, "
             "indicating possible health issues that need investigation."
         )
+
+        if not filtered.empty:
+            fig, ax = plt.subplots()
+            top_issues = filtered.sort_values("support_tickets", ascending=False).head(10)
+            sns.barplot(data=top_issues, x="support_tickets", y="feature", hue="product", ax=ax)
+            ax.set_title("Top Problematic Features (Support Tickets)")
+            extra_outputs["chart"] = fig
 
     elif scenario == "Edge Case":
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
@@ -192,6 +171,13 @@ def summarize_and_tabulate(scenario, df):
                 "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
             )
 
+            # Heatmap for edge case features vs regions
+            fig, ax = plt.subplots()
+            pivot = filtered.pivot_table(index="feature", columns="region", values="usage", aggfunc="mean", fill_value=0)
+            sns.heatmap(pivot, cmap="coolwarm", annot=True, fmt=".1f", ax=ax)
+            ax.set_title("Edge Case Heatmap: Avg Usage by Feature & Region")
+            extra_outputs["chart"] = fig
+
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("usage", ascending=False).head(3)
         feature_ideas = candidates['feature'].unique().tolist()
@@ -225,6 +211,12 @@ def summarize_and_tabulate(scenario, df):
             "- Adoption: Complex UX/tooling slows migration.\n"
             "- Competition: AWS/GCP may fast-follow.\n"
         )
+
+        if not candidates.empty:
+            fig, ax = plt.subplots()
+            sns.scatterplot(data=candidates, x="usage", y="sentiment", hue="product", size="support_tickets", ax=ax)
+            ax.set_title("Stretch Scenario: Adoption vs Sentiment")
+            extra_outputs["chart"] = fig
 
     else:
         summary = "🤔 I'm not sure what scenario you want. Try risks, opportunities, feature health, edge cases, or trends."
@@ -266,6 +258,9 @@ if user_input:
 
         if scenario == "Risk Synthesis" and not table.empty:
             st.session_state.history.append(("agent_table", table))
+
+        if "chart" in extra_outputs:
+            st.session_state.history.append(("agent_chart", extra_outputs["chart"]))
     else:
         st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
 
@@ -277,3 +272,5 @@ for speaker, message in st.session_state.history:
         st.markdown(f"{message}")
     elif speaker == "agent_table":
         st.table(message)
+    elif speaker == "agent_chart":
+        st.pyplot(message)
