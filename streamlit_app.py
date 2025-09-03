@@ -134,8 +134,8 @@ def summarize_and_tabulate(scenario, df):
                 count=("feature","size")
             ).reset_index()
             insights = [f"- {r['feature']} in {r['product']} → Usage:{r['avg_usage']:.0f}, Sentiment:{r['avg_sentiment']:.2f}, Count:{r['count']}" for _,r in grouped.iterrows()]
-            structured = "### ⚖️ Edge Case Insights\n" + "\n".join(insights)
-            summary = "Tentative edge case patterns detected."
+            structured = "### ⚖️ Here are some of the insights, I gather regarding your query\n" + "\n".join(insights)
+            summary = "Tentative patterns detected from my knowledge references."
 
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("usage",ascending=False).head(3)
