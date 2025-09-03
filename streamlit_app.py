@@ -265,6 +265,10 @@ if user_input:
         scenario = "Risk Synthesis"
     elif any(word in prompt for word in ["opportunity","investment","growth"]):
         scenario = "Opportunity Discovery"
+    elif any(word in prompt for word in ["conflict","edge case","contradict","beta"]):
+        scenario = "Edge Case"
+    elif any(word in prompt for word in ["feature health","adoption","sentiment"]):
+        scenario = "Feature Health"
 
     st.session_state.history.append(("user", user_input))
 
