@@ -114,44 +114,44 @@ def summarize_and_tabulate(scenario, df):
         )
 
     elif scenario == "Edge Case":
-    filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
 
-    # Check if 'stage' column exists
-    has_stage = "stage" in df.columns
+        # Check if 'stage' column exists
+        has_stage = "stage" in df.columns
 
-    tentative_insights = []
-    for _, row in filtered.iterrows():
-        # Confidence logic
-        if has_stage and str(row.get("stage", "")).lower() == "beta":
-            confidence = "Medium" if row['sentiment'] < 0.3 else "High"
-        else:
-            confidence = "Low (no stage info – assuming incomplete beta signals)"
+        tentative_insights = []
+        for _, row in filtered.iterrows():
+            # Confidence logic
+            if has_stage and str(row.get("stage", "")).lower() == "beta":
+                confidence = "Medium" if row['sentiment'] < 0.3 else "High"
+            else:
+                confidence = "Low (no stage info – assuming incomplete beta signals)"
 
-        tentative_insights.append(
-            f"- Feature **{row['feature']}** (Product: {row['product']}, Region: {row['region']}) "
-            f"shows high usage ({row['usage']}) but low sentiment ({row['sentiment']:.2f}). "
-            f"⚠️ Confidence: {confidence}"
+            tentative_insights.append(
+                f"- Feature **{row['feature']}** (Product: {row['product']}, Region: {row['region']}) "
+                f"shows high usage ({row['usage']}) but low sentiment ({row['sentiment']:.2f}). "
+                f"⚠️ Confidence: {confidence}"
+            )
+
+        if not tentative_insights:
+            tentative_insights.append(
+                "- No strong edge case patterns detected, but monitoring is advised as data may be incomplete."
+            )
+
+        summary = (
+            "⚖️ Edge Case Analysis\n\n"
+            "### Tentative Insights (confidence flagged)\n"
+            + "\n".join(tentative_insights) +
+            "\n\n### Data Limitations\n"
+            "- Sparse signals: sentiment data may not fully represent all users.\n"
+            "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
+            "- Regional variations could skew interpretation.\n"
+            + ("" if has_stage else "\n- No 'stage' column in data: unable to confirm beta status of features.\n") +
+            "\n### Recommendations\n"
+            "1. Collect qualitative feedback from beta testers.\n"
+            "2. Add instrumentation for drop-off, error rates, and friction points.\n"
+            "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
         )
-
-    if not tentative_insights:
-        tentative_insights.append(
-            "- No strong edge case patterns detected, but monitoring is advised as data may be incomplete."
-        )
-
-    summary = (
-        "⚖️ Edge Case Analysis\n\n"
-        "### Tentative Insights (confidence flagged)\n"
-        + "\n".join(tentative_insights) +
-        "\n\n### Data Limitations\n"
-        "- Sparse signals: sentiment data may not fully represent all users.\n"
-        "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
-        "- Regional variations could skew interpretation.\n"
-        + ("" if has_stage else "\n- No 'stage' column in data: unable to confirm beta status of features.\n") +
-        "\n### Recommendations\n"
-        "1. Collect qualitative feedback from beta testers.\n"
-        "2. Add instrumentation for drop-off, error rates, and friction points.\n"
-        "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
-    )
 
     elif scenario == "Stretch Scenario":
         # Internal candidates
