@@ -19,7 +19,7 @@ from langchain_groq import ChatGroq
 load_dotenv()
 
 groq_chat = ChatGroq(
-    groq_api_key=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,
+    groq_api_key="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",
     model_name="llama-3.1-8b-instant",
     temperature=0.9,
     max_tokens=200
