@@ -16,6 +16,14 @@ if uploaded_file:
     st.success("Custom data uploaded! Agent will use this data.")
 
 df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
+
+# Summarize and tabulate insights
+def summarize_and_tabulate(scenario, df):
+    summary = ""
+    table = pd.DataFrame()
+    if scenario == "Risk Synthesis":
+        filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+        summary = (
             "Several products and features across regions show anomalies or high support demand with low sentiment, "
             "indicating urgent risks that require attention."
         )
@@ -23,19 +31,6 @@ df = st.session_state.user_df if st.session_state.user_df is not None else load_
         table['Insight'] = "Anomaly or high support demand, low sentiment"
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
-        summary = (
-            "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
-        )
-        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
-        table['Insight'] = "High engagement and satisfaction, low friction"
-    elif scenario == "Feature Health":
-        filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
-        summary = (
-            "Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
-        )
-        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
-        table['Insight'] = "Poor sentiment and high support demand"
-    elif scenario == "Edge Case":
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
         summary = (
             "Some features are heavily used but poorly rated, suggesting possible forced adoption, hidden friction, or ambiguous/sparse data."
@@ -65,16 +60,16 @@ if user_input:
     # Improved intent detection for stretch/creative/disruptive/edge/ambiguous/exploratory prompts
     prompt = user_input.lower()
     scenario = None
-    if any(word in prompt for word in ["risk", "compliance", "issue"]):
+    if any(word in prompt for word in [
+        "predict", "disrupt", "leapfrog", "go-to-market", "future", "breakthrough", "moonshot", "next big", "differentiator", "market plan", "strategy", "trend", "bold", "creative"
+    ]):
+        scenario = "Stretch Scenario"
+    elif any(word in prompt for word in ["risk", "compliance", "issue"]):
         scenario = "Risk Synthesis"
     elif any(word in prompt for word in ["opportunity", "investment", "growth"]):
         scenario = "Opportunity Discovery"
     elif any(word in prompt for word in ["feature health", "adoption", "sentiment"]):
         scenario = "Feature Health"
-    elif any(word in prompt for word in [
-        "predict", "disrupt", "leapfrog", "go-to-market", "future", "breakthrough", "moonshot", "next big", "differentiator", "market plan", "strategy", "trend", "bold", "creative"
-    ]):
-        scenario = "Stretch Scenario"
     elif any(word in prompt for word in [
         "conflict", "edge case", "contradict", "sparse", "ambiguous", "beta", "explore", "unknown", "uncertain", "tentative"
     ]):
@@ -123,10 +118,16 @@ if st.session_state.history and st.session_state.history[-1][1].endswith("visual
         st.subheader("Insights by Region")
         region_counts = vis_df['region'].value_counts()
         st.bar_chart(region_counts)
-        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))# Summarize and tabulate insights
-def summarize_and_tabulate(scenario, df):
-    summary = ""
-    table = pd.DataFrame()
-    if scenario == "Risk Synthesis":
-        filtered = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))        summary = (
+            "Some features are highly used and loved by users, with minimal support issues—potential opportunities for deeper investment or expansion."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "High engagement and satisfaction, low friction"
+    elif scenario == "Feature Health":
+        filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
         summary = (
+            "Certain features are experiencing poor sentiment and high support demand, indicating possible health issues that need investigation."
+        )
+        table = filtered.head(5)[['product', 'feature', 'region', 'team', 'role']]
+        table['Insight'] = "Poor sentiment and high support demand"
+    elif scenario == "Edge Case":
