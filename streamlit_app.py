@@ -18,16 +18,17 @@ if uploaded_file:
 
 df = st.session_state.user_df if st.session_state.user_df is not None else load_data()
 
-def summarize_and_tabulate(scenario, df):
-    summary = ""
-    table = pd.DataFrame()
-    extra_outputs = {}
+        df['External Engagement'] = df['External Engagement'].clip(0, 1)
 
-    if scenario == "Risk Synthesis":
-        # Simulate external metrics
-        df = df.copy()
-        np.random.seed(42)
-        df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
+        # Filter for risk
+        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+
+        summary = (
+            "Several products and features across regions show anomalies or high support demand with low sentiment, "
+            "indicating urgent risks that require attention. Below is a comparison of internal and simulated external metrics."
+        )
+
+        # Summary Table
         table = risk_df[['product', 'feature', 'region', 'team', 'role', 'usage', 'External Adoption', 'support_tickets', 'External Reliability', 'sentiment', 'External Engagement']].copy()
         table.rename(columns={
             'usage': 'Internal Adoption',
@@ -201,17 +202,16 @@ if st.session_state.history and st.session_state.history[-1][1].endswith("visual
         st.subheader("Insights by Region")
         region_counts = vis_df['region'].value_counts()
         st.bar_chart(region_counts)
-        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
+        st.session_state.history.append(("agent", "Here’s a visualization of the insights by region."))def summarize_and_tabulate(scenario, df):
+    summary = ""
+    table = pd.DataFrame()
+    extra_outputs = {}
+
+    if scenario == "Risk Synthesis":
+        # Simulate external metrics
+        df = df.copy()
+        np.random.seed(42)
+        df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
+        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
         df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
         df['External Reliability'] = df['External Reliability'].clip(0, 1)
-        df['External Engagement'] = df['External Engagement'].clip(0, 1)
-
-        # Filter for risk
-        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
-
-        summary = (
-            "Several products and features across regions show anomalies or high support demand with low sentiment, "
-            "indicating urgent risks that require attention. Below is a comparison of internal and simulated external metrics."
-        )
-
-        # Summary Table
