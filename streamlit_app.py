@@ -139,7 +139,7 @@ def summarize_and_tabulate(scenario, df):
         except:
             llm_text = response
 
-        structured = f"### 📌 Structured LLM Insights\n{llm_text}"
+        structured = f"### 📌 AI Insights\n{llm_text}"
 
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage']>120)&(df['sentiment']>0.8)&(df['support_tickets']<3)]
@@ -155,7 +155,7 @@ def summarize_and_tabulate(scenario, df):
             llm_text = json.loads(response.json())['content']
         except:
             llm_text = response
-        structured = f"### 📌 LLM Opportunity Insights\n{llm_text}"
+        structured = f"### 📌 AI Opportunity Insights\n{llm_text}"
 
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
@@ -175,7 +175,7 @@ def summarize_and_tabulate(scenario, df):
         except:
             llm_text = response
         summary = f"🌍 Internal Top Features: {', '.join(feature_ideas)}\n\nExternal Trends:\n{external_trends}"
-        structured = f"### 📌 LLM Trend Insights\n{llm_text}"
+        structured = f"### 📌 AI Trend Insights\n{llm_text}"
 
     else:
         summary = "🤔 Scenario not recognized."
