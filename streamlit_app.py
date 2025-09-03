@@ -209,12 +209,26 @@ def summarize_and_tabulate(scenario, df):
         summary = f"⚖️ {len(filtered)} features show unusual patterns. Review the analysis below."
 
     elif scenario == "Stretch Scenario":
-        candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("dynamic_score", ascending=False).head(3)
-        feature_ideas = candidates['feature'].tolist()
-        search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
-        external_trends = ""
-        if "results" in search_results:
+    # Pick top internal candidates
+    candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("dynamic_score", ascending=False).head(3)
+    feature_ideas = candidates['feature'].tolist()
+
+    # Attempt to get external trends
+    search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
+    external_trends = ""
+
+        if "results" in search_results and search_results["results"]:
             external_trends = "\n".join([f"- {r['title']}: {r['snippet']}" for r in search_results["results"][:5]])
+        else:
+            # Fallback if API fails or returns nothing
+            external_trends = (
+                "- 🌐 I cannot browse the internet right now, "
+                "but based on my knowledge, trends indicate: \n"
+                "  - Increased adoption of AI-driven workflow automation.\n"
+                "  - Rising demand for predictive insights in cloud services.\n"
+                "  - Competitors focusing on collaboration and automation integrations.\n"
+            )
+
         summary = f"🌍 Internal Top Features: {', '.join(feature_ideas)}\n\nExternal Trends:\n{external_trends}"
 
     else:
