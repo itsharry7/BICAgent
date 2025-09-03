@@ -16,7 +16,7 @@ if uploaded_file:
     st.session_state.user_df = pd.read_csv(uploaded_file)
     st.success("Custom data uploaded! Agent will use this data.")
     
-        df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
+    df['External Reliability'] = 1 - (df['support_tickets'] / (df['usage'] + 1)) + np.random.normal(loc=0, scale=0.05, size=len(df))
         df['External Engagement'] = df['sentiment'] + np.random.normal(loc=-0.1, scale=0.1, size=len(df))
         df['External Reliability'] = df['External Reliability'].clip(0, 1)
         df['External Engagement'] = df['External Engagement'].clip(0, 1)
