@@ -475,15 +475,19 @@ if user_input:
     # ---------------- Follow-up flow ----------------
     if user_input.lower().startswith("yes"):
         followup_request = user_input[3:].strip() or "Provide more details"
-        
-        groq_response = client.chat.completions.create(
-            model="llama-3.1-70b-versatile",
-            messages=[
-                {"role": "system", "content": "You are an autonomous BI agent. Expand on the prior analysis and go deeper where relevant."},
-                {"role": "user", "content": followup_request}
-            ]
-        )
-        followup_answer = groq_response.choices[0].message.content
+
+        try:
+            followup_prompt = f"""
+You are an autonomous BI agent. 
+Expand on the prior analysis and go deeper where relevant.
+
+User follow-up request: {followup_request}
+"""
+            response = groq_chat.invoke(followup_prompt)
+            followup_answer = getattr(response, "content", str(response))
+        except Exception as e:
+            followup_answer = f"⚠️ Follow-up failed: {e}"
+
         st.session_state.history.append(("agent", followup_answer))
 
     # ---------------- Normal flow ----------------
