@@ -299,17 +299,7 @@ user_input = st.chat_input("Ask about risks, opportunities, feature health, edge
 
 if user_input:
     prompt = user_input.lower()
-    scenario = None
-    if any(word in prompt for word in ["predict","disrupt","trend","bold"]):
-        scenario = "Stretch Scenario"
-    elif any(word in prompt for word in ["risk","compliance","issue"]):
-        scenario = "Risk Synthesis"
-    elif any(word in prompt for word in ["opportunity","investment","growth"]):
-        scenario = "Opportunity Discovery"
-    elif any(word in prompt for word in ["conflict","edge case","contradict","beta"]):
-        scenario = "Edge Case"
-    elif any(word in prompt for word in ["feature health","adoption","sentiment"]):
-        scenario = "Feature Health"
+    scenario = classify_scenario(user_input)
 
     st.session_state.history.append(("user", user_input))
 
