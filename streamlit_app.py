@@ -22,7 +22,7 @@ if uploaded_file:
     df['External Engagement'] = df['External Engagement'].clip(0, 1)
 
         # Filter for risk
-        risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
+       risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
 
         summary = (
             "Several products and features across regions show anomalies or high support demand with low sentiment, "
