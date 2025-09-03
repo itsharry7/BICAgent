@@ -3,42 +3,28 @@ import pandas as pd
 import numpy as np
 import requests
 
-# ---------------- Web Search with Fallback ----------------
-def search(query: str):
-    """DuckDuckGo search with graceful fallback to mock results."""
-    url = "https://api.duckduckgo.com/"
-    params = {"q": query, "format": "json"}
-
+# ---------------- Web Search (DuckDuckGo fallback) ----------------
+def search(query, max_results=5):
     try:
-        res = requests.get(url, params=params, timeout=5)
+        url = "https://duckduckgo.com/html/"
+        params = {"q": query}
+        res = requests.get(url, params=params, timeout=10)
         res.raise_for_status()
-        data = res.json()
+
+        from bs4 import BeautifulSoup
+        soup = BeautifulSoup(res.text, "html.parser")
 
         results = []
-        for item in data.get("RelatedTopics", []):
-            if "Text" in item and "FirstURL" in item:
-                results.append({
-                    "title": item["Text"],
-                    "snippet": item["Text"],
-                    "link": item["FirstURL"]
-                })
-        if results:
-            return {"results": results}
+        for a in soup.select(".result__a")[:max_results]:
+            title = a.get_text()
+            link = a.get("href")
+            snippet_tag = a.find_parent().select_one(".result__snippet")
+            snippet = snippet_tag.get_text() if snippet_tag else ""
+            results.append({"title": title, "link": link, "snippet": snippet})
 
+        return {"results": results}
     except Exception as e:
-        # Log error for debugging
-        print(f"[search fallback] Error: {e}")
-
-    # --- Mock fallback if real search fails ---
-    return {
-        "results": [
-            {"title": "AI-powered cloud disruption", "snippet": "Startups are leveraging AI-first cloud services to challenge AWS and Azure.", "link": "#"},
-            {"title": "Multi-cloud adoption rising", "snippet": "Enterprises are increasingly adopting AWS, Azure, and GCP together for resilience.", "link": "#"},
-            {"title": "Serverless platforms 2025", "snippet": "Next-gen serverless promises near-zero ops and pay-per-execution pricing models.", "link": "#"},
-            {"title": "Developer-first platforms", "snippet": "Communities highlight the importance of DX as the key differentiator in cloud.", "link": "#"},
-            {"title": "Sustainability in cloud", "snippet": "Green computing and carbon-aware scheduling are becoming enterprise priorities.", "link": "#"}
-        ]
-    }
+        return {"results": [], "error": str(e)}
 
 # ---------------- Load default data ----------------
 @st.cache_data
@@ -61,7 +47,6 @@ def summarize_and_tabulate(scenario, df):
     summary, table, extra_outputs = "", pd.DataFrame(), {}
 
     if scenario == "Risk Synthesis":
-        # Simulate external metrics
         df = df.copy()
         np.random.seed(42)
         df['External Adoption'] = df['usage'] + np.random.normal(loc=-10, scale=15, size=len(df))
@@ -70,7 +55,6 @@ def summarize_and_tabulate(scenario, df):
         df['External Reliability'] = df['External Reliability'].clip(0, 1)
         df['External Engagement'] = df['External Engagement'].clip(0, 1)
 
-        # Filter for risky features
         risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
 
         summary = (
@@ -78,7 +62,6 @@ def summarize_and_tabulate(scenario, df):
             "Here are the top 5 by support tickets:"
         )
 
-        # Minimal risk summary table
         table = (
             risk_df[['product', 'feature', 'region', 'support_tickets', 'sentiment']]
             .sort_values(by="support_tickets", ascending=False)
@@ -89,7 +72,6 @@ def summarize_and_tabulate(scenario, df):
             })
         )
 
-        # Aggregates
         extra_outputs = {
             "Risk Summary": {
                 "Total Risk Features": len(risk_df),
@@ -114,74 +96,67 @@ def summarize_and_tabulate(scenario, df):
         )
 
     elif scenario == "Edge Case":
-    # Filter candidates (high usage + low sentiment)
-    filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
 
-    if filtered.empty:
-        summary = (
-            "⚖️ Edge Case Analysis\n\n"
-            "No strong edge case patterns detected. Data may be sparse — continue monitoring.\n"
-        )
-    else:
-        # Group by product/feature for roll-up summaries
-        group_cols = ["product", "feature"]
-        if "stage" in df.columns:
-            group_cols.append("stage")
-
-        grouped = (
-            filtered.groupby(group_cols)
-            .agg(
-                avg_usage=("usage", "mean"),
-                avg_sentiment=("sentiment", "mean"),
-                regions=("region", lambda x: ", ".join(sorted(set(x)))),
-                count=("feature", "size"),
+        if filtered.empty:
+            summary = (
+                "⚖️ Edge Case Analysis\n\n"
+                "No strong edge case patterns detected. Data may be sparse — continue monitoring.\n"
             )
-            .reset_index()
-        )
+        else:
+            group_cols = ["product", "feature"]
+            if "stage" in df.columns:
+                group_cols.append("stage")
 
-        tentative_insights = []
-        for _, row in grouped.iterrows():
-            # Confidence logic
-            if "stage" in row and str(row.get("stage", "")).lower() == "beta":
-                confidence = "Medium" if row["avg_sentiment"] < 0.4 else "High"
-            else:
-                confidence = "Low (no stage info – assuming incomplete beta signals)"
-
-            tentative_insights.append(
-                f"- **{row['feature']}** in {row['product']} "
-                f"(regions: {row['regions']}, samples: {row['count']}) "
-                f"→ Avg Usage: {row['avg_usage']:.0f}, Avg Sentiment: {row['avg_sentiment']:.2f}. "
-                f"⚠️ Confidence: {confidence}"
+            grouped = (
+                filtered.groupby(group_cols)
+                .agg(
+                    avg_usage=("usage", "mean"),
+                    avg_sentiment=("sentiment", "mean"),
+                    regions=("region", lambda x: ", ".join(sorted(set(x)))),
+                    count=("feature", "size"),
+                )
+                .reset_index()
             )
 
-        summary = (
-            "⚖️ Edge Case Analysis\n\n"
-            "### Tentative Insights (confidence flagged)\n"
-            + "\n".join(tentative_insights) +
-            "\n\n### Data Limitations\n"
-            "- Sparse signals: sentiment data may not fully represent all users.\n"
-            "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
-            "- Regional variations could skew interpretation.\n"
-            "\n### Recommendations\n"
-            "1. Collect qualitative feedback from beta testers.\n"
-            "2. Add instrumentation for drop-off, error rates, and friction points.\n"
-            "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
-        )
+            tentative_insights = []
+            for _, row in grouped.iterrows():
+                if "stage" in row and str(row.get("stage", "")).lower() == "beta":
+                    confidence = "Medium" if row["avg_sentiment"] < 0.4 else "High"
+                else:
+                    confidence = "Low (no stage info – assuming incomplete beta signals)"
 
+                tentative_insights.append(
+                    f"- **{row['feature']}** in {row['product']} "
+                    f"(regions: {row['regions']}, samples: {row['count']}) "
+                    f"→ Avg Usage: {row['avg_usage']:.0f}, Avg Sentiment: {row['avg_sentiment']:.2f}. "
+                    f"⚠️ Confidence: {confidence}"
+                )
+
+            summary = (
+                "⚖️ Edge Case Analysis\n\n"
+                "### Tentative Insights (confidence flagged)\n"
+                + "\n".join(tentative_insights) +
+                "\n\n### Data Limitations\n"
+                "- Sparse signals: sentiment data may not fully represent all users.\n"
+                "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
+                "- Regional variations could skew interpretation.\n"
+                "\n### Recommendations\n"
+                "1. Collect qualitative feedback from beta testers.\n"
+                "2. Add instrumentation for drop-off, error rates, and friction points.\n"
+                "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
+            )
 
     elif scenario == "Stretch Scenario":
-        # Internal candidates
         candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("usage", ascending=False).head(3)
         feature_ideas = candidates['feature'].unique().tolist()
 
-        # 🔎 Perform live web search (with fallback)
         search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
         external_trends = []
         if "results" in search_results:
             for r in search_results["results"][:5]:
                 external_trends.append(f"- {r['title']}: {r['snippet']}")
 
-        # Build structured summary
         summary = (
             "🌍 This request goes beyond internal telemetry and requires external research. "
             "Here’s a structured response combining **internal adoption signals** and **live market insights**:\n\n"
@@ -244,10 +219,8 @@ if user_input:
         summary, table, extra_outputs = summarize_and_tabulate(scenario, df)
         st.session_state.history.append(("agent", f"**Scenario detected:** {scenario}\n\n{summary}"))
 
-        # Show summary table only for Risk Synthesis
         if scenario == "Risk Synthesis" and not table.empty:
             st.session_state.history.append(("agent_table", table))
-
     else:
         st.session_state.history.append(("agent", "I'm not sure what scenario you want to explore."))
 
