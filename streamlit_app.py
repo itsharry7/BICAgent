@@ -509,35 +509,43 @@ if not st.session_state.history:  # only on first run
         if figures:
             st.session_state.history.append(("agent_figures", figures))
 
-user_input = st.chat_input("Ask about risks, opportunities, feature health, edge cases, or trends...")
+user_input = st.chat_input("Type your request...")
 
 if user_input:
     st.session_state.history.append(("user", user_input))
-    new_scenario = classify_scenario(
-    user_input,
-    last_scenario=st.session_state.get("current_scenario")
-    )
-    
-    # Update state
-    if new_scenario != st.session_state.get("current_scenario"):
-        st.session_state.current_scenario = new_scenario
-        if new_scenario != "Unknown":  # only announce if real switch
-            st.session_state.history.append(
-                ("agent", f"🔄 New topic detected → switching to **{new_scenario}**")
-            )
 
-    if new_scenario and new_scenario != "Unknown":
-        # grab last 5 turns for continuity
-        recent_context = "\n".join([
-            f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
-            if speaker in ["user", "agent"]
-        ])
-
-        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
-            new_scenario, df, context=recent_context
+    # ---------------- Follow-up flow ----------------
+    if user_input.lower().startswith("yes"):
+        followup_request = user_input[3:].strip() or "Provide more details"
+        
+        groq_response = client.chat.completions.create(
+            model="llama-3.1-70b-versatile",
+            messages=[
+                {"role": "system", "content": "You are an autonomous BI agent. Expand on prior analysis and go deeper where relevant."},
+                {"role": "user", "content": followup_request}
+            ]
         )
+        followup_answer = groq_response.choices[0].message.content
+        st.session_state.history.append(("agent", followup_answer))
 
-        st.session_state.history.append(("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}"))
+    # ---------------- Normal flow ----------------
+    else:
+        scenario = classify_scenario(user_input, df)
+        summary, table, extra_outputs, structured, figures = summarize_and_tabulate(scenario, df)
+
+        st.session_state.history.append(("agent", f"**Scenario:** {scenario}\n\n{summary}\n\n{structured}"))
+
+        # Add follow-up suggestions
+        followup_msg = """
+🤖 Would you like me to go deeper? For example:
+- 📊 Drill down into anomalies
+- 🔮 Predict future trends
+- 💬 Summarize user complaints
+- 🚀 Suggest actions to take next
+
+Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
+"""
+        st.session_state.history.append(("agent", followup_msg))
 
         if not table.empty:
             st.session_state.history.append(("agent_table", table))
