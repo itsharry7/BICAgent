@@ -120,14 +120,16 @@ def summarize_and_tabulate(scenario, df):
         summary = f"⚠️ {len(risk_df)} risky features detected across {risk_df['region'].nunique()} regions."
         table = (risk_df.sort_values('dynamic_score', ascending=False)
                  [['product','feature','region','support_tickets','sentiment','dynamic_score']].head(5))
+        
+        # Visualization
         fig_scatter, ax1 = plt.subplots()
-        sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region", size="dynamic_score", ax=ax1, s=100)
+        sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region",
+                        size="dynamic_score", ax=ax1, s=100)
         ax1.set_title("Support Tickets vs Sentiment (Risk Features)")
         figures.append(fig_scatter)
-        trend_fig = predict_trends(risk_df)
-        figures.append(trend_fig)
+        figures.append(predict_trends(risk_df))
 
-        # ---------------- Groq LLM Narrative ----------------
+        # 🔥 Upgraded Groq Prompt
         groq_prompt = f"""
 You are analyzing enterprise product telemetry + customer signals.
 
@@ -142,94 +144,77 @@ Your tasks:
 
 Output a structured summary stakeholders can act on immediately.
 """
-        response = groq_chat.invoke(groq_prompt)
         try:
-            llm_text = json.loads(response.json())['content']
-        except:
-            llm_text = response
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = getattr(response, "content", str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
 
-        structured = f"### 📌 AI Insights\n{llm_text}"
+        structured = f"### 📌 AI Risk Insights\n{llm_text}"
 
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage']>120)&(df['sentiment']>0.8)&(df['support_tickets']<3)]
-        summary = f"🚀 {len(filtered)} high adoption features detected. Top opportunities:\n{filtered[['feature','dynamic_score']].head(5).to_markdown(index=False)}"
+        summary = f"🚀 {len(filtered)} high adoption features detected. Showing top 5."
+        table = filtered[['product','feature','region','dynamic_score']].sort_values("dynamic_score", ascending=False).head(5)
 
-        # LLM opportunity enhancement
-        groq_prompt = (
-            f"Here are top opportunity features:\n{filtered[['feature','dynamic_score']].to_dict(orient='records')}\n"
-            f"Generate a concise growth narrative and recommendations."
-        )
-        response = groq_chat.invoke(groq_prompt)
+        groq_prompt = f"""
+You are a product growth strategist reviewing adoption + sentiment metrics.
+
+Dataset opportunity candidates:
+{table.to_dict(orient='records')}
+
+Your tasks:
+1. Identify the top growth levers and explain WHY they stand out.
+2. Predict scaling implications if invested in now.
+3. Recommend 2-3 specific bets (campaigns, partnerships, feature doubling).
+
+Keep it concise but action-oriented.
+"""
         try:
-            llm_text = json.loads(response.json())['content']
-        except:
-            llm_text = response
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = getattr(response, "content", str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
+
         structured = f"### 📌 AI Opportunity Insights\n{llm_text}"
 
-    # Edge Case Analysis
     elif scenario == "Edge Case":
-        # Filter for unusual patterns
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
-    
         if filtered.empty:
             summary = "✅ No unusual patterns detected in the current dataset."
             structured = ""
         else:
-            # User-facing narrative describing capabilities
-            structured = (
-                "⚠️ Some features exhibit unusual patterns in the dataset.\n\n"
-                "I’m analyzing them using key capabilities:\n"
-                "- **Dynamic scoring:** Compute weighted adoption/risk scores\n"
-                "- **Automatic anomaly detection:** Identify unusual clusters or outliers\n"
-                "- **Trend prediction:** Forecast potential adoption/usage trends\n"
-                "- **Tables + charts in chat:** Visualize metrics and patterns inline\n"
-                "- **Semi-automated hooks:** Option to download insights for further action\n"
-                "- **Internal + external signal fusion:** Combine internal metrics with external indicators\n\n"
-            )
-    
-            # Show top 5 features in markdown table
-            top_table = filtered[['product','feature','region','usage','sentiment']].head(5).to_markdown(index=False)
-            structured += "**Highlighted Features (Top 5):**\n" + top_table + "\n\n"
-    
-            # LLM-driven opportunity enhancement
+            summary = f"⚖️ {len(filtered)} feature(s) show unusual patterns."
+            table = filtered[['product','feature','region','usage','sentiment']].head(5)
+
+            groq_prompt = f"""
+You are scanning for unusual or conflicting signals.
+
+Edge case features:
+{table.to_dict(orient='records')}
+
+Your tasks:
+1. Explain what makes these patterns unusual.
+2. Hypothesize plausible causes (data issue, adoption shift, misaligned expectations).
+3. Suggest how to validate (experiments, customer interviews, deeper data cuts).
+4. Recommend whether these should be prioritized or monitored quietly.
+"""
             try:
-                groq_prompt = (
-                    f"Here are the top opportunity features:\n"
-                    f"{filtered[['feature','dynamic_score']].to_dict(orient='records')}\n"
-                    "Generate a concise growth narrative and actionable recommendations."
-                )
                 response = groq_chat.invoke(groq_prompt)
-                llm_text = json.loads(response.json()).get('content', str(response))
+                llm_text = getattr(response, "content", str(response))
             except Exception as e:
                 llm_text = f"⚠️ LLM insight generation failed: {e}"
-    
-            structured += f"### 📌 AI Opportunity Insights\n{llm_text}\n\n"
-    
-            # Provide downloadable CSV for semi-automated action
-            csv_data = filtered.to_csv(index=False)
-            structured += "*You can download the full data for these features:*"
-            st.download_button("Download Feature Insights", csv_data, "unusual_features.csv")
-    
-            # Optional: add scatter chart visualization
+
+            structured = f"### 📌 AI Edge Case Insights\n{llm_text}"
+
+            # Add visualization
             fig_scatter, ax1 = plt.subplots(figsize=(8, 5))
             sns.scatterplot(
-                data=filtered,
-                x="usage",
-                y="sentiment",
-                hue="region",
-                size="support_tickets",
-                palette="tab10",
-                ax=ax1,
-                s=100,
-                alpha=0.8
+                data=filtered, x="usage", y="sentiment", hue="region",
+                size="support_tickets", palette="tab10", ax=ax1, s=100, alpha=0.8
             )
             ax1.set_title("Usage vs Sentiment (Unusual Features)")
-            ax1.set_xlabel("Usage")
-            ax1.set_ylabel("Sentiment")
-            ax1.legend(bbox_to_anchor=(1.05, 1), loc="upper left")
             figures.append(fig_scatter)
-    
-        summary = f"⚖️ {len(filtered)} feature(s) show unusual patterns. Review the analysis below."
 
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
@@ -237,17 +222,26 @@ Output a structured summary stakeholders can act on immediately.
         search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
         external_trends = "\n".join([f"- {r['title']}: {r['snippet']}" for r in search_results.get("results", [])[:5]])
 
-        # LLM to synthesize internal + external trends
-        groq_prompt = (
-            f"Internal top features: {feature_ideas}\n"
-            f"External trends: {external_trends}\n"
-            f"Generate an executive summary highlighting opportunities and recommendations."
-        )
-        response = groq_chat.invoke(groq_prompt)
+        groq_prompt = f"""
+You are synthesizing internal telemetry + external market signals.
+
+Internal candidates: {feature_ideas}
+External competitor trends:
+{external_trends}
+
+Your tasks:
+1. Connect internal strengths with external gaps.
+2. Predict where disruption is most likely in the next 12 months.
+3. Propose bold initiatives Microsoft could take to leapfrog competitors.
+
+Keep tone visionary but backed by evidence.
+"""
         try:
-            llm_text = json.loads(response.json())['content']
-        except:
-            llm_text = response
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = getattr(response, "content", str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
+
         summary = f"🌍 Internal Top Features: {', '.join(feature_ideas)}\n\nExternal Trends:\n{external_trends}"
         structured = f"### 📌 AI Trend Insights\n{llm_text}"
 
