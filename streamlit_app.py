@@ -113,29 +113,45 @@ def summarize_and_tabulate(scenario, df):
             "indicating possible health issues that need investigation."
         )
 
-    elif scenario == "Edge Case":
-        filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
+elif scenario == "Edge Case":
+    # Filter candidates (high usage + low sentiment)
+    filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
 
-        # Check if 'stage' column exists
-        has_stage = "stage" in df.columns
+    if filtered.empty:
+        summary = (
+            "⚖️ Edge Case Analysis\n\n"
+            "No strong edge case patterns detected. Data may be sparse — continue monitoring.\n"
+        )
+    else:
+        # Group by product/feature for roll-up summaries
+        group_cols = ["product", "feature"]
+        if "stage" in df.columns:
+            group_cols.append("stage")
+
+        grouped = (
+            filtered.groupby(group_cols)
+            .agg(
+                avg_usage=("usage", "mean"),
+                avg_sentiment=("sentiment", "mean"),
+                regions=("region", lambda x: ", ".join(sorted(set(x)))),
+                count=("feature", "size"),
+            )
+            .reset_index()
+        )
 
         tentative_insights = []
-        for _, row in filtered.iterrows():
+        for _, row in grouped.iterrows():
             # Confidence logic
-            if has_stage and str(row.get("stage", "")).lower() == "beta":
-                confidence = "Medium" if row['sentiment'] < 0.3 else "High"
+            if "stage" in row and str(row.get("stage", "")).lower() == "beta":
+                confidence = "Medium" if row["avg_sentiment"] < 0.4 else "High"
             else:
                 confidence = "Low (no stage info – assuming incomplete beta signals)"
 
             tentative_insights.append(
-                f"- Feature **{row['feature']}** (Product: {row['product']}, Region: {row['region']}) "
-                f"shows high usage ({row['usage']}) but low sentiment ({row['sentiment']:.2f}). "
+                f"- **{row['feature']}** in {row['product']} "
+                f"(regions: {row['regions']}, samples: {row['count']}) "
+                f"→ Avg Usage: {row['avg_usage']:.0f}, Avg Sentiment: {row['avg_sentiment']:.2f}. "
                 f"⚠️ Confidence: {confidence}"
-            )
-
-        if not tentative_insights:
-            tentative_insights.append(
-                "- No strong edge case patterns detected, but monitoring is advised as data may be incomplete."
             )
 
         summary = (
@@ -146,12 +162,12 @@ def summarize_and_tabulate(scenario, df):
             "- Sparse signals: sentiment data may not fully represent all users.\n"
             "- Ambiguity: usage may be driven by forced adoption or lack of alternatives.\n"
             "- Regional variations could skew interpretation.\n"
-            + ("" if has_stage else "\n- No 'stage' column in data: unable to confirm beta status of features.\n") +
             "\n### Recommendations\n"
             "1. Collect qualitative feedback from beta testers.\n"
             "2. Add instrumentation for drop-off, error rates, and friction points.\n"
             "3. Validate with small user surveys to confirm whether low sentiment reflects true dissatisfaction.\n"
         )
+
 
     elif scenario == "Stretch Scenario":
         # Internal candidates
