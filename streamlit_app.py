@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-import requests
 import matplotlib.pyplot as plt
 import seaborn as sns
 from streamlit_chat import message as st_message
@@ -11,28 +10,28 @@ from sklearn.linear_model import LinearRegression
 import io
 import base64
 
-# ---------------- Web Search (DuckDuckGo fallback) ----------------
-def search(query, max_results=5):
+# ---------------- OpenAI Integration ----------------
+from openai import OpenAI
+import os
+
+# Set your OpenAI API key here or via environment variable
+OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY", "YOUR_OPENAI_API_KEY")
+client = OpenAI(api_key=OPENAI_API_KEY)
+
+def get_llm_insights(prompt: str, model="gpt-4o-mini"):
     try:
-        url = "https://duckduckgo.com/html/"
-        params = {"q": query}
-        res = requests.get(url, params=params, timeout=10)
-        res.raise_for_status()
-
-        from bs4 import BeautifulSoup
-        soup = BeautifulSoup(res.text, "html.parser")
-
-        results = []
-        for a in soup.select(".result__a")[:max_results]:
-            title = a.get_text()
-            link = a.get("href")
-            snippet_tag = a.find_parent().select_one(".result__snippet")
-            snippet = snippet_tag.get_text() if snippet_tag else ""
-            results.append({"title": title, "link": link, "snippet": snippet})
-        return {"results": results}
+        response = client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role":"system","content":"You are a helpful enterprise insights assistant."},
+                {"role":"user","content": prompt}
+            ],
+            temperature=0.7
+        )
+        return response.choices[0].message.content
     except Exception as e:
-        return {"results": [], "error": str(e)}
-        
+        return f"⚠️ LLM insight generation failed: {str(e)}"
+
 # ---------------- Load default data ----------------
 @st.cache_data
 def load_data():
@@ -50,7 +49,6 @@ df = st.session_state.user_df if st.session_state.user_df is not None else load_
 
 # ---------------- Helper Functions ----------------
 def compute_dynamic_scores(df):
-    # Normalize metrics and compute weighted score
     df = df.copy()
     df['support_tickets'] = df['support_tickets'].fillna(0)
     df['sentiment'] = df['sentiment'].fillna(0.5)
@@ -69,7 +67,6 @@ def detect_anomalies(df, n_clusters=3):
     X = scaler.fit_transform(df[['usage','support_tickets','sentiment']])
     kmeans = KMeans(n_clusters=n_clusters, random_state=42).fit(X)
     df['cluster'] = kmeans.labels_
-    # mark clusters with extreme mean scores as anomalies
     cluster_means = df.groupby('cluster')['support_tickets'].mean()
     extreme_clusters = cluster_means[cluster_means > cluster_means.mean() + cluster_means.std()].index.tolist()
     df['anomaly_flag'] = df['cluster'].apply(lambda x: 1 if x in extreme_clusters else 0)
@@ -99,7 +96,7 @@ def render_fig_in_chat(fig):
     img_base64 = base64.b64encode(buf.read()).decode('utf-8')
     return f"![plot](data:image/png;base64,{img_base64})"
 
-# ---------------- Core Function ----------------
+# ---------------- Core Function with LLM ----------------
 def summarize_and_tabulate(scenario, df):
     summary, table, extra_outputs, structured, figures = "", pd.DataFrame(), {}, "", []
     df = compute_dynamic_scores(df)
@@ -107,129 +104,67 @@ def summarize_and_tabulate(scenario, df):
 
     if scenario == "Risk Synthesis":
         risk_df = df[(df['anomaly_flag'] == 1) | ((df['support_tickets'] > 10) & (df['sentiment'] < 0.5))]
-        summary = f"⚠️ {len(risk_df)} risky features across {risk_df['region'].nunique()} regions detected. Top risks by dynamic score:"
         table = (risk_df.sort_values('dynamic_score', ascending=False)
-                 [['product','feature','region','support_tickets','sentiment','dynamic_score']]
-                 .head(5))
-        # Charts
+                 [['product','feature','region','support_tickets','sentiment','dynamic_score']].head(5))
+        
+        # LLM-assisted summary
+        prompt = f"Analyze the following risky features and provide a concise insight with recommendations:\n{table.to_dict(orient='records')}"
+        summary = get_llm_insights(prompt)
+        
+        # Trend & charts
         fig_scatter, ax1 = plt.subplots()
         sns.scatterplot(data=risk_df, x="support_tickets", y="sentiment", hue="region", size="dynamic_score", ax=ax1, s=100)
         ax1.set_title("Support Tickets vs Sentiment (Risk Features)")
         figures.append(fig_scatter)
+
         fig_heatmap, ax2 = plt.subplots(figsize=(8,6))
         heatmap_data = risk_df.pivot_table(index="feature", columns="region", values="support_tickets", aggfunc="sum", fill_value=0)
         sns.heatmap(heatmap_data, cmap="Reds", annot=True, fmt="d", ax=ax2)
         ax2.set_title("Risk Feature Heatmap")
         figures.append(fig_heatmap)
-        # Trend prediction
+
         trend_fig = predict_trends(risk_df, metric='usage')
         figures.append(trend_fig)
-        structured = f"### 📌 Structured Risk Analysis\n**Top 5 Features by Score:**\n{table.to_markdown(index=False)}"
-        extra_outputs = {"Total Risk Features": len(risk_df), "Regions Impacted": risk_df['region'].nunique()}
-                # ---------- Structured Narrative ----------
-        structured = f"""
-### 📌 Structured Risk Synthesis
 
-**Summary:**  
-- {len(risk_df)} risky features detected across {risk_df['region'].nunique()} regions.  
-- Top risks concentrated in {', '.join(risk_df['region'].unique()[:3])} (sample view).  
-
-**Key Internal vs External Metrics:**  
-
-- Internal Adoption (avg): {df['usage'].mean():.1f}  
-- Internal Reliability (sentiment proxy): {df['sentiment'].mean():.2f}  
-
-**Divergence Analysis:**  
-- Clustering detected 3 risk clusters; top-risk features mostly in cluster 0.  
-- Features like **Auto Insights** in LATAM show high internal usage but poor external reliability.  
-
-**Actionable Recommendations:**  
-1. Stabilize Auto Insights in LATAM (highest combined risk).  
-2. Improve documentation & error handling for Predictive Alerts.  
-3. Align Copilot Chat sentiment signals with external feedback mechanisms.  
-
-**Confidence & Traceability:**  
-- Derived from support tickets + sentiment + anomaly flags + cluster analysis.
-        """
-
-        extra_outputs = {
-            "Risk Summary": {
-                "Total Risk Features": len(risk_df),
-                "Regions Impacted": risk_df['region'].nunique(),
-                "Avg Sentiment (at risk)": round(risk_df['sentiment'].mean(),2),
-                "Avg Support Tickets": int(risk_df['support_tickets'].mean())
-            }
-        }
-
+        structured = f"### 📌 Top Risk Features Table\n{table.to_markdown(index=False)}"
 
     elif scenario == "Opportunity Discovery":
         filtered = df[(df['usage'] > 120) & (df['sentiment'] > 0.8) & (df['support_tickets'] < 3)]
-        summary = f"🚀 {len(filtered)} high adoption features detected. Top opportunities:\n{filtered[['feature','dynamic_score']].sort_values('dynamic_score',ascending=False).head(5).to_markdown(index=False)}"
+        table = filtered[['feature','dynamic_score']].sort_values('dynamic_score',ascending=False).head(5)
+        prompt = f"Identify opportunities and actionable insights from these high adoption features:\n{table.to_dict(orient='records')}"
+        summary = get_llm_insights(prompt)
+        structured = f"### 📌 Opportunity Table\n{table.to_markdown(index=False)}"
 
     elif scenario == "Feature Health":
         filtered = df[(df['sentiment'] < 0.4) & (df['support_tickets'] > 8)]
-        summary = f"💡 {len(filtered)} low sentiment features detected. See top concerns:\n{filtered[['feature','dynamic_score']].sort_values('dynamic_score',ascending=False).head(5).to_markdown(index=False)}"
+        table = filtered[['feature','dynamic_score']].sort_values('dynamic_score',ascending=False).head(5)
+        prompt = f"Provide insights on low-sentiment features and suggest improvement actions:\n{table.to_dict(orient='records')}"
+        summary = get_llm_insights(prompt)
+        structured = f"### 📌 Feature Health Table\n{table.to_markdown(index=False)}"
 
-    # Edge Case
     elif scenario == "Edge Case":
-        # Select features with unusual patterns
         filtered = df[(df['usage'] > 100) & (df['sentiment'] < 0.5)]
-        
         if filtered.empty:
-            summary = "✅ No unusual patterns detected in the current dataset."
-            structured = ""
+            summary = "✅ No unusual patterns detected."
         else:
-            # User-facing narrative describing capabilities
-            structured = (
-                "⚠️ Some features exhibit unusual patterns based on the available data.\n\n"
-                "I’m analyzing them using my key capabilities:\n"
-                "- **Dynamic scoring:** Compute weighted adoption/risk scores\n"
-                "- **Automatic anomaly detection:** Identify unusual clusters or outliers\n"
-                "- **Trend prediction:** Forecast potential adoption/usage trends\n"
-                "- **Tables + charts in chat:** Visualize metrics and patterns inline\n"
-                "- **Semi-automated hooks:** Option to download insights for further action\n"
-                "- **Internal + external signal fusion:** Combine internal metrics with external indicators\n\n"
-            )
-    
-            # Show top 5 features in table
-            table_md = filtered[['product','feature','region','usage','sentiment']].head(5).to_markdown(index=False)
-            structured += "**Highlighted Features:**\n" + table_md
-    
-            # Provide a downloadable CSV for semi-automated action
+            table = filtered[['product','feature','region','usage','sentiment']].head(5)
+            prompt = f"Some features show unusual patterns. Explain what these edge patterns mean and suggest actions:\n{table.to_dict(orient='records')}"
+            summary = get_llm_insights(prompt)
+            structured = f"### 📌 Unusual Feature Table\n{table.to_markdown(index=False)}"
             csv = filtered.to_csv(index=False)
-            structured += "\n\n*You can download the full data for these features:*"
             st.download_button("Download Feature Insights", csv, "unusual_features.csv")
-            
-            # Optional: add charts
+            # Optional scatter chart
             fig_scatter, ax1 = plt.subplots()
             sns.scatterplot(data=filtered, x="usage", y="sentiment", hue="region", size="support_tickets", ax=ax1, s=100)
             ax1.set_title("Usage vs Sentiment (Unusual Features)")
             figures.append(fig_scatter)
-    
-        summary = f"⚖️ {len(filtered)} features show unusual patterns. Review the analysis below."
 
     elif scenario == "Stretch Scenario":
-        # Pick top internal candidates
         candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values("dynamic_score", ascending=False).head(3)
-        feature_ideas = candidates['feature'].tolist()
-    
-        # Attempt to get external trends
-        search_results = search("Azure competitors AWS GCP disruptive cloud features developer forum trends 2025")
-        external_trends = ""
-    
-        if "results" in search_results and search_results["results"]:
-            external_trends = "\n".join([f"- {r['title']}: {r['snippet']}" for r in search_results["results"][:5]])
-        else:
-            # Fallback if API fails or returns nothing
-            external_trends = (
-                "- 🌐 I cannot browse the internet right now, "
-                "but based on my knowledge, trends indicate: \n"
-                "  - Increased adoption of AI-driven workflow automation.\n"
-                "  - Rising demand for predictive insights in cloud services.\n"
-                "  - Competitors focusing on collaboration and automation integrations.\n"
-            )
-
-        summary = f"🌍 Internal Top Features: {', '.join(feature_ideas)}\n\nExternal Trends:\n{external_trends}"
+        table = candidates[['feature','dynamic_score']]
+        prompt = f"Provide a forward-looking insight on these top internal features and external trends:\n{table.to_dict(orient='records')}"
+        summary = get_llm_insights(prompt)
+        structured = f"### 📌 Stretch Scenario Top Features\n{table.to_markdown(index=False)}"
 
     else:
         summary = "🤔 Unknown scenario."
@@ -237,7 +172,7 @@ def summarize_and_tabulate(scenario, df):
     return summary, table, extra_outputs, structured, figures
 
 # ---------------- Streamlit Chat UI ----------------
-st.title("Autonomous BI Agent (Enhanced Prototype)")
+st.title("Autonomous BI Agent (LLM-Enhanced)")
 
 if "history" not in st.session_state:
     st.session_state.history = []
@@ -280,5 +215,4 @@ for i, (speaker, message) in enumerate(st.session_state.history):
         st.table(message)
     elif speaker == "agent_figures":
         for j, fig in enumerate(message):
-            # Instead of base64, directly show figure
             st.pyplot(fig, clear_figure=False, use_container_width=True)
