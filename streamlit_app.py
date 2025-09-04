@@ -509,9 +509,6 @@ Only return the label.
         # Clear flag after handling
         st.session_state.pending_visual_choice = False
 
-        # Force rerun to refresh UI with visuals
-        st.experimental_rerun()
-
     # ---------------- Normal Scenario Flow ----------------
     else:
         new_scenario = classify_scenario(
