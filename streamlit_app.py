@@ -482,44 +482,44 @@ if user_input:
     if st.session_state.get("pending_visual_choice", False):
     # Classify what the user wants to see
     intent = "none"
-    try:
-        classify_prompt = f"""
-You are an intent classifier for a BI assistant. 
-The user replied: "{user_input}"
-
-Classify their intent into one of:
-- "table"
-- "graphs"
-- "both"
-- "skip"
-
-Only return the label.
-"""
-        classification = groq_chat.invoke(classify_prompt)
-        intent = getattr(classification, "content", str(classification)).lower().strip()
-    except Exception:
-        intent = "skip"
-
-    # Show requested visuals
-    if intent in ["table", "both"] and "last_table" in st.session_state:
-        st.session_state.history.append(("agent_table", st.session_state.last_table))
-    if intent in ["graphs", "both"] and "last_figures" in st.session_state:
-        st.session_state.history.append(("agent_figures", st.session_state.last_figures))
-    if intent == "skip":
-        st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
-
-    # Clear flag, then show deep-dive follow-up
-    st.session_state.pending_visual_choice = False
-
-    # Add follow-up message for Risk Synthesis
-    followup_msg = """
-🤖 Would you like me to go deeper? For example:
-- 📊 Drill down into anomalies
-- 🔮 Predict future trends
-- 💬 Summarize user complaints
-- 🚀 Suggest actions to take next
-"""
-    st.session_state.history.append(("agent", followup_msg))
+        try:
+            classify_prompt = f"""
+    You are an intent classifier for a BI assistant. 
+    The user replied: "{user_input}"
+    
+    Classify their intent into one of:
+    - "table"
+    - "graphs"
+    - "both"
+    - "skip"
+    
+    Only return the label.
+    """
+            classification = groq_chat.invoke(classify_prompt)
+            intent = getattr(classification, "content", str(classification)).lower().strip()
+        except Exception:
+            intent = "skip"
+    
+        # Show requested visuals
+        if intent in ["table", "both"] and "last_table" in st.session_state:
+            st.session_state.history.append(("agent_table", st.session_state.last_table))
+        if intent in ["graphs", "both"] and "last_figures" in st.session_state:
+            st.session_state.history.append(("agent_figures", st.session_state.last_figures))
+        if intent == "skip":
+            st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
+    
+        # Clear flag, then show deep-dive follow-up
+        st.session_state.pending_visual_choice = False
+    
+        # Add follow-up message for Risk Synthesis
+        followup_msg = """
+    🤖 Would you like me to go deeper? For example:
+    - 📊 Drill down into anomalies
+    - 🔮 Predict future trends
+    - 💬 Summarize user complaints
+    - 🚀 Suggest actions to take next
+    """
+        st.session_state.history.append(("agent", followup_msg))
 
         # Unknown scenario
         else:
