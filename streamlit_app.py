@@ -473,23 +473,40 @@ if user_input:
     st.session_state.history.append(("user", user_input))
 
     # ---------------- Follow-up flow ----------------
-    if user_input.lower().startswith("yes"):
-        followup_request = user_input[3:].strip() or "Provide more details"
-
+    # ---------------- Follow-up flow ----------------
+    followup_phrases = ["yes", "go on", "elaborate", "continue", "carry on", "complete", "finish"]
+    if any(user_input.lower().startswith(p) for p in followup_phrases) and st.session_state.get("current_scenario"):
+        # Extract the follow-up text after the trigger phrase
+        for p in followup_phrases:
+            if user_input.lower().startswith(p):
+                followup_request = user_input[len(p):].strip()
+                break
+        if not followup_request:
+            followup_request = "Please provide more details or deeper insights."
+    
+        # Build prompt including last scenario + recent context
+        recent_context = "\n".join([
+            f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
+            if speaker in ["user", "agent"]
+        ])
+        followup_prompt = f"""
+    You are an Autonomous BI Agent.
+    User wants a deeper dive on the previous scenario: {st.session_state.current_scenario}.
+    
+    Recent conversation context:
+    {recent_context}
+    
+    Follow-up request:
+    {followup_request}
+    """
+    
         try:
-            followup_prompt = f"""
-You are an autonomous BI agent. 
-Expand on the prior analysis and go deeper where relevant.
-
-User follow-up request: {followup_request}
-"""
             response = groq_chat.invoke(followup_prompt)
             followup_answer = getattr(response, "content", str(response))
         except Exception as e:
             followup_answer = f"⚠️ Follow-up failed: {e}"
-
+    
         st.session_state.history.append(("agent", followup_answer))
-
     # ---------------- Normal flow ----------------
     else:
         new_scenario = classify_scenario(
