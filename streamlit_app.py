@@ -472,40 +472,59 @@ user_input = st.chat_input("Ask about risks, opportunities, feature health, edge
 if user_input:
     st.session_state.history.append(("user", user_input))
 
-    # ---------------- Follow-up flow ----------------
-    # ---------------- Follow-up flow ----------------
     followup_phrases = ["yes", "go on", "elaborate", "continue", "carry on", "complete", "finish"]
-    if any(user_input.lower().startswith(p) for p in followup_phrases) and st.session_state.get("current_scenario"):
-        # Extract the follow-up text after the trigger phrase
+
+    # ---------------- Pending Autonomous Follow-up ----------------
+    if hasattr(st.session_state, "pending_followup") and st.session_state.pending_followup:
+        if any(user_input.lower().startswith(p) for p in followup_phrases):
+            pf = st.session_state.pending_followup
+            summary, table, structured, figures = summarize_and_tabulate(
+                pf["scenario"], df, context=pf["context"]
+            )
+
+            st.session_state.history.append(
+                ("agent", f"**Scenario:** {pf['scenario']}\n\n{summary}\n\n{structured}")
+            )
+            if not table.empty: st.session_state.history.append(("agent_table", table))
+            if figures: st.session_state.history.append(("agent_figures", figures))
+
+            # Clear pending follow-up
+            st.session_state.pending_followup = None
+            # Done with this input
+            user_input = None  # prevent running deep-dive logic below
+
+    # ---------------- Deep-dive / Follow-up on last scenario ----------------
+    if user_input and any(user_input.lower().startswith(p) for p in followup_phrases) and st.session_state.get("current_scenario"):
+        # Extract text after trigger phrase
         for p in followup_phrases:
             if user_input.lower().startswith(p):
                 followup_request = user_input[len(p):].strip()
                 break
         if not followup_request:
             followup_request = "Please provide more details or deeper insights."
-    
+
         # Build prompt including last scenario + recent context
         recent_context = "\n".join([
             f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
             if speaker in ["user", "agent"]
         ])
         followup_prompt = f"""
-    You are an Autonomous BI Agent.
-    User wants a deeper dive on the previous scenario: {st.session_state.current_scenario}.
-    
-    Recent conversation context:
-    {recent_context}
-    
-    Follow-up request:
-    {followup_request}
-    """
-    
+You are an Autonomous BI Agent.
+User wants a deeper dive on the previous scenario: {st.session_state.current_scenario}.
+
+Recent conversation context:
+{recent_context}
+
+Follow-up request:
+{followup_request}
+"""
+
         try:
             response = groq_chat.invoke(followup_prompt)
             followup_answer = getattr(response, "content", str(response))
         except Exception as e:
             followup_answer = f"⚠️ Follow-up failed: {e}"
-    
+
         st.session_state.history.append(("agent", followup_answer))
     # ---------------- Normal flow ----------------
     else:
@@ -558,9 +577,16 @@ Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
         # ---------------- Autonomous Follow-up Scan ----------------
         auto_scenario = auto_detect_scenario(df)
         if auto_scenario and auto_scenario != st.session_state.current_scenario:
-            st.session_state.current_scenario = auto_scenario
+            # Store the follow-up scan in session_state instead of showing immediately
+            st.session_state.pending_followup = {
+                "scenario": auto_scenario,
+                "context": "Autonomous follow-up scan"
+            }
+        
+            # Ask user if they want to display it
             st.session_state.history.append(
-                ("agent", f"🤖 While analyzing, I also detected a potential **{auto_scenario}** situation.")
+                ("agent", f"🤖 While analyzing, I also detected a potential **{auto_scenario}** situation. "
+                          "Do you want me to display the insights? Reply with 'yes' to show.")
             )
 
             summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
