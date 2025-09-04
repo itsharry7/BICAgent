@@ -523,7 +523,7 @@ User follow-up request: {followup_request}
             st.session_state.last_table = table
             st.session_state.last_figures = figures
             
-                st.session_state.history.append(("agent", followup_viz_msg))
+            st.session_state.history.append(("agent", followup_viz_msg))
             
                 # --- Visualization Intent Classification ---
             if st.session_state.get("pending_followup"):
