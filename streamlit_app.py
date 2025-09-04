@@ -524,7 +524,7 @@ if user_input:
         # Unknown scenario
       #  else:
          #   st.session_state.history.append(
-                ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
+              #  ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
           #  )
             
 
