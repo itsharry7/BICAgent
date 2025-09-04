@@ -523,16 +523,6 @@ User follow-up request: {followup_request}
             st.session_state.last_table = table
             st.session_state.last_figures = figures
             
-        if new_scenario == "Risk Synthesis":  
-            if not table.empty or figures:
-                followup_viz_msg = """
-            📊 I’ve prepared supporting visuals:
-            - Table of metrics
-            - Graphs showing patterns
-            
-            Would you like me to show them?  
-            (You can reply naturally, e.g. "show me graphs", "just the table", "both", or "skip")
-            """
                 st.session_state.history.append(("agent", followup_viz_msg))
             
                 # --- Visualization Intent Classification ---
