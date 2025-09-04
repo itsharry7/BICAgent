@@ -515,14 +515,56 @@ User follow-up request: {followup_request}
             summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
                 new_scenario, df, context=recent_context
             )
-
+            
+            # Always append summary + structured text
             st.session_state.history.append(("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}"))
 
-            if not table.empty:
-                st.session_state.history.append(("agent_table", table))
-            if figures:
-                st.session_state.history.append(("agent_figures", figures))
-
+            # Store table/figures for later, don’t show yet
+            st.session_state.last_table = table
+            st.session_state.last_figures = figures
+            
+            if not table.empty or figures:
+                followup_viz_msg = """
+            📊 I’ve prepared supporting visuals:
+            - Table of metrics
+            - Graphs showing patterns
+            
+            Would you like me to show them?  
+            (You can reply naturally, e.g. "show me graphs", "just the table", "both", or "skip")
+            """
+                st.session_state.history.append(("agent", followup_viz_msg))
+                
+                    # --- Visualization Intent Classification ---
+                    if any(word in user_input.lower() for word in ["show", "table", "graph", "both", "skip"]):
+                        try:
+                            classify_prompt = f"""
+                You are an intent classifier for a BI assistant. 
+                The user replied: "{user_input}"
+                
+                Classify their intent into one of:
+                - "table"
+                - "graphs"
+                - "both"
+                - "none"
+                
+                Only return the label.
+                """
+                            classification = groq_chat.invoke(classify_prompt)
+                            intent = getattr(classification, "content", str(classification)).lower().strip()
+                        except Exception as e:
+                            intent = "none"
+                
+                        if intent == "table" and "last_table" in st.session_state:
+                            st.session_state.history.append(("agent_table", st.session_state.last_table))
+                        elif intent == "graphs" and "last_figures" in st.session_state:
+                            st.session_state.history.append(("agent_figures", st.session_state.last_figures))
+                        elif intent == "both":
+                            if "last_table" in st.session_state:
+                                st.session_state.history.append(("agent_table", st.session_state.last_table))
+                            if "last_figures" in st.session_state:
+                                st.session_state.history.append(("agent_figures", st.session_state.last_figures))
+                        elif intent == "none":
+                            st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
             # Add follow-up suggestions after a normal answer
             followup_msg = """
 🤖 Would you like me to go deeper? For example:
