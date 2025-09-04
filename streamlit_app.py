@@ -469,18 +469,11 @@ if not st.session_state.history:  # only on first run
             st.session_state.history.append(("agent_figures", figures))
 user_input = st.chat_input("Ask about risks, opportunities, feature health, edge cases, or trends...")
 
-# Top-level: check for rerun request first
-if st.session_state.get("pending_rerun", False):
-    st.session_state.pending_rerun = False  # reset
-    st.experimental_rerun()
-
-# ---------------- User Input Handling ----------------
 if user_input:
     st.session_state.history.append(("user", user_input))
 
-    # ---------- Handle Risk Synthesis Visual Prompt ----------
+    # ---------------- Risk Synthesis Visual Choice ----------------
     if st.session_state.get("pending_visual_choice", False):
-        # Classify intent
         intent = "none"
         try:
             classify_prompt = f"""
@@ -492,6 +485,7 @@ Classify their intent into one of:
 - "graphs"
 - "both"
 - "none"
+
 Only return the label.
 """
             classification = groq_chat.invoke(classify_prompt)
@@ -512,26 +506,20 @@ Only return the label.
         elif intent == "none":
             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
 
-        # Clear the flag; next input triggers follow-up
+        # Clear flag after handling
         st.session_state.pending_visual_choice = False
 
-        # After showing visuals, ask the normal follow-up
-        followup_msg = """
-🤖 Now that you’ve seen the visuals, would you like me to go deeper? For example:
-- 📊 Drill down into anomalies
-- 🔮 Predict future trends
-- 💬 Summarize user complaints
-- 🚀 Suggest actions to take next
-Reply with 'yes + option' or type your own request.
-"""
-        st.session_state.history.append(("agent", followup_msg))
+        # Force rerun to refresh UI with visuals
+        st.experimental_rerun()
 
-    # ---------- Normal Follow-Up Flow ----------
+    # ---------------- Normal Scenario Flow ----------------
     else:
         new_scenario = classify_scenario(
             user_input,
             last_scenario=st.session_state.get("current_scenario")
         )
+
+        # Update scenario state
         if new_scenario != st.session_state.get("current_scenario"):
             st.session_state.current_scenario = new_scenario
             if new_scenario != "Unknown":
@@ -539,19 +527,58 @@ Reply with 'yes + option' or type your own request.
                     ("agent", f"🔄 New topic detected → switching to **{new_scenario}**")
                 )
 
-        # If it's Risk Synthesis and first time, trigger visual prompt
-        if new_scenario == "Risk Synthesis" and not st.session_state.get("risk_prompt_sent", False):
-            st.session_state.pending_visual_choice = True
-            st.session_state.risk_prompt_sent = True
-            if st.session_state.get("last_table") or st.session_state.get("last_figures"):
-                st.session_state.history.append(("agent", """
+        # Process recognized scenarios
+        if new_scenario and new_scenario != "Unknown":
+            recent_context = "\n".join([
+                f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
+                if speaker in ["user", "agent"]
+            ])
+
+            summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
+                new_scenario, df, context=recent_context
+            )
+
+            st.session_state.history.append(
+                ("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}")
+            )
+
+            # Store last visuals
+            st.session_state.last_table = table
+            st.session_state.last_figures = figures
+
+            # ---------------- Risk Synthesis Special Prompt ----------------
+            if new_scenario == "Risk Synthesis" and (not table.empty or figures):
+                if not st.session_state.get("risk_prompt_sent", False):
+                    followup_viz_msg = """
 📊 I’ve prepared supporting visuals:
 - Table of metrics
 - Graphs showing patterns
 
 Would you like me to show them?  
 (Reply naturally: "show me graphs", "just the table", "both", or "skip")
-"""))
+"""
+                    st.session_state.history.append(("agent", followup_viz_msg))
+                    st.session_state.risk_prompt_sent = True
+                    st.session_state.pending_visual_choice = True
+
+            # ---------------- Normal follow-up suggestions ----------------
+            else:
+                followup_msg = """
+🤖 Would you like me to go deeper? For example:
+- 📊 Drill down into anomalies
+- 🔮 Predict future trends
+- 💬 Summarize user complaints
+- 🚀 Suggest actions to take next
+
+Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
+"""
+                st.session_state.history.append(("agent", followup_msg))
+
+        # Unknown scenario
+        else:
+            st.session_state.history.append(
+                ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
+            )
 
 
             
