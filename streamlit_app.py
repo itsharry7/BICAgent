@@ -383,6 +383,57 @@ Your answer/response should address the following concerns, if applicable:
             )
             ax1.set_title("Usage vs Sentiment (Unusual Features)")
             figures.append(fig_scatter)
+            
+    elif scenario == "Feature Health":
+        candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
+        feature_ideas = candidates['feature'].tolist()
+        search_results = search("Latest trends to improve business")
+        external_trends = "\n".join([f"- {r['title']}: {r['snippet']}" for r in search_results.get("results", [])[:5]])
+
+        groq_prompt = with_context(f"""
+Internal candidates: {feature_ideas}
+External competitor trends:
+{external_trends}
+
+Tasks:
+1. Explain to the user about the business. How business is doing and what's going well and what is not.
+2. Predict next few months of business trends (positive and negative).
+3. Propose bold initiatives to leapfrog competitors.
+
+Your answer/response should cover the following concerns, if applicable:
+•	Delayed strategic responses due to slow insight discovery
+•	Missed opportunities hidden in data complexity
+•	Decision paralysis from conflicting or incomplete information
+•	Competitive disadvantage from reactive rather than predictive intelligence
+""")
+        try:
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = getattr(response, "content", str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
+
+        summary = f"🌍 Business Trends: {', '.join(feature_ideas)}\n\I searched some of the external business trends too:\n{external_trends}"
+        structured = f"### 📌 AI Trend Insights\n{llm_text}"
+
+    elif scenario == "Unknown":
+        candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
+        userprompt = user_input
+
+        groq_prompt = with_context(f"""
+Internal candidates: {userprompt}
+
+Tasks:
+Reply to the userprompt in a respectful mannner. Do not be disrepectful or use any cuss or abusive slangs or language.
+Be descriptive as much as you can.
+""")
+        try:
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = getattr(response, "content", str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
+
+        summary = f"🌍"
+        structured = f"\n{llm_text}"
 
     elif scenario == "Stretch Scenario":
         candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
