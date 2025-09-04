@@ -493,7 +493,7 @@ Be descriptive as much as you can.
     return summary, table, extra_outputs, structured, figures
 
 # ---------------- Streamlit Chat UI ----------------
-st.title("Autonomous BI Agent with Groq AI")
+st.title("Autonomous BI Agent")
 st.markdown("""
     <style>
     .stChatMessage {
