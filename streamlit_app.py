@@ -472,28 +472,28 @@ user_input = st.chat_input("Ask about risks, opportunities, feature health, edge
 if user_input:
     st.session_state.history.append(("user", user_input))
 
-    # --- Check if pending follow-up for Risk Synthesis visuals ---
-    if st.session_state.get("pending_followup"):
-        # classify intent
+    # ---------------- Visual Choice Handling for Risk Synthesis ----------------
+    if st.session_state.get("pending_visual_choice"):
+        intent = "none"
         try:
             classify_prompt = f"""
 You are an intent classifier for a BI assistant. 
 The user replied: "{user_input}"
 
-Classify into one of:
+Classify their intent into one of:
 - "table"
 - "graphs"
 - "both"
 - "none"
 
-Return ONLY the label.
+Only return the label.
 """
             classification = groq_chat.invoke(classify_prompt)
             intent = getattr(classification, "content", str(classification)).lower().strip()
-        except Exception:
+        except Exception as e:
             intent = "none"
 
-        # append visuals based on intent
+        # Display based on user intent
         if intent == "table" and "last_table" in st.session_state:
             st.session_state.history.append(("agent_table", st.session_state.last_table))
         elif intent == "graphs" and "last_figures" in st.session_state:
@@ -506,39 +506,46 @@ Return ONLY the label.
         elif intent == "none":
             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
 
-        st.session_state.pending_followup = False
+        # Clear the flag and exit early — wait for next user input
+        st.session_state.pending_visual_choice = False
+        st.experimental_rerun()
 
-        # Now trigger the actual Risk Synthesis follow-up
-        followup_msg = """
-🤖 Now that we've reviewed visuals, would you like me to go deeper? 
-Options: drill down into anomalies, predict trends, summarize complaints, suggest actions.
-Reply with 'yes + option' or type your own request.
-"""
-        st.session_state.history.append(("agent", followup_msg))
-        st.experimental_rerun()  # wait for user input again
-
+    # ---------------- Normal follow-up / scenario classification ----------------
     else:
-        # --- Normal scenario flow ---
         new_scenario = classify_scenario(
             user_input,
             last_scenario=st.session_state.get("current_scenario")
         )
-        st.session_state.current_scenario = new_scenario
 
-        # trigger summary & Groq follow-up immediately for non-Risk scenarios
+        # Update scenario state
+        if new_scenario != st.session_state.get("current_scenario"):
+            st.session_state.current_scenario = new_scenario
+            if new_scenario != "Unknown":
+                st.session_state.history.append(
+                    ("agent", f"🔄 New topic detected → switching to **{new_scenario}**")
+                )
+
         if new_scenario and new_scenario != "Unknown":
+            # Grab last 5 turns for context
+            recent_context = "\n".join([
+                f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
+                if speaker in ["user", "agent"]
+            ])
+
             summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
-                new_scenario, df,
-                context="\n".join([f"{s}: {m}" for s, m in st.session_state.history[-5:] if s in ["user","agent"]])
+                new_scenario, df, context=recent_context
             )
-            st.session_state.last_table = table
-            st.session_state.last_figures = figures
 
             st.session_state.history.append(("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}"))
 
-            # Risk Synthesis: trigger pending follow-up for table/graphs
+            # Store table/figures
+            st.session_state.last_table = table
+            st.session_state.last_figures = figures
+
+            # ---------------- Risk Synthesis special handling ----------------
             if new_scenario == "Risk Synthesis" and (not table.empty or figures):
-                followup_viz_msg = """
+                if not st.session_state.get("risk_prompt_sent", False):
+                    followup_viz_msg = """
 📊 I’ve prepared supporting visuals:
 - Table of metrics
 - Graphs showing patterns
@@ -546,8 +553,28 @@ Reply with 'yes + option' or type your own request.
 Would you like me to show them?  
 (Reply naturally: "show me graphs", "just the table", "both", or "skip")
 """
-                st.session_state.history.append(("agent", followup_viz_msg))
-                st.session_state.pending_followup = True
+                    st.session_state.history.append(("agent", followup_viz_msg))
+                    st.session_state.risk_prompt_sent = True
+                    st.session_state.pending_visual_choice = True
+
+            # ---------------- Normal follow-up suggestions ----------------
+            else:
+                followup_msg = """
+🤖 Would you like me to go deeper? For example:
+- 📊 Drill down into anomalies
+- 🔮 Predict future trends
+- 💬 Summarize user complaints
+- 🚀 Suggest actions to take next
+
+Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
+"""
+                st.session_state.history.append(("agent", followup_msg))
+
+        # Unknown scenario
+        else:
+            st.session_state.history.append(
+                ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
+            )
 
             
 #-------------------# Add follow-up suggestions after a normal answer
