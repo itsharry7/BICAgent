@@ -480,14 +480,14 @@ if user_input:
 You are an intent classifier for a BI assistant. 
 The user replied: "{user_input}"
 
+if user replies in affirmation like yes, sure, go ahead then it means both.
+if it is a negatory like no, nothing, not then none.
+
 Classify their intent into one of:
 - "table"
 - "graphs"
 - "both"
 - "none"
-
-if user replies in affirmation then it means both.
-if it is a negatory then none.
 
 Only return the label.
 """
