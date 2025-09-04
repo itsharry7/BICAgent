@@ -523,45 +523,6 @@ User follow-up request: {followup_request}
             st.session_state.last_table = table
             st.session_state.last_figures = figures
             
-            st.session_state.history.append(("agent", followup_viz_msg))
-            
-                # --- Visualization Intent Classification ---
-            if st.session_state.get("pending_followup"):
-                if any(word in user_input.lower() for word in ["show", "table", "graph", "both", "skip"]):
-                    try:
-                        classify_prompt = f"""
-            You are an intent classifier for a BI assistant. 
-            The user replied: "{user_input}"
-            
-            Classify their intent into one of:
-            - "table"
-            - "graphs"
-            - "both"
-            - "none"
-            
-            Only return the label.
-            """
-                        classification = groq_chat.invoke(classify_prompt)
-                        intent = getattr(classification, "content", str(classification)).lower().strip()
-                    except Exception as e:
-                        intent = "none"
-            
-                    if intent == "table" and "last_table" in st.session_state:
-                        st.session_state.history.append(("agent_table", st.session_state.last_table))
-                    elif intent == "graphs" and "last_figures" in st.session_state:
-                        st.session_state.history.append(("agent_figures", st.session_state.last_figures))
-                    elif intent == "both":
-                        if "last_table" in st.session_state:
-                            st.session_state.history.append(("agent_table", st.session_state.last_table))
-                        if "last_figures" in st.session_state:
-                            st.session_state.history.append(("agent_figures", st.session_state.last_figures))
-                    elif intent == "none":
-                        st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
-                    
-                    st.session_state.pending_followup = False
-
-                    # Skip normal Groq run until user has answered the visual prompt
-                st.experimental_rerun()
 #-------------------# Add follow-up suggestions after a normal answer
             
         if new_scenario and new_scenario != "Unknown":
