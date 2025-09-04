@@ -567,8 +567,15 @@ User follow-up request: {followup_request}
                                 st.session_state.history.append(("agent_figures", st.session_state.last_figures))
                         elif intent == "none":
                             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
-            # Add follow-up suggestions after a normal answer
-            followup_msg = """
+            
+-------------------# Add follow-up suggestions after a normal answer
+            
+if new_scenario == "Risk Synthesis":
+    # Delay follow-up for Risk Synthesis (will be triggered after visual choice)
+    st.session_state.pending_followup = True
+else:
+            if st.session_state.get("pending_followup"):
+    followup_msg = """
 🤖 Would you like me to go deeper? For example:
 - 📊 Drill down into anomalies
 - 🔮 Predict future trends
@@ -577,7 +584,8 @@ User follow-up request: {followup_request}
 
 Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
 """
-            st.session_state.history.append(("agent", followup_msg))
+    st.session_state.history.append(("agent", followup_msg))
+    st.session_state.pending_followup = False
 
         else:
             st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
