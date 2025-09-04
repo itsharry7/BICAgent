@@ -570,9 +570,8 @@ User follow-up request: {followup_request}
             
 #-------------------# Add follow-up suggestions after a normal answer
             
-         if new_scenario and new_scenario != "Unknown":
-            if new_scenario == "Risk Synthesis":
-                # Delay follow-up (trigger after visual choice)
+         if new_scenario == "Risk Synthesis":
+                # Delay deeper follow-up → ask about visuals first
                 st.session_state.pending_followup = True
                 if not table.empty or figures:
                     followup_viz_msg = """
@@ -584,8 +583,8 @@ Would you like me to show them?
 (You can reply naturally, e.g. "show me graphs", "just the table", "both", or "skip")
 """
                     st.session_state.history.append(("agent", followup_viz_msg))
-
             else:
+                # For all other scenarios → immediate deeper follow-up
                 followup_msg = """
 🤖 Would you like me to go deeper? For example:
 - 📊 Drill down into anomalies
@@ -599,9 +598,8 @@ Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
 
         else:
             # Unknown scenario case
-            st.session_state.history.append(
-                ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
-            )
+            st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
+
         # ---------------- Autonomous Follow-up Scan ----------------
         auto_scenario = auto_detect_scenario(df)
         if auto_scenario and auto_scenario != st.session_state.current_scenario:
