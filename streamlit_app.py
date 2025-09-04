@@ -569,6 +569,9 @@ User follow-up request: {followup_request}
                         st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
                     
                     st.session_state.pending_followup = False
+
+                    # Skip normal Groq run until user has answered the visual prompt
+                st.experimental_rerun()
 #-------------------# Add follow-up suggestions after a normal answer
             
         if new_scenario and new_scenario != "Unknown":
@@ -588,6 +591,7 @@ User follow-up request: {followup_request}
         """
                         st.session_state.history.append(("agent", followup_viz_msg))
                     st.session_state.risk_prompt_sent = True  # mark as sent
+                    st.session_state.pending_followup = True
             else:
                 # Normal scenarios → immediate follow-up
                 followup_msg = """
