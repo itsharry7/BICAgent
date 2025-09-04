@@ -544,10 +544,7 @@ if user_input:
                 )
         
         if new_scenario == "Unknown":
-            # Handle unknown prompts with Groq
-            candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values(
-                "dynamic_score", ascending=False
-            ).head(3)
+            # Handle unknown prompts with Groq (no table needed)
             userprompt = user_input
         
             groq_prompt = with_context(f"""
@@ -575,7 +572,7 @@ if user_input:
             st.session_state.history.append(("agent", f"{summary}\n{structured}"))
         
         elif new_scenario:
-            # Normal scenario processing
+            # Normal scenario processing (tables, figures, follow-ups)
             recent_context = "\n".join([
                 f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
                 if speaker in ["user", "agent"]
