@@ -522,10 +522,11 @@ if user_input:
         st.session_state.history.append(("agent", followup_msg))
 
         # Unknown scenario
-        else:
-            st.session_state.history.append(
+      #  else:
+         #   st.session_state.history.append(
                 ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
-            )
+          #  )
+            
 
 
             
