@@ -547,7 +547,7 @@ if user_input:
             # Handle unknown prompts with Groq (no table needed)
             userprompt = user_input
         
-            groq_prompt = with_context(f"""
+            groq_prompt = f"""
         You are an intelligent internal assistant.
         
         User query: {userprompt}
@@ -558,7 +558,7 @@ if user_input:
         - Do NOT say 'I’m not sure' or ask for clarification.
         - Avoid cuss words or abusive language.
         - Generate the response directly.
-        """)
+        """
             try:
                 response = groq_chat.invoke(groq_prompt)
                 llm_text = getattr(response, "content", str(response))
