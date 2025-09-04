@@ -486,6 +486,9 @@ Classify their intent into one of:
 - "both"
 - "none"
 
+if user replies in affirmation then it means both.
+if it is a negatory then none.
+
 Only return the label.
 """
             classification = groq_chat.invoke(classify_prompt)
