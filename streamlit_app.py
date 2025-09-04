@@ -414,6 +414,26 @@ Your answer/response should cover the following concerns, if applicable:
         summary = f"🌍 Internal Top Features: {', '.join(feature_ideas)}\n\nExternal Trends:\n{external_trends}"
         structured = f"### 📌 AI Trend Insights\n{llm_text}"
 
+    elif scenario == "Unknown":
+        candidates = df[(df['usage']>110)&(df['sentiment']>0.7)].sort_values("dynamic_score", ascending=False).head(3)
+        userprompt = user_input
+
+        groq_prompt = with_context(f"""
+Internal candidates: {userprompt}
+
+Tasks:
+Reply to the userprompt in a respectful mannner. Do not be disrepectful or use any cuss or abusive slangs or language.
+Be descriptive as much as you can.
+""")
+        try:
+            response = groq_chat.invoke(groq_prompt)
+            llm_text = getattr(response, "content", str(response))
+        except Exception as e:
+            llm_text = f"⚠️ LLM insight generation failed: {e}"
+
+        summary = f"🌍"
+        structured = f"\n{llm_text}"
+        
     else:
         summary = "🤔 Scenario not recognized."
         structured = ""
