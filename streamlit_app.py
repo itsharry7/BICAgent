@@ -542,38 +542,70 @@ if user_input:
                 st.session_state.history.append(
                     ("agent", f"🔄 New topic detected → switching to **{new_scenario}**")
                 )
-
-        if new_scenario and new_scenario != "Unknown":
-            # grab last 5 turns for continuity
+        
+        if new_scenario == "Unknown":
+            # Handle unknown prompts with Groq
+            candidates = df[(df['usage'] > 110) & (df['sentiment'] > 0.7)].sort_values(
+                "dynamic_score", ascending=False
+            ).head(3)
+            userprompt = user_input
+        
+            groq_prompt = with_context(f"""
+        You are an intelligent internal assistant.
+        
+        User query: {userprompt}
+        
+        Instructions:
+        - Reply respectfully.
+        - Be descriptive and helpful.
+        - Do NOT say 'I’m not sure' or ask for clarification.
+        - Avoid cuss words or abusive language.
+        - Generate the response directly.
+        """)
+            try:
+                response = groq_chat.invoke(groq_prompt)
+                llm_text = getattr(response, "content", str(response))
+            except Exception as e:
+                llm_text = f"⚠️ LLM insight generation failed: {e}"
+        
+            summary = "🌍"
+            structured = f"\n{llm_text}"
+        
+            # Append Groq response to chat history
+            st.session_state.history.append(("agent", f"{summary}\n{structured}"))
+        
+        elif new_scenario:
+            # Normal scenario processing
             recent_context = "\n".join([
                 f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
                 if speaker in ["user", "agent"]
             ])
-
+        
             summary, table, extra_outputs, structured, figures = summarize_and_tabulate(
                 new_scenario, df, context=recent_context
             )
-
+        
             st.session_state.history.append(("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}"))
-
+        
             if not table.empty:
                 st.session_state.history.append(("agent_table", table))
             if figures:
                 st.session_state.history.append(("agent_figures", figures))
-
+        
             # Add follow-up suggestions after a normal answer
             followup_msg = """
-🤖 Would you like me to go deeper? For example:
-\n - 📊 Drill down into anomalies
-\n - 🔮 Predict future trends
-\n - 💬 Summarize user complaints
-\n - 🚀 Suggest actions to take next
-
-Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
-"""
+        🤖 Would you like me to go deeper? For example:
+        \n - 📊 Drill down into anomalies
+        \n - 🔮 Predict future trends
+        \n - 💬 Summarize user complaints
+        \n - 🚀 Suggest actions to take next
+        
+        Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
+        """
             st.session_state.history.append(("agent", followup_msg))
-
+        
         else:
+            # Truly unknown/falsy scenario
             st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
 
         # ---------------- Autonomous Follow-up Scan ----------------
