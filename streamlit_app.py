@@ -573,10 +573,11 @@ User follow-up request: {followup_request}
         if new_scenario and new_scenario != "Unknown":
     # ✅ Handle Risk Synthesis differently
             if new_scenario == "Risk Synthesis":
-                # Delay follow-up (will be triggered after visual choice)
-                st.session_state.pending_followup = True
-                if not table.empty or figures:
-                    followup_viz_msg = """
+        # ✅ Only trigger once
+                if not st.session_state.get("risk_prompt_sent", False):
+                    st.session_state.pending_followup = True
+                    if not table.empty or figures:
+                        followup_viz_msg = """
         📊 I’ve prepared supporting visuals:
         - Table of metrics
         - Graphs showing patterns
@@ -584,7 +585,8 @@ User follow-up request: {followup_request}
         Would you like me to show them?  
         (You can reply naturally, e.g. "show me graphs", "just the table", "both", or "skip")
         """
-                    st.session_state.history.append(("agent", followup_viz_msg))
+                        st.session_state.history.append(("agent", followup_viz_msg))
+                    st.session_state.risk_prompt_sent = True  # mark as sent
             else:
                 # Normal scenarios → immediate follow-up
                 followup_msg = """
