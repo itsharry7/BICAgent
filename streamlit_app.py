@@ -646,10 +646,7 @@ if user_input:
         \n - 📊 Drill down into anomalies
         \n - 🔮 Predict future trends
         \n - 💬 Summarize user complaints
-        \n - 🚀 Suggest actions to take next
-        
-        Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
-        """
+        \n - 🚀 Suggest actions to take next \nReply with 'yes + option' (e.g., 'yes, drill down') or type your own request."""
             st.session_state.history.append(("agent", followup_msg))
         
         else:
