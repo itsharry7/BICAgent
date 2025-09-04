@@ -536,7 +536,7 @@ User follow-up request: {followup_request}
                 st.session_state.history.append(("agent", followup_viz_msg))
             
                 # --- Visualization Intent Classification ---
-            if st.session_state.get("current_scenario") == "Risk Synthesis":
+            if st.session_state.get("pending_followup"):
                 if any(word in user_input.lower() for word in ["show", "table", "graph", "both", "skip"]):
                     try:
                         classify_prompt = f"""
@@ -567,7 +567,8 @@ User follow-up request: {followup_request}
                             st.session_state.history.append(("agent_figures", st.session_state.last_figures))
                     elif intent == "none":
                         st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
-            
+                    
+                    st.session_state.pending_followup = False
 #-------------------# Add follow-up suggestions after a normal answer
             
         if new_scenario and new_scenario != "Unknown":
