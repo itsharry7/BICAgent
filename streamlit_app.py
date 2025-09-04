@@ -526,10 +526,10 @@ User follow-up request: {followup_request}
             # Add follow-up suggestions after a normal answer
             followup_msg = """
 🤖 Would you like me to go deeper? For example:
-- 📊 Drill down into anomalies
-- 🔮 Predict future trends
-- 💬 Summarize user complaints
-- 🚀 Suggest actions to take next
+\n - 📊 Drill down into anomalies
+\n - 🔮 Predict future trends
+\n - 💬 Summarize user complaints
+\n - 🚀 Suggest actions to take next
 
 Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
 """
