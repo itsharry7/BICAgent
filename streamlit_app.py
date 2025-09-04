@@ -568,7 +568,7 @@ User follow-up request: {followup_request}
                         elif intent == "none":
                             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
             
--------------------# Add follow-up suggestions after a normal answer
+#-------------------# Add follow-up suggestions after a normal answer
             
 if new_scenario == "Risk Synthesis":
     # Delay follow-up for Risk Synthesis (will be triggered after visual choice)
