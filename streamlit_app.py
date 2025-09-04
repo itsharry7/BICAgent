@@ -481,7 +481,7 @@ if user_input:
     # ---------------- Risk Synthesis Visual Choice ----------------
     if st.session_state.get("pending_visual_choice", False):
     # Classify what the user wants to see
-    intent = "none"
+        intent = "none"
         try:
             classify_prompt = f"""
     You are an intent classifier for a BI assistant. 
