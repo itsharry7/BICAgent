@@ -570,10 +570,10 @@ User follow-up request: {followup_request}
             
 #-------------------# Add follow-up suggestions after a normal answer
             
-    if new_scenario == "Risk Synthesis":
+if new_scenario == "Risk Synthesis":
         # Delay follow-up for Risk Synthesis (will be triggered after visual choice)
         st.session_state.pending_followup = True
-    else:
+else:
         if st.session_state.get("pending_followup"):
             followup_msg = """
         🤖 Would you like me to go deeper? For example:
