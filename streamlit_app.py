@@ -472,8 +472,8 @@ user_input = st.chat_input("Ask about risks, opportunities, feature health, edge
 if user_input:
     st.session_state.history.append(("user", user_input))
 
-    # ---------------- Visual Choice Handling for Risk Synthesis ----------------
-    if st.session_state.get("pending_visual_choice"):
+    # ---------------- Risk Synthesis Visual Choice ----------------
+    if st.session_state.get("pending_visual_choice", False):
         intent = "none"
         try:
             classify_prompt = f"""
@@ -490,10 +490,10 @@ Only return the label.
 """
             classification = groq_chat.invoke(classify_prompt)
             intent = getattr(classification, "content", str(classification)).lower().strip()
-        except Exception as e:
+        except Exception:
             intent = "none"
 
-        # Display based on user intent
+        # Show requested visuals
         if intent == "table" and "last_table" in st.session_state:
             st.session_state.history.append(("agent_table", st.session_state.last_table))
         elif intent == "graphs" and "last_figures" in st.session_state:
@@ -506,11 +506,13 @@ Only return the label.
         elif intent == "none":
             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
 
-        # Clear the flag and exit early — wait for next user input
+        # Clear flag after handling
         st.session_state.pending_visual_choice = False
+
+        # Force rerun to refresh UI with visuals
         st.experimental_rerun()
 
-    # ---------------- Normal follow-up / scenario classification ----------------
+    # ---------------- Normal Scenario Flow ----------------
     else:
         new_scenario = classify_scenario(
             user_input,
@@ -525,8 +527,8 @@ Only return the label.
                     ("agent", f"🔄 New topic detected → switching to **{new_scenario}**")
                 )
 
+        # Process recognized scenarios
         if new_scenario and new_scenario != "Unknown":
-            # Grab last 5 turns for context
             recent_context = "\n".join([
                 f"{speaker}: {msg}" for speaker, msg in st.session_state.history[-5:]
                 if speaker in ["user", "agent"]
@@ -536,13 +538,15 @@ Only return the label.
                 new_scenario, df, context=recent_context
             )
 
-            st.session_state.history.append(("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}"))
+            st.session_state.history.append(
+                ("agent", f"**Scenario:** {new_scenario}\n\n{summary}\n\n{structured}")
+            )
 
-            # Store table/figures
+            # Store last visuals
             st.session_state.last_table = table
             st.session_state.last_figures = figures
 
-            # ---------------- Risk Synthesis special handling ----------------
+            # ---------------- Risk Synthesis Special Prompt ----------------
             if new_scenario == "Risk Synthesis" and (not table.empty or figures):
                 if not st.session_state.get("risk_prompt_sent", False):
                     followup_viz_msg = """
@@ -575,6 +579,7 @@ Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
             st.session_state.history.append(
                 ("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing.")
             )
+
 
             
 #-------------------# Add follow-up suggestions after a normal answer
