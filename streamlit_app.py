@@ -480,9 +480,6 @@ if user_input:
 You are an intent classifier for a BI assistant. 
 The user replied: "{user_input}"
 
-if user replies in affirmation like yes, sure, go ahead then it means both.
-if it is a negatory like no, nothing, not then none.
-
 Classify their intent into one of:
 - "table"
 - "graphs"
@@ -509,8 +506,10 @@ Only return the label.
         elif intent == "none":
             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
 
-        # Clear flag after handling
+        # Clear flag and stop further processing
         st.session_state.pending_visual_choice = False
+        # ✅ Return early → do not classify new scenario
+        st.stop()
 
     # ---------------- Normal Scenario Flow ----------------
     else:
