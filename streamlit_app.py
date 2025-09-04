@@ -575,17 +575,17 @@ if new_scenario == "Risk Synthesis":
     st.session_state.pending_followup = True
 else:
             if st.session_state.get("pending_followup"):
-            followup_msg = """
-        🤖 Would you like me to go deeper? For example:
-        - 📊 Drill down into anomalies
-        - 🔮 Predict future trends
-        - 💬 Summarize user complaints
-        - 🚀 Suggest actions to take next
-        
-        Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
-        """
-            st.session_state.history.append(("agent", followup_msg))
-            st.session_state.pending_followup = False
+                followup_msg = """
+            🤖 Would you like me to go deeper? For example:
+            - 📊 Drill down into anomalies
+            - 🔮 Predict future trends
+            - 💬 Summarize user complaints
+            - 🚀 Suggest actions to take next
+            
+            Reply with 'yes + option' (e.g., 'yes, drill down') or type your own request.
+            """
+                st.session_state.history.append(("agent", followup_msg))
+                st.session_state.pending_followup = False
 
         else:
             st.session_state.history.append(("agent", "🤔 I’m not sure which scenario to explore. Try rephrasing."))
