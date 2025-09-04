@@ -469,6 +469,11 @@ if not st.session_state.history:  # only on first run
             st.session_state.history.append(("agent_figures", figures))
 user_input = st.chat_input("Ask about risks, opportunities, feature health, edge cases, or trends...")
 
+# Top-level: check for rerun request first
+if st.session_state.get("pending_rerun", False):
+    st.session_state.pending_rerun = False  # reset
+    st.experimental_rerun()
+
 if user_input:
     st.session_state.history.append(("user", user_input))
 
@@ -506,11 +511,9 @@ Only return the label.
         elif intent == "none":
             st.session_state.history.append(("agent", "👍 Skipping visuals as requested."))
 
-        # Clear flag after handling
+       # Clear flag and request a safe top-level rerun
         st.session_state.pending_visual_choice = False
-
-        # Force rerun to refresh UI with visuals
-        st.experimental_rerun()
+        st.session_state.pending_rerun = True
 
     # ---------------- Normal Scenario Flow ----------------
     else:
