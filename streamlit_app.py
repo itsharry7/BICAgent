@@ -508,8 +508,7 @@ Only return the label.
 
         # Clear flag and stop further processing
         st.session_state.pending_visual_choice = False
-        # ✅ Return early → do not classify new scenario
-        st.stop()
+        
 
     # ---------------- Normal Scenario Flow ----------------
     else:
